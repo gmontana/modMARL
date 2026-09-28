@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modmarl"
+version = "0.1.0"
+description = "A modular multi-agent reinforcement learning library."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Giovanni Montana", email = "giovanni.montana@gmail.com" }]
+dependencies = [
+    "gymnasium>=0.29",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "torch>=2.2",
+]
+
+[project.urls]
+Repository = "https://github.com/gmontana/modMARL"
+Documentation = "https://github.com/gmontana/modMARL#readme"
+Issues = "https://github.com/gmontana/modMARL/issues"
+
+[project.optional-dependencies]
+demo = ["matplotlib>=3.8"]
+dev = [
+    "matplotlib>=3.8",
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+macpp = [
+    "gym>=0.26",
+]
+pettingzoo = [
+    "pettingzoo>=1.24",
+]
+
+[tool.setuptools.packages.find]
+include = ["modmarl*", "marl_envs*"]
+
+[tool.setuptools.package-data]
+"marl_envs.vendors.multiagentsha" = ["LICENSE", "NOTICE.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not slow'"
+markers = [
+    "slow: long-running seeded learning regressions; run with `pytest -o addopts='' -m slow`",
+]
+
+[tool.ruff]
+extend-exclude = ["marl_envs/vendors"]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "C4", "RUF"]
+ignore = [
+    "B905",   # zip(strict=...) on every numerical zip adds noise without catching a real bug here
+    "C408",   # dict()/tuple() calls are used deliberately for readability in configs
+    "RUF002", # en/em dashes and similar in docstrings are house style
+    "RUF005", # list concatenation with + is clearer than unpacking in tensor-shape code
+    "RUF012", # class-level dict defaults in configs are intentional and never mutated
+    "UP042",  # keep (str, Enum) classes for readability
+]

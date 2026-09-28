@@ -1,0 +1,230 @@
+{
+  "schema_version": 2,
+  "started_at": null,
+  "finished_at": "2026-09-27T22:30:57.573721+00:00",
+  "argv": [
+    "/home/user/repos/modMARL/modmarl/demo.py",
+    "plot",
+    "--results",
+    "figures/demo_data",
+    "--out",
+    "figures/demo"
+  ],
+  "run": {
+    "run_id": "f27485ebfbb997ef",
+    "script": "demo.py"
+  },
+  "git": {
+    "repo_root": "/home/user/repos/modMARL",
+    "branch": "main",
+    "commit": "7397aa82bda56823aae2c7a866d7554ccb43c92a",
+    "short_commit": "7397aa8",
+    "dirty": true,
+    "status_short": [
+      "M .github/workflows/ci.yml",
+      " M .gitignore",
+      " M AGENTS.md",
+      " M README.md",
+      " M examples/train_ippo.py",
+      " M examples/train_tarmac.py",
+      " M modmarl/common/provenance.py",
+      " M pyproject.toml",
+      " M tests/test_ippo.py",
+      " M tests/test_provenance.py",
+      "?? CONTRIBUTING.md",
+      "?? LABBOOK.md",
+      "?? MANIFEST.in",
+      "?? examples/communication_topology.py",
+      "?? examples/custom_environment.py",
+      "?? figures/demo/",
+      "?? figures/demo_data/",
+      "?? guides/",
+      "?? modmarl/demo.py",
+      "?? modmarl/training/",
+      "?? tests/test_demo.py",
+      "?? tests/test_validation_evidence.py",
+      "?? tools/check_validation.py",
+      "?? validation/"
+    ]
+  },
+  "python": {
+    "modmarl_version": "0.1.0",
+    "executable": "/home/user/repos/modMARL/.venv/bin/python",
+    "version": "3.11.16 (main, Aug 25 2026, 14:00:53) [Clang 22.1.3 ]",
+    "platform": "Linux-7.2.3-arch1-3-x86_64-with-glibc2.44",
+    "python_implementation": "CPython",
+    "torch_version": "2.14.0+cpu",
+    "numpy_version": "2.4.6"
+  },
+  "hardware": {
+    "hostname": "workstation",
+    "fqdn": "workstation.local",
+    "user": "user",
+    "cwd": "/home/user/repos/modMARL",
+    "cpu_info": {
+      "machine": "x86_64",
+      "processor": ""
+    },
+    "torch_cuda": {
+      "is_available": false,
+      "device_count": 0,
+      "device_names": []
+    },
+    "nvidia_smi": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.total,driver_version",
+        "--format=csv,noheader"
+      ],
+      "returncode": 0,
+      "stdout": "0, GPU-a13d4a23-733e-2864-4560-cabcc195e932, NVIDIA RTX A6000, 49140 MiB, 610.57.04",
+      "stderr": ""
+    }
+  },
+  "primary_output": {
+    "path": "figures/demo/summary.json",
+    "exists": true,
+    "size_bytes": 313,
+    "sha256": "6958a0c322471f0491df6d1215462ba9da6b109fec498e4789bc70bef54f08ed",
+    "artifact_id": "6958a0c322471f0491df6d1215462ba9da6b109fec498e4789bc70bef54f08ed",
+    "modified_at": "2026-09-27T22:30:57.508786+00:00"
+  },
+  "inputs": [
+    {
+      "path": "figures/demo_data/tarmac_seed101/result.json",
+      "exists": true,
+      "size_bytes": 493548,
+      "sha256": "74256e20e94a0f30c59a8eb5141975d7b31d960c52041a42c4d4528ad7ad5c5f",
+      "artifact_id": "74256e20e94a0f30c59a8eb5141975d7b31d960c52041a42c4d4528ad7ad5c5f",
+      "modified_at": "2026-09-27T22:28:09.639025+00:00"
+    },
+    {
+      "path": "figures/demo_data/tarmac_seed103/result.json",
+      "exists": true,
+      "size_bytes": 530524,
+      "sha256": "c70b92d4646204f23360b59fb4aaef19bb7406dd9c06fb3469b099ec0ce695a4",
+      "artifact_id": "c70b92d4646204f23360b59fb4aaef19bb7406dd9c06fb3469b099ec0ce695a4",
+      "modified_at": "2026-09-27T22:28:29.514588+00:00"
+    },
+    {
+      "path": "figures/demo_data/tarmac_seed107/result.json",
+      "exists": true,
+      "size_bytes": 497785,
+      "sha256": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "artifact_id": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "modified_at": "2026-09-27T22:28:50.163523+00:00"
+    },
+    {
+      "path": "figures/demo_data/ippo_seed101/result.json",
+      "exists": true,
+      "size_bytes": 856560,
+      "sha256": "f4f17f384cbd20c7544adbde9965033b4fa05d94a628f6ffc15077d192146699",
+      "artifact_id": "f4f17f384cbd20c7544adbde9965033b4fa05d94a628f6ffc15077d192146699",
+      "modified_at": "2026-09-27T22:29:24.660044+00:00"
+    },
+    {
+      "path": "figures/demo_data/ippo_seed103/result.json",
+      "exists": true,
+      "size_bytes": 821006,
+      "sha256": "90900a086c16a5637389f538947ef52553a3281f69ebbdd379e08c75b0182757",
+      "artifact_id": "90900a086c16a5637389f538947ef52553a3281f69ebbdd379e08c75b0182757",
+      "modified_at": "2026-09-27T22:30:00.050954+00:00"
+    },
+    {
+      "path": "figures/demo_data/ippo_seed107/result.json",
+      "exists": true,
+      "size_bytes": 866172,
+      "sha256": "5254bcf11c01438541d6cc9b444a54339781455c272ac23052003fd72a534ba4",
+      "artifact_id": "5254bcf11c01438541d6cc9b444a54339781455c272ac23052003fd72a534ba4",
+      "modified_at": "2026-09-27T22:30:35.216660+00:00"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "figures/demo/summary.json",
+      "exists": true,
+      "size_bytes": 313,
+      "sha256": "6958a0c322471f0491df6d1215462ba9da6b109fec498e4789bc70bef54f08ed",
+      "artifact_id": "6958a0c322471f0491df6d1215462ba9da6b109fec498e4789bc70bef54f08ed",
+      "modified_at": "2026-09-27T22:30:57.508786+00:00"
+    },
+    {
+      "path": "figures/demo/summary.environment.txt",
+      "exists": true,
+      "size_bytes": 581,
+      "sha256": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "artifact_id": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "modified_at": "2026-09-27T22:30:57.561238+00:00"
+    },
+    {
+      "path": "figures/demo/comparison.png",
+      "exists": true,
+      "size_bytes": 33458,
+      "sha256": "9375f4d0be348a4c685c1fd9996976662d25de428d7e41b964a43cf8d6695d0c",
+      "artifact_id": "9375f4d0be348a4c685c1fd9996976662d25de428d7e41b964a43cf8d6695d0c",
+      "modified_at": "2026-09-27T22:30:57.506936+00:00"
+    }
+  ],
+  "lineage": {
+    "input_artifact_ids": [
+      "74256e20e94a0f30c59a8eb5141975d7b31d960c52041a42c4d4528ad7ad5c5f",
+      "c70b92d4646204f23360b59fb4aaef19bb7406dd9c06fb3469b099ec0ce695a4",
+      "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "f4f17f384cbd20c7544adbde9965033b4fa05d94a628f6ffc15077d192146699",
+      "90900a086c16a5637389f538947ef52553a3281f69ebbdd379e08c75b0182757",
+      "5254bcf11c01438541d6cc9b444a54339781455c272ac23052003fd72a534ba4"
+    ],
+    "output_artifact_ids": [
+      "6958a0c322471f0491df6d1215462ba9da6b109fec498e4789bc70bef54f08ed",
+      "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "9375f4d0be348a4c685c1fd9996976662d25de428d7e41b964a43cf8d6695d0c"
+    ],
+    "parent_run_ids": [
+      "a935a232dc3ce2af",
+      "b2f5a6f26e96292c",
+      "819dc4064f4364c1",
+      "65903328e5e36c1b",
+      "ed7b7821fb02880c",
+      "6e301f98c85861dd"
+    ],
+    "parent_records": [
+      {
+        "path": "figures/demo_data/tarmac_seed101/result.json",
+        "metadata_path": "figures/demo_data/tarmac_seed101/result.metadata.json",
+        "run_id": "a935a232dc3ce2af",
+        "artifact_id": "74256e20e94a0f30c59a8eb5141975d7b31d960c52041a42c4d4528ad7ad5c5f"
+      },
+      {
+        "path": "figures/demo_data/tarmac_seed103/result.json",
+        "metadata_path": "figures/demo_data/tarmac_seed103/result.metadata.json",
+        "run_id": "b2f5a6f26e96292c",
+        "artifact_id": "c70b92d4646204f23360b59fb4aaef19bb7406dd9c06fb3469b099ec0ce695a4"
+      },
+      {
+        "path": "figures/demo_data/tarmac_seed107/result.json",
+        "metadata_path": "figures/demo_data/tarmac_seed107/result.metadata.json",
+        "run_id": "819dc4064f4364c1",
+        "artifact_id": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2"
+      },
+      {
+        "path": "figures/demo_data/ippo_seed101/result.json",
+        "metadata_path": "figures/demo_data/ippo_seed101/result.metadata.json",
+        "run_id": "65903328e5e36c1b",
+        "artifact_id": "f4f17f384cbd20c7544adbde9965033b4fa05d94a628f6ffc15077d192146699"
+      },
+      {
+        "path": "figures/demo_data/ippo_seed103/result.json",
+        "metadata_path": "figures/demo_data/ippo_seed103/result.metadata.json",
+        "run_id": "ed7b7821fb02880c",
+        "artifact_id": "90900a086c16a5637389f538947ef52553a3281f69ebbdd379e08c75b0182757"
+      },
+      {
+        "path": "figures/demo_data/ippo_seed107/result.json",
+        "metadata_path": "figures/demo_data/ippo_seed107/result.metadata.json",
+        "run_id": "6e301f98c85861dd",
+        "artifact_id": "5254bcf11c01438541d6cc9b444a54339781455c272ac23052003fd72a534ba4"
+      }
+    ]
+  },
+  "extra": {}
+}

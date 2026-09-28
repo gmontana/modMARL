@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "results": [
+    "tarmac_seed101/result.json",
+    "tarmac_seed103/result.json",
+    "tarmac_seed107/result.json",
+    "ippo_seed101/result.json",
+    "ippo_seed103/result.json",
+    "ippo_seed107/result.json"
+  ],
+  "tarmac_acceptance_passed": true,
+  "scope": "Illustrative native-method comparison, not an algorithm ranking."
+}

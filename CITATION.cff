@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use modMARL in your research, please cite it as below."
+title: "modMARL: modular multi-agent reinforcement learning with communication"
+type: software
+authors:
+  - family-names: Montana
+    given-names: Giovanni
+    email: giovanni.montana@gmail.com
+repository-code: "https://github.com/gmontana/modMARL"
+license: MIT
+version: 0.1.0
+date-released: "2026-09-28"
+abstract: >-
+  A curated library of cooperative multi-agent reinforcement learning algorithms
+  focused on agent-to-agent communication, together with centralized-critic and
+  independent baselines. Includes behavioral tests, recorded multi-seed learning
+  evidence, and explicit per-method validation limits and implementation choices.

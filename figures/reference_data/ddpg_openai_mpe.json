@@ -1,0 +1,25 @@
+{
+  "algorithm": "ddpg",
+  "reference_repository": "https://github.com/openai/maddpg",
+  "reference_revision": "3ceefa0ada3ff31d633dd0bde8ff95213ce99be3",
+  "environment_repository": "https://github.com/openai/multiagent-particle-envs",
+  "environment_revision": "83ba4d1aeb00282f7c4acd6912435b3ca642c227",
+  "environment": "simple_spread",
+  "configuration": {
+    "episodes": 10000,
+    "episode_horizon": 25,
+    "good_policy": "ddpg",
+    "learning_rate": 0.01,
+    "gamma": 0.95,
+    "batch_size": 1024,
+    "hidden_units": 64,
+    "save_rate": 1000
+  },
+  "metric": "native mean team episode reward for each consecutive 1000-episode block",
+  "seeds": {
+    "11": [-677.4990283980877, -790.8117993213802, -629.6433329018964, -595.7569076115935, -562.0968823219057, -537.7131416863671, -525.880082062494, -523.463206149486, -515.8023444246767, -508.8939835853609],
+    "13": [-685.9171440425995, -766.3890334120013, -636.8615413984978, -593.3305595428789, -576.4947410657469, -550.1607343079415, -534.8987115449509, -531.8440274213326, -519.4817809579044, -521.0445524987389],
+    "17": [-667.8614527548687, -747.8709195937552, -613.0489869901268, -583.2998019981081, -563.4514995244714, -535.6472550042502, -529.6182103481735, -525.3230094205462, -518.249717074057, -516.5268667936391]
+  },
+  "runner": "tools/reference/run_openai_maddpg.py"
+}

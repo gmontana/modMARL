@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# OS
+.DS_Store
+
+# Trained model checkpoints
+*.pt
+
+# Internal project documentation
+docs/
+
+# Papers and upstream sources used for fidelity audits (large binaries, not redistributable)
+references/
+
+# Packaging
+*.egg-info/
+build/
+dist/
+
+# Local demonstration outputs (release evidence is copied explicitly into figures/)
+runs/

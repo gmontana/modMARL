@@ -1,0 +1,8 @@
+include AGENTS.md CITATION.cff CONTRIBUTING.md LABBOOK.md
+include modMARL.png modMARL-dark.png
+recursive-include examples *.py
+recursive-include tools *.py *.txt
+recursive-include guides *.md
+recursive-include validation *.json
+recursive-include figures *.json *.png
+recursive-include figures/demo_data *.txt

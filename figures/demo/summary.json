@@ -1,0 +1,21 @@
+{
+  "success_by_training_seed": {
+    "tarmac": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "ippo": [
+      0.484,
+      0.516,
+      0.0
+    ],
+    "local_rule": [
+      0.484
+    ],
+    "perfect_information": [
+      1.0
+    ]
+  },
+  "scope": "Means and individual seeds; reference policies are not trained."
+}

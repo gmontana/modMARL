@@ -1,0 +1,12 @@
+{
+  "comparison": "modMARL and OpenAI DDPG on the same archived MPE simple_spread task",
+  "episodes": 10000,
+  "bin_size": 1000,
+  "seeds": {
+    "11": {"official_relative_gain": 0.249, "modmarl_relative_gain": 0.238, "profile_correlation": 0.991, "mean_absolute_bin_error": 11.6},
+    "13": {"official_relative_gain": 0.240, "modmarl_relative_gain": 0.232, "profile_correlation": 0.995, "mean_absolute_bin_error": 7.1},
+    "17": {"official_relative_gain": 0.227, "modmarl_relative_gain": 0.185, "profile_correlation": 0.992, "mean_absolute_bin_error": 25.0}
+  },
+  "official_data": "figures/reference_data/ddpg_openai_mpe.json",
+  "modmarl_data_pattern": "figures/reference_data/ddpg_modmarl_openai_mpe_seed{seed}.json"
+}

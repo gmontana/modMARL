@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install CPU torch
+        run: python -m pip install --upgrade pip && python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Install package with dev extras
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Fast test suite
+        run: OMP_NUM_THREADS=1 pytest
+      - name: Recorded validation evidence
+        run: python tools/check_validation.py --check
+      - name: Runnable tutorials
+        run: |
+          python examples/custom_environment.py
+          python examples/communication_topology.py --topology exponential
+          python examples/communication_topology.py --topology ring
+      - name: Build distribution
+        run: python -m pip install build && python -m build
+      - name: Smoke-test installed wheel outside checkout
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/modmarl-wheel-env"
+          wheel_python="$RUNNER_TEMP/modmarl-wheel-env/bin/python"
+          "$wheel_python" -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          "$wheel_python" -m pip install "$(pwd)/dist/modmarl-0.1.0-py3-none-any.whl[demo]"
+          cd "$RUNNER_TEMP"
+          "$wheel_python" -m modmarl.demo train --episodes 32 --evaluation-episodes 32 --out wheel-smoke
+          "$wheel_python" -m modmarl.demo evaluate --checkpoint wheel-smoke/checkpoint.pt --episodes 32 --out wheel-evaluation.json
+          "$wheel_python" -m modmarl.demo plot --results wheel-smoke --out wheel-figures
+          "$wheel_python" -c 'import json; a=json.load(open("wheel-smoke/result.json")); b=json.load(open("wheel-evaluation.json")); assert a["evaluation"] == b["evaluation"]'

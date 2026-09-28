@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-09-27T22:28:29.610947+00:00",
+  "finished_at": "2026-09-27T22:28:50.222854+00:00",
+  "argv": [
+    "/home/user/repos/modMARL/modmarl/demo.py",
+    "compare",
+    "--out",
+    "runs/adoption/release-comparison"
+  ],
+  "run": {
+    "run_id": "819dc4064f4364c1",
+    "script": "demo.py"
+  },
+  "git": {
+    "repo_root": "/home/user/repos/modMARL",
+    "branch": "main",
+    "commit": "7397aa82bda56823aae2c7a866d7554ccb43c92a",
+    "short_commit": "7397aa8",
+    "dirty": true,
+    "status_short": [
+      "M .github/workflows/ci.yml",
+      " M .gitignore",
+      " M AGENTS.md",
+      " M README.md",
+      " M examples/train_ippo.py",
+      " M examples/train_tarmac.py",
+      " M modmarl/common/provenance.py",
+      " M pyproject.toml",
+      " M tests/test_ippo.py",
+      " M tests/test_provenance.py",
+      "?? CONTRIBUTING.md",
+      "?? LABBOOK.md",
+      "?? MANIFEST.in",
+      "?? examples/communication_topology.py",
+      "?? examples/custom_environment.py",
+      "?? guides/",
+      "?? modmarl/demo.py",
+      "?? modmarl/training/",
+      "?? tests/test_demo.py",
+      "?? tests/test_validation_evidence.py",
+      "?? tools/check_validation.py",
+      "?? validation/"
+    ]
+  },
+  "python": {
+    "modmarl_version": "0.1.0",
+    "executable": "/home/user/repos/modMARL/.venv/bin/python",
+    "version": "3.11.16 (main, Aug 25 2026, 14:00:53) [Clang 22.1.3 ]",
+    "platform": "Linux-7.2.3-arch1-3-x86_64-with-glibc2.44",
+    "python_implementation": "CPython",
+    "torch_version": "2.14.0+cpu",
+    "numpy_version": "2.4.6"
+  },
+  "hardware": {
+    "hostname": "workstation",
+    "fqdn": "workstation.local",
+    "user": "user",
+    "cwd": "/home/user/repos/modMARL",
+    "cpu_info": {
+      "machine": "x86_64",
+      "processor": ""
+    },
+    "torch_cuda": {
+      "is_available": false,
+      "device_count": 0,
+      "device_names": []
+    },
+    "nvidia_smi": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.total,driver_version",
+        "--format=csv,noheader"
+      ],
+      "returncode": 0,
+      "stdout": "0, GPU-a13d4a23-733e-2864-4560-cabcc195e932, NVIDIA RTX A6000, 49140 MiB, 610.57.04",
+      "stderr": ""
+    }
+  },
+  "primary_output": {
+    "path": "runs/adoption/release-comparison/tarmac_seed107/result.json",
+    "exists": true,
+    "size_bytes": 497785,
+    "sha256": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+    "artifact_id": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+    "modified_at": "2026-09-27T22:28:50.163523+00:00"
+  },
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/adoption/release-comparison/tarmac_seed107/result.json",
+      "exists": true,
+      "size_bytes": 497785,
+      "sha256": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "artifact_id": "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "modified_at": "2026-09-27T22:28:50.163523+00:00"
+    },
+    {
+      "path": "runs/adoption/release-comparison/tarmac_seed107/result.environment.txt",
+      "exists": true,
+      "size_bytes": 581,
+      "sha256": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "artifact_id": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "modified_at": "2026-09-27T22:28:50.213499+00:00"
+    },
+    {
+      "path": "runs/adoption/release-comparison/tarmac_seed107/checkpoint.pt",
+      "exists": true,
+      "size_bytes": 1298037,
+      "sha256": "c60597b101081751cf1bfa6c9614621787467f1a3779edfbbe192fe84aaedfad",
+      "artifact_id": "c60597b101081751cf1bfa6c9614621787467f1a3779edfbbe192fe84aaedfad",
+      "modified_at": "2026-09-27T22:28:49.689734+00:00"
+    },
+    {
+      "path": "runs/adoption/release-comparison/tarmac_seed107/training.log",
+      "exists": true,
+      "size_bytes": 28735,
+      "sha256": "c3e5804e562606aff9c0397ade37ea67358ab6361bd5c8fce1c0a7e01902287c",
+      "artifact_id": "c3e5804e562606aff9c0397ade37ea67358ab6361bd5c8fce1c0a7e01902287c",
+      "modified_at": "2026-09-27T22:28:49.677734+00:00"
+    }
+  ],
+  "lineage": {
+    "input_artifact_ids": [],
+    "output_artifact_ids": [
+      "7d2d9a6eea38dc9dd65b59a5301d13c5dcbebe0579b4ee6365144e1014bfdda2",
+      "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "c60597b101081751cf1bfa6c9614621787467f1a3779edfbbe192fe84aaedfad",
+      "c3e5804e562606aff9c0397ade37ea67358ab6361bd5c8fce1c0a7e01902287c"
+    ],
+    "parent_run_ids": [],
+    "parent_records": []
+  },
+  "extra": {}
+}

@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "algorithms": {
+    "atoc": {
+      "implementation": "modmarl/algorithms/atoc/algorithm.py",
+      "tests": "tests/test_atoc.py",
+      "source_revision": "paper:neurips-2018-atoc;author-code:none",
+      "artifacts": "figures/curve_data/atoc_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Paper-based implementation with explicit underspecified architecture choices; no author release used for parity."
+    },
+    "cacom": {
+      "implementation": "modmarl/algorithms/cacom.py",
+      "tests": "tests/test_cacom.py",
+      "source_revision": "97493a0b2c402e88a06d4e0d21327c41bbd21709",
+      "artifacts": "figures/curve_data/cacom_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "fail",
+      "notes": "Seed 7 finishes below its random-policy reference. Learning acceptance is unresolved."
+    },
+    "cdc": {
+      "implementation": "modmarl/algorithms/cdc.py",
+      "tests": "tests/test_cdc.py",
+      "source_revision": "46d287376c31cb183006b01542411d97cf95679a",
+      "artifacts": "figures/curve_data/cdc_seed*.json",
+      "seeds": [
+        1,
+        2001,
+        4001
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Recorded return and ablation margins pass; task success remains zero under the saved success metric. Reference code is private; see the implementation reconciliation."
+    },
+    "cmvc": {
+      "implementation": "modmarl/algorithms/cmvc/algorithm.py",
+      "tests": "tests/test_cmvc.py",
+      "source_revision": "paper:doi-10.1109/TSMC.2025.3604230;repository:GaoZiHong/CMVC-empty",
+      "artifacts": "figures/curve_data/cmvc_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Paper-based implementation; the linked release was empty at reconciliation. Its recorded criterion only requires beating random, not reproducing the journal results."
+    },
+    "commformer": {
+      "implementation": "modmarl/algorithms/commformer.py",
+      "tests": "tests/test_commformer.py",
+      "source_revision": "c6cd65ea0b902703284cb031b7df732c0ff8efa5",
+      "artifacts": "figures/curve_data/commformer_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Follows the released proceedings configuration and documented quirks. Local navigation curves do not reproduce the published benchmark tables."
+    },
+    "commnet": {
+      "implementation": "modmarl/algorithms/commnet.py",
+      "tests": "tests/test_commnet.py",
+      "source_revision": "3fc1fe801925bac3055d5b4730a7948649eead11",
+      "artifacts": "figures/curve_data/commnet_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "ddpg": {
+      "implementation": "modmarl/algorithms/ddpg.py",
+      "tests": "tests/test_ddpg.py",
+      "source_revision": "paper-only:arXiv-1509.02971v6",
+      "artifacts": "figures/curve_data/ddpg_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [
+        "figures/reference_data/ddpg_parity_summary.json"
+      ],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "expocomm": {
+      "implementation": "modmarl/algorithms/expocomm.py",
+      "tests": "tests/test_expocomm.py",
+      "source_revision": "25dc9729c0ac65a283ae76977cfbec6df41249c0",
+      "artifacts": "figures/curve_data/expocomm_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Three-agent navigation demonstrates bounded learning, not the paper's large-team scalability or performance tables. Deliberate paper/release differences are documented in the module."
+    },
+    "happo": {
+      "implementation": "modmarl/algorithms/happo.py",
+      "tests": "tests/test_happo.py",
+      "source_revision": "b1af98b0dbab72a2eee9d160751cd09aedbb8ce2",
+      "artifacts": "figures/curve_data/happo_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "i2c": {
+      "implementation": "modmarl/algorithms/i2c.py",
+      "tests": "tests/test_i2c.py",
+      "source_revision": "3f8aab6a69ed2a46236c454bd2336c09ff6ffa36",
+      "artifacts": "figures/curve_data/i2c_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "ic3net": {
+      "implementation": "modmarl/algorithms/ic3net.py",
+      "tests": "tests/test_ic3net.py",
+      "source_revision": "69b7e0ce51a79def593abfef1a976f43e5e13f75",
+      "artifacts": "figures/curve_data/ic3net_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves."
+    },
+    "intention_sharing": {
+      "implementation": "modmarl/algorithms/intention_sharing.py",
+      "tests": "tests/test_intention_sharing.py",
+      "source_revision": "paper:qpsl2dR9twy;reference:e5d4527d7f7fecf36a1e9fe60969352eb07cd691",
+      "artifacts": "figures/curve_data/intention_sharing_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Reconciled against private author code; public users should consult the module's explicit decisions."
+    },
+    "ippo": {
+      "implementation": "modmarl/algorithms/ippo.py",
+      "tests": "tests/test_ippo.py",
+      "source_revision": "paper-only:arXiv-2011.09533",
+      "artifacts": "figures/curve_data/ippo_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Third-party reference supplies implementation details; recorded navigation acceptance does not apply to the new bounded signaling example."
+    },
+    "iql": {
+      "implementation": "modmarl/algorithms/iql.py",
+      "tests": "tests/test_iql.py",
+      "source_revision": "feb0b8acd761eb47cca04f8a80c9c998c34d7a35",
+      "artifacts": "figures/curve_data/iql_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "missing criterion",
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+    },
+    "iwol": {
+      "implementation": "modmarl/algorithms/iwol.py",
+      "tests": "tests/test_iwol.py",
+      "source_revision": "de3bc5b1e50bd9c4d90672a6355269ea2917fd28",
+      "artifacts": "figures/curve_data/iwol_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "The curves cover Im-IWoL (zero execution messages), not Ex-IWoL or the published robotics tables. Implementation follows the pinned v3 specification; the January 2026 v4 revision is not automatically validated."
+    },
+    "maac": {
+      "implementation": "modmarl/algorithms/maac.py",
+      "tests": "tests/test_maac.py",
+      "source_revision": "6174a01251251e6778c4ada26bc8d9cd930e3856",
+      "artifacts": "figures/curve_data/maac_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "maddpg": {
+      "implementation": "modmarl/algorithms/maddpg.py",
+      "tests": "tests/test_maddpg.py",
+      "source_revision": "3ceefa0ada3ff31d633dd0bde8ff95213ce99be3",
+      "artifacts": "figures/curve_data/maddpg_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [
+        "figures/reference_data/maddpg_openai_parity.json"
+      ],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "maddpg_m": {
+      "implementation": "modmarl/algorithms/maddpg_m.py",
+      "tests": "tests/test_maddpg_m.py",
+      "source_revision": "paper-only:arXiv-1812.00922",
+      "artifacts": "figures/curve_data/maddpg_m_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "magic": {
+      "implementation": "modmarl/algorithms/magic.py",
+      "tests": "tests/test_magic.py",
+      "source_revision": "0ad3a6126f46e475f8d46ab61e67fddbfe99e7d8",
+      "artifacts": "figures/curve_data/magic_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves."
+    },
+    "maic": {
+      "implementation": "modmarl/algorithms/maic.py",
+      "tests": "tests/test_maic.py",
+      "source_revision": "2bd47d105ccd64bfba1f1d71981f7723c59ac07f",
+      "artifacts": "figures/curve_data/maic_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "fail",
+      "notes": "All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. Message ablation has no effect for seed 11; investigate before claiming robust communication gains."
+    },
+    "mappo": {
+      "implementation": "modmarl/algorithms/mappo.py",
+      "tests": "tests/test_mappo.py",
+      "source_revision": "de66d7a4b23fac2513f56f96f73b3f5cb96695ac",
+      "artifacts": "figures/curve_data/mappo_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "marc": {
+      "implementation": "modmarl/algorithms/marc.py",
+      "tests": "tests/test_marc.py",
+      "source_revision": "43b71357bce11b075e799876e8c4f1deade787d8",
+      "artifacts": "figures/curve_data/marc_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "masia": {
+      "implementation": "modmarl/algorithms/masia.py",
+      "tests": "tests/test_masia.py",
+      "source_revision": "0106fea3a31fe29a02d6bdce1e1d3cd453ce04a1",
+      "artifacts": "figures/curve_data/masia_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Hallway success uses a win reward of 1, whereas NDQ uses 10. The task name alone does not establish comparable configuration; there is no recorded message ablation."
+    },
+    "mat": {
+      "implementation": "modmarl/algorithms/mat.py",
+      "tests": "tests/test_mat.py",
+      "source_revision": "be3ff49c8264d454c1fe2c41582aa2bfc98498c8",
+      "artifacts": "figures/curve_data/mat_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "mdmaddpg": {
+      "implementation": "modmarl/algorithms/mdmaddpg.py",
+      "tests": "tests/test_mdmaddpg.py",
+      "source_revision": "20dffc4e12b5b490ad30defb49887d2599aeece6",
+      "artifacts": "figures/curve_data/mdmaddpg_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "Reconciled against private author code; public users should consult the module's explicit decisions."
+    },
+    "ndq": {
+      "implementation": "modmarl/algorithms/ndq.py",
+      "tests": "tests/test_ndq.py",
+      "source_revision": "575f2e243bac1a567c072dbea8e093aaa4959511",
+      "artifacts": "figures/curve_data/ndq_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": "High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages."
+    },
+    "qmix": {
+      "implementation": "modmarl/algorithms/qmix.py",
+      "tests": "tests/test_qmix.py",
+      "source_revision": "eaf6b063822e2bdf1992d72dc159a500f235dbc4",
+      "artifacts": "figures/curve_data/qmix_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "missing criterion",
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+    },
+    "schednet": {
+      "implementation": "modmarl/algorithms/schednet.py",
+      "tests": "tests/test_schednet.py",
+      "source_revision": "ffa03007cc654000a859856401231a986a01fbd0",
+      "artifacts": "figures/curve_data/schednet_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "fail",
+      "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved."
+    },
+    "sms": {
+      "implementation": "modmarl/algorithms/sms.py",
+      "tests": "tests/test_sms.py",
+      "source_revision": "e01327924ee197b06fb5012e88ab036e1196e826",
+      "artifacts": "figures/curve_data/sms_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "tarmac": {
+      "implementation": "modmarl/algorithms/tarmac.py",
+      "tests": "tests/test_tarmac.py",
+      "source_revision": "paper-only:ICML-2019",
+      "artifacts": "figures/curve_data/tarmac_seed*.json",
+      "seeds": [
+        3,
+        5,
+        7
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "pass",
+      "notes": ""
+    },
+    "vdn": {
+      "implementation": "modmarl/algorithms/vdn.py",
+      "tests": "tests/test_vdn.py",
+      "source_revision": "paper:arXiv-1706.05296v1;reference:6067b1a85764b4bb4f6ce98e6e128364a95ee403",
+      "artifacts": "figures/curve_data/vdn_seed*.json",
+      "seeds": [
+        11,
+        13,
+        17
+      ],
+      "reference_comparisons": [],
+      "acknowledged_status": "missing criterion",
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference."
+    }
+  }
+}

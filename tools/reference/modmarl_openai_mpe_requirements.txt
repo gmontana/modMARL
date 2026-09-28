@@ -1,0 +1,6 @@
+# Install with Python 3.10 and the archived OpenAI MPE checkout on PYTHONPATH.
+torch==2.2.2
+gym==0.10.5
+numpy==1.23.5
+scipy==1.10.1
+setuptools==80.9.0
