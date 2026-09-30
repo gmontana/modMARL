@@ -123,19 +123,25 @@ class LeaderFollowerTargetEnv(gym.Env[np.ndarray, np.ndarray]):
 
 
 class TargetSignalingEnv(gym.Env[np.ndarray, np.ndarray]):
-    """One-step cooperative signaling game.
+    """Cooperative signaling game, with optional silent preparation steps.
 
     The leader observes a binary target bit and followers do not.
-    The team is rewarded only when every agent outputs the correct bit.
+    Only the final step earns reward: twice the correct fraction minus one.
+    Success requires every agent to output the correct bit. Earlier actions have
+    no effect and produce no reward or target information. A horizon above one
+    allows protocols that transmit the previous timestep's hidden state to act.
     """
 
     metadata = {"render_modes": []}
 
-    def __init__(self, n_agents: int = 3, seed: int | None = None) -> None:
+    def __init__(self, n_agents: int = 3, seed: int | None = None, *, horizon: int = 1) -> None:
         if n_agents < 2:
             raise ValueError("n_agents must be at least 2")
+        if horizon < 1:
+            raise ValueError("horizon must be positive")
         self.n_agents = n_agents
-        self.horizon = 1
+        self.horizon = horizon
+        self.step_count = 0
         self.obs_dim = 5
         self.num_actions = 2
         self._rng = np.random.default_rng(seed)
@@ -161,6 +167,7 @@ class TargetSignalingEnv(gym.Env[np.ndarray, np.ndarray]):
         if seed is not None:
             self._rng = np.random.default_rng(seed)
         self.target_bit = int(self._rng.integers(0, 2))
+        self.step_count = 0
         self.episode_return = 0.0
         return self._observe(), {}
 
@@ -168,6 +175,9 @@ class TargetSignalingEnv(gym.Env[np.ndarray, np.ndarray]):
         action = np.asarray(action, dtype=np.int64)
         if action.shape != (self.n_agents,):
             raise ValueError(f"expected action shape {(self.n_agents,)}, got {action.shape}")
+        self.step_count += 1
+        if self.step_count < self.horizon:
+            return self._observe(), 0.0, False, False, {}
         correct_fraction = float(np.mean(action == self.target_bit))
         success = bool(correct_fraction == 1.0)
         reward = 2.0 * correct_fraction - 1.0
