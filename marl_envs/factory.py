@@ -31,6 +31,7 @@ ENV_CHOICES = (
     "ndq_hallway",
     "maic_hallway",
     "target_signaling",
+    "delayed_signaling",
 )
 
 

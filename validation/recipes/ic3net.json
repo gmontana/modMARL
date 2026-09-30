@@ -1,0 +1,23 @@
+{
+  "algorithm": "ic3net",
+  "scope": "fresh-seed bounded learning confirmation; not a paper benchmark reproduction",
+  "seeds": [
+    101,
+    103,
+    107
+  ],
+  "config": {
+    "env": "delayed_signaling",
+    "n_agents": 2,
+    "horizon": 3,
+    "evaluation_episodes": 300,
+    "device": "cpu",
+    "episodes": 20000,
+    "batch_steps": 128
+  },
+  "criteria": {
+    "minimum_success_rate": 0.8,
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2
+  }
+}

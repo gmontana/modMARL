@@ -1,0 +1,24 @@
+{
+  "algorithm": "iql",
+  "scope": "fresh-seed bounded navigation learning confirmation",
+  "seeds": [
+    101,
+    103,
+    107
+  ],
+  "config": {
+    "episodes": 5000,
+    "horizon": 25,
+    "n_agents": 3,
+    "env": "navigation",
+    "learn_start": 1000,
+    "epsilon_anneal_steps": 50000,
+    "target_update_interval": 2500,
+    "evaluation_episodes": 100
+  },
+  "criteria": {
+    "return_margin_over_initial": 1.0,
+    "return_margin_over_random": 5.0,
+    "maximum_mean_distance": 0.6
+  }
+}
