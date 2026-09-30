@@ -13,6 +13,7 @@ import argparse
 import importlib
 import inspect
 import json
+import sys
 import time
 import traceback
 from pathlib import Path
@@ -77,6 +78,8 @@ def main() -> None:
              "traceback": traceback.format_exc()}, inputs=sources, started_at=started_at,
         )
         raise
+    if payload["acceptance"]["status"] != "pass":
+        sys.exit(1)
 
 
 if __name__ == "__main__":

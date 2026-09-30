@@ -19,7 +19,11 @@ communication products, and ``CACOMAgent`` owns online/target networks and QMIX.
 Paper/code reconciliation: paper Equation (7) defines gate labels through the
 mixed global value. The released ``forward_gate`` instead compares the recipient's
 maximum local Q with a sampled helper link forced on and off. ``gate_labels`` follows
-the released rule for reproducibility and documents that discrepancy. The paper's
+the released rule by default for reproducibility. The explicit ``paper`` gate-label
+mode instead evaluates the link-on and link-off actions under a common link-on
+value function and mixer, holding other agents' actions fixed. This implements
+the action counterfactual in Equations (7)--(11); its common communication context
+is an explicit resolution of the paper's underspecified critic context. The paper's
 implementation appendix specifies Adam for communication learning, so the gate uses
 Adam at 1e-4 even though the released SMAC learner routes it through RMSProp. The gate scores are scaled by
 1/sqrt(d_k) as paper Equation (6) writes them; the release omits that factor, so the
@@ -264,8 +268,21 @@ class CACOMNetwork(nn.Module):
 
     def gate_labels(
         self, obs: Tensor, hidden: Tensor, helper: int, threshold: float = 0.0,
+        *, mode: str = "release", mixer: nn.Module | None = None, state: Tensor | None = None,
     ) -> tuple[Tensor, Tensor]:
-        """Released gate labels: class 0 communicates; class 1 prunes the link."""
+        """Class 0 communicates; class 1 prunes the link.
+
+        ``release`` compares maxima of two different local value functions.
+        ``paper`` compares the two actions under the same link-on value function
+        and mixer, holding other agents' actions fixed (paper Equations 7--11).
+        It requires the centralized state and mixer used by the learner. The
+        common link-on context avoids comparing values with different message
+        inputs instead of measuring the value of the changed action.
+        """
+        if mode not in {"release", "paper"}:
+            raise ValueError("gate mode must be release or paper")
+        if mode == "paper" and (mixer is None or state is None):
+            raise ValueError("paper gate labels require the centralized state and mixer")
         with torch.no_grad():
             features, requests = self.encode(obs, hidden)
             _, _, base_mask = self.communication(features, requests)
@@ -279,7 +296,22 @@ class CACOMNetwork(nn.Module):
             off_received, _, _ = self.communication(features, requests, forced_mask=off_mask)
             q_on, _ = self.policy(features, on_received, hidden)
             q_off, _ = self.policy(features, off_received, hidden)
-            improvement = q_on[:, receivers].max(dim=-1).values - q_off[:, receivers].max(dim=-1).values
+            on_values = q_on[:, receivers]
+            off_values = q_off[:, receivers]
+            if mode == "paper":
+                alternatives = off_values.argmax(dim=-1, keepdim=True)
+                off_value = on_values.gather(-1, alternatives).squeeze(-1)
+                chosen = q_on.max(dim=-1).values
+                full_value = mixer(chosen, state).reshape(-1)
+                improvements = []
+                for index, receiver in enumerate(receivers):
+                    counterfactual = chosen.clone()
+                    counterfactual[:, receiver] = off_value[:, index]
+                    improvements.append(full_value - mixer(counterfactual, state).reshape(-1))
+                improvement = torch.stack(improvements, dim=-1)
+            else:
+                off_value = off_values.max(dim=-1).values
+                improvement = on_values.max(dim=-1).values - off_value
             labels = (improvement <= threshold).long()
         return logits[:, helper, receivers], labels
 

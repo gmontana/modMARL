@@ -7,6 +7,7 @@ and the explicitly acknowledged statuses in the evidence inventory.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import statistics
@@ -94,6 +95,20 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                 if payload["algorithm"] != algorithm or payload["source_revision"] != entry["source_revision"]:
                     raise ValueError("Algorithm/source revision mismatch")
                 if learning:
+                    if "protocol" in entry:
+                        protocol = json.loads((root / entry["protocol"]).read_text())
+                        if (payload.get("protocol") != protocol
+                                or payload.get("status") != "completed"
+                                or payload["seed"] not in protocol["seeds"]
+                                or payload.get("validation_criterion") != protocol["criteria"]
+                                or any(payload["resolved_config"].get(key) != value
+                                       for key, value in protocol["config"].items())):
+                            raise ValueError("Result does not match frozen confirmation protocol")
+                        metadata = json.loads(path.with_name(f"{path.stem}.metadata.json").read_text())
+                        if metadata["primary_output"]["sha256"] != hashlib.sha256(path.read_bytes()).hexdigest():
+                            raise ValueError("Result hash does not match provenance")
+                        if not metadata["git"]["commit"] or metadata["git"]["dirty"]:
+                            raise ValueError("Confirmation must identify a clean committed checkout")
                     criteria = dict(payload.get("validation_criterion") or {})
                     criteria.update(entry.get("criteria", {}))
                     # Beating random without improving the initialized policy is
