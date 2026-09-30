@@ -1,0 +1,24 @@
+{
+  "algorithm": "qmix",
+  "scope": "development on reused seeds; not confirmation",
+  "seeds": [
+    101,
+    103
+  ],
+  "config": {
+    "episodes": 10000,
+    "horizon": 25,
+    "n_agents": 3,
+    "env": "navigation",
+    "warmup_episodes": 32,
+    "batch_size": 32,
+    "epsilon_anneal_steps": 20000,
+    "evaluation_episodes": 100,
+    "gamma": 0.9
+  },
+  "criteria": {
+    "return_margin_over_initial": 1.0,
+    "return_margin_over_random": 5.0,
+    "maximum_mean_distance": 0.6
+  }
+}
