@@ -82,15 +82,27 @@ def evaluate_run(payload: dict) -> dict:
         return {"status": "insufficient evidence", "details": [str(exc)]}
 
 
-def inspect_evidence(root: Path, inventory: dict) -> list[dict]:
+def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> list[dict]:
     rows = []
     for algorithm, entry in sorted(inventory["algorithms"].items()):
+        if learning:
+            entry = {**entry, **entry.get("learning", {})}
         records, problems = [], []
         for path in sorted(root.glob(entry["artifacts"])):
             try:
                 payload = json.loads(path.read_text())
                 if payload["algorithm"] != algorithm or payload["source_revision"] != entry["source_revision"]:
                     raise ValueError("Algorithm/source revision mismatch")
+                if learning:
+                    criteria = dict(payload.get("validation_criterion") or {})
+                    criteria.update(entry.get("criteria", {}))
+                    # Beating random without improving the initialized policy is
+                    # not a learning pass. Retain any stronger recorded margin.
+                    if any(key != "scope" for key in criteria):
+                        criteria["return_margin_over_initial"] = max(
+                            1e-6, criteria.get("return_margin_over_initial", 0),
+                        )
+                    payload = {**payload, "validation_criterion": criteria}
                 record = evaluate_run(payload)
                 record.update(seed=payload["seed"], ablation="message_ablated_evaluation" in payload)
                 records.append(record)
@@ -111,10 +123,13 @@ def inspect_evidence(root: Path, inventory: dict) -> list[dict]:
         else:
             status = "pass"
         rows.append({"algorithm": algorithm, "status": status, "runs": records, "problems": problems})
+        if learning:
+            rows[-1]["basis"] = entry.get("basis", "reused historical evidence")
+            rows[-1]["artifacts"] = entry["artifacts"]
     return rows
 
 
-def render(inventory: dict, rows: list[dict]) -> str:
+def render(inventory: dict, rows: list[dict], learning_rows: list[dict] | None = None) -> str:
     lines = [
         "# Validation evidence", "",
         "Generated from `validation/inventory.json` and committed artifacts with",
@@ -157,6 +172,26 @@ def render(inventory: dict, rows: list[dict]) -> str:
                   "commit or full runtime environment. Their `source_revision` identifies the upstream",
                   "reference, not this checkout. New demo runs carry resolved configurations, source",
                   "hashes, runtime provenance, and checkpoint hashes. Historical results are preserved.", ""])
+    if learning_rows is not None:
+        lines.extend([
+            "## Bounded learning checks", "",
+            "Every pass below also requires improvement over the initialized policy.",
+            "Historical evidence is explicitly reused, not independent confirmation.",
+            "Fresh confirmation fixes the recipe and criteria before running three new seeds.",
+            "These checks establish learning on the listed task, not published benchmark",
+            "performance or communication benefit. Original failures above remain visible.", "",
+            "| Method | Learning check | Evidence basis |", "|---|---|---|",
+        ])
+        for row in learning_rows:
+            passing = sum(run["status"] == "pass" for run in row["runs"])
+            lines.append(f"| {row['algorithm']} | {row['status']} ({passing}/{len(row['runs'])}) "
+                         f"| {row['basis']} |")
+        lines.extend(["", "Reproduce new confirmation jobs from a checkout:", "", "```bash",
+                      "python -m tools.run_validation --protocol validation/recipes/maic.json \\",
+                      "  --seed 101 --out runs/maic-101", "```", "",
+                      "Each recipe declares its seeds, budget, task and numerical rules. Use a new",
+                      "output directory per seed. Results include full resolved settings, source and",
+                      "checkpoint hashes, environment versions, host and measured runtime.", ""])
     return "\n".join(lines)
 
 
@@ -165,10 +200,17 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--json", action="store_true", help="Print seedwise observations and thresholds")
+    parser.add_argument("--learning", action="store_true", help="Inspect bounded learning checks")
+    parser.add_argument("--require-learning", action="store_true", help="Fail unless every learning check passes")
     args = parser.parse_args()
     inventory = json.loads((ROOT / "validation/inventory.json").read_text())
     rows = inspect_evidence(ROOT, inventory)
-    rendered = render(inventory, rows)
+    learning_rows = inspect_evidence(ROOT, inventory, learning=True)
+    rendered = render(inventory, rows, learning_rows)
+    if args.require_learning:
+        unresolved = [row["algorithm"] for row in learning_rows if row["status"] != "pass"]
+        if unresolved:
+            parser.exit(1, f"Unresolved learning checks: {unresolved}\n")
     document = ROOT / "guides/validation.md"
     if args.write:
         document.parent.mkdir(exist_ok=True)
@@ -181,7 +223,7 @@ def main() -> None:
             parser.exit(1, f"Evidence status or documentation changed: {mismatches}; review before regenerating.\n")
         print(f"Checked {len(rows)} methods; documented failures remain visible.")
     elif args.json:
-        print(json.dumps(rows, indent=2))
+        print(json.dumps(learning_rows if args.learning else rows, indent=2))
     elif not args.write:
         print(rendered)
 

@@ -90,7 +90,7 @@ def train(
         fraction = min(1.0, total_steps / max(1, epsilon_anneal_steps))
         epsilon = epsilon_start + fraction * (epsilon_end - epsilon_start)
         force_all_links = total_steps < gate_start_steps
-        episode_return, episode_steps, _ = _collect_episode(
+        episode_return, episode_steps, _, _ = _collect_episode(
             agent, environment, replay, epsilon, environment.num_actions,
             seed + episode, dev, force_all_links,
         )
@@ -168,6 +168,9 @@ def _evaluate(agent, environment, episodes, seed, device, *, epsilon, force_all_
     communication_rates = [evaluation[2] for evaluation in evaluations]
     return {
         "returns": returns,
+        "successes": [float(bool(evaluation[3].get("success", False))) for evaluation in evaluations],
+        "mean_distances": [float(evaluation[3].get("mean_distance", float("nan")))
+                           for evaluation in evaluations],
         "mean_return": float(np.mean(returns)),
         "communication_rates": communication_rates,
         "communication_rate": float(np.mean(communication_rates)),
@@ -185,6 +188,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
     steps = 0
     active_links = 0.0
     possible_links = 0
+    info = {}
     for _ in range(environment.horizon):
         obs_tensor = torch.as_tensor(obs, dtype=torch.float32, device=device).unsqueeze(0)
         inputs = torch.cat([obs_tensor, previous_actions, agent_ids], dim=-1)
@@ -199,7 +203,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
         previous_actions = F.one_hot(
             torch.as_tensor(action, device=device), num_classes=num_actions,
         ).to(dtype=obs_tensor.dtype).unsqueeze(0)
-        next_obs, reward, terminated, truncated, _ = environment.step(action)
+        next_obs, reward, terminated, truncated, info = environment.step(action)
         observations.append(next_obs)
         actions.append(action)
         rewards.append(reward)
@@ -216,7 +220,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
             rewards=np.asarray(rewards, dtype=np.float32),
             dones=np.asarray(dones, dtype=np.float32),
         )
-    return episode_return, steps, active_links / max(1, possible_links)
+    return episode_return, steps, active_links / max(1, possible_links), info
 
 
 def _unroll(network, obs, actions, action_dim, *, force_all_links):

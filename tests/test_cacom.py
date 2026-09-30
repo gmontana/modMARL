@@ -36,6 +36,17 @@ def _batch():
     return replay.sample(1, torch.device("cpu"))
 
 
+def test_evaluation_records_success_for_the_signaling_task() -> None:
+    from examples.train_cacom import train
+
+    result = train(env="delayed_signaling", n_agents=2, horizon=3, episodes=0,
+                   evaluation_episodes=16)
+    for name in ("initial_evaluation", "random_evaluation", "final_evaluation"):
+        evaluation = result[name]
+        assert evaluation["successes"] == [float(value == 1.0) for value in evaluation["returns"]]
+        assert len(evaluation["mean_distances"]) == 16
+
+
 def test_lsq_outputs_representable_codes_and_has_step_gradient() -> None:
     quantizer = LearnedStepQuantizer(bits=2)
     values = torch.tensor([-4.0, -0.4, 0.4, 4.0], requires_grad=True)

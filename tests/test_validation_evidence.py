@@ -62,7 +62,25 @@ def test_inventory_and_document_match_recorded_evidence():
     for row in rows:
         assert row["status"] == inventory["algorithms"][row["algorithm"]]["acknowledged_status"]
         assert row["status"] != "insufficient evidence"
-    assert (ROOT / "guides/validation.md").read_text() == render(inventory, rows)
+    learning_rows = inspect_evidence(ROOT, inventory, learning=True)
+    assert (ROOT / "guides/validation.md").read_text() == render(inventory, rows, learning_rows)
+
+
+def test_learning_cannot_pass_an_unchanged_policy(tmp_path):
+    payload = _payload()
+    payload.update(algorithm="example", seed=3)
+    payload["initial_evaluation"] = copy.deepcopy(payload["final_evaluation"])
+    (tmp_path / "run.json").write_text(json.dumps(payload))
+    (tmp_path / "source.py").touch()
+    inventory = {"algorithms": {"example": {
+        "source_revision": "test", "artifacts": "run.json", "seeds": [3],
+        "implementation": "source.py", "tests": "source.py", "reference_comparisons": [],
+    }}}
+    assert inspect_evidence(tmp_path, inventory)[0]["status"] == "pass"
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "fail"
+    del payload["validation_criterion"]
+    (tmp_path / "run.json").write_text(json.dumps(payload))
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "missing criterion"
 
 
 def test_missing_artifact_cannot_be_acknowledged_as_a_numerical_failure(tmp_path):

@@ -83,3 +83,56 @@ The 93 historical curve artifacts do not uniformly identify the generating modMA
 commit or full runtime environment. Their `source_revision` identifies the upstream
 reference, not this checkout. New demo runs carry resolved configurations, source
 hashes, runtime provenance, and checkpoint hashes. Historical results are preserved.
+
+## Bounded learning checks
+
+Every pass below also requires improvement over the initialized policy.
+Historical evidence is explicitly reused, not independent confirmation.
+Fresh confirmation fixes the recipe and criteria before running three new seeds.
+These checks establish learning on the listed task, not published benchmark
+performance or communication benefit. Original failures above remain visible.
+
+| Method | Learning check | Evidence basis |
+|---|---|---|
+| atoc | pass (3/3) | reused historical evidence |
+| cacom | fail (2/3) | reused historical evidence |
+| cdc | pass (3/3) | reused historical evidence |
+| cmvc | pass (3/3) | reused historical evidence |
+| commformer | pass (3/3) | reused historical evidence |
+| commnet | pass (3/3) | reused historical evidence |
+| ddpg | pass (3/3) | reused historical evidence |
+| expocomm | pass (3/3) | reused historical evidence |
+| happo | pass (3/3) | reused historical evidence |
+| i2c | pass (3/3) | reused historical evidence |
+| ic3net | fail (2/3) | reused historical evidence |
+| intention_sharing | pass (3/3) | reused historical evidence |
+| ippo | pass (3/3) | reused historical evidence |
+| iql | missing criterion (0/3) | reused historical evidence |
+| iwol | pass (3/3) | reused historical evidence |
+| maac | pass (3/3) | reused historical evidence |
+| maddpg | pass (3/3) | reused historical evidence |
+| maddpg_m | pass (3/3) | reused historical evidence |
+| magic | pass (3/3) | reused historical evidence |
+| maic | fail (0/3) | reused historical evidence |
+| mappo | pass (3/3) | reused historical evidence |
+| marc | pass (3/3) | reused historical evidence |
+| masia | pass (3/3) | reused historical evidence |
+| mat | pass (3/3) | reused historical evidence |
+| mdmaddpg | pass (3/3) | reused historical evidence |
+| ndq | pass (3/3) | reused historical evidence |
+| qmix | missing criterion (0/3) | reused historical evidence |
+| schednet | fail (2/3) | reused historical evidence |
+| sms | pass (3/3) | reused historical evidence |
+| tarmac | pass (3/3) | reused historical evidence |
+| vdn | missing criterion (0/3) | reused historical evidence |
+
+Reproduce new confirmation jobs from a checkout:
+
+```bash
+python -m tools.run_validation --protocol validation/recipes/maic.json \
+  --seed 101 --out runs/maic-101
+```
+
+Each recipe declares its seeds, budget, task and numerical rules. Use a new
+output directory per seed. Results include full resolved settings, source and
+checkpoint hashes, environment versions, host and measured runtime.
