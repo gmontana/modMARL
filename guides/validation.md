@@ -15,6 +15,9 @@ Unknown rules, malformed data and missing files are insufficient evidence.
 Message ablation measures reliance of a trained policy; a separately trained
 message-free policy is needed to assess attainable performance without messages.
 
+The first table audits the original curve files. See [bounded learning checks](#bounded-learning-checks)
+for subsequent confirmation, frozen recipes and the current learning status.
+
 | Method / specification | Mechanism tests | Recorded numerical criteria | Ablation runs | Reference comparison |
 |---|---|---|---|---|
 | [atoc](../modmarl/algorithms/atoc/algorithm.py) | [tests](../tests/test_atoc.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
@@ -92,39 +95,39 @@ Fresh confirmation fixes the recipe and criteria before running three new seeds.
 These checks establish learning on the listed task, not published benchmark
 performance or communication benefit. Original failures above remain visible.
 
-| Method | Learning check | Evidence basis |
-|---|---|---|
-| atoc | pass (3/3) | reused historical evidence |
-| cacom | fail (2/3) | fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation |
-| cdc | pass (3/3) | reused historical evidence |
-| cmvc | pass (3/3) | reused historical evidence |
-| commformer | pass (3/3) | reused historical evidence |
-| commnet | pass (3/3) | reused historical evidence |
-| ddpg | pass (3/3) | reused historical evidence |
-| expocomm | pass (3/3) | reused historical evidence |
-| happo | pass (3/3) | reused historical evidence |
-| i2c | pass (3/3) | reused historical evidence |
-| ic3net | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes |
-| intention_sharing | pass (3/3) | reused historical evidence |
-| ippo | pass (3/3) | reused historical evidence |
-| iql | pass (3/3) | fresh confirmation: navigation, 5k episodes |
-| iwol | pass (3/3) | reused historical evidence |
-| maac | pass (3/3) | reused historical evidence |
-| maddpg | pass (3/3) | reused historical evidence |
-| maddpg_m | pass (3/3) | reused historical evidence |
-| magic | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes |
-| maic | fail (0/3) | reused historical evidence |
-| mappo | pass (3/3) | reused historical evidence |
-| marc | pass (3/3) | reused historical evidence |
-| masia | pass (3/3) | reused historical evidence |
-| mat | pass (3/3) | reused historical evidence |
-| mdmaddpg | pass (3/3) | reused historical evidence |
-| ndq | pass (3/3) | reused historical evidence |
-| qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes |
-| schednet | fail (2/3) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation |
-| sms | pass (3/3) | reused historical evidence |
-| tarmac | pass (3/3) | reused historical evidence |
-| vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes |
+| Method | Learning check | Evidence basis | Frozen recipe |
+|---|---|---|---|
+| atoc | pass (3/3) | reused historical evidence | Historical curve data |
+| cacom | fail (2/3) | fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation | [JSON](../validation/recipes/development/cacom-first-confirmation.json) |
+| cdc | pass (3/3) | reused historical evidence | Historical curve data |
+| cmvc | pass (3/3) | reused historical evidence | Historical curve data |
+| commformer | pass (3/3) | reused historical evidence | Historical curve data |
+| commnet | pass (3/3) | reused historical evidence | Historical curve data |
+| ddpg | pass (3/3) | reused historical evidence | Historical curve data |
+| expocomm | pass (3/3) | reused historical evidence | Historical curve data |
+| happo | pass (3/3) | reused historical evidence | Historical curve data |
+| i2c | pass (3/3) | reused historical evidence | Historical curve data |
+| ic3net | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes | [JSON](../validation/recipes/ic3net.json) |
+| intention_sharing | pass (3/3) | reused historical evidence | Historical curve data |
+| ippo | pass (3/3) | reused historical evidence | Historical curve data |
+| iql | pass (3/3) | fresh confirmation: navigation, 5k episodes | [JSON](../validation/recipes/iql.json) |
+| iwol | pass (3/3) | reused historical evidence | Historical curve data |
+| maac | pass (3/3) | reused historical evidence | Historical curve data |
+| maddpg | pass (3/3) | reused historical evidence | Historical curve data |
+| maddpg_m | pass (3/3) | reused historical evidence | Historical curve data |
+| magic | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes | [JSON](../validation/recipes/magic.json) |
+| maic | fail (0/3) | reused historical evidence | Historical curve data |
+| mappo | pass (3/3) | reused historical evidence | Historical curve data |
+| marc | pass (3/3) | reused historical evidence | Historical curve data |
+| masia | pass (3/3) | reused historical evidence | Historical curve data |
+| mat | pass (3/3) | reused historical evidence | Historical curve data |
+| mdmaddpg | pass (3/3) | reused historical evidence | Historical curve data |
+| ndq | pass (3/3) | reused historical evidence | Historical curve data |
+| qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes | [JSON](../validation/recipes/development/qmix-first-confirmation.json) |
+| schednet | fail (2/3) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation | [JSON](../validation/recipes/development/schednet-fourth-confirmation.json) |
+| sms | pass (3/3) | reused historical evidence | Historical curve data |
+| tarmac | pass (3/3) | reused historical evidence | Historical curve data |
+| vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes | [JSON](../validation/recipes/vdn.json) |
 
 Reproduce new confirmation jobs from a checkout:
 
@@ -136,3 +139,14 @@ python -m tools.run_validation --protocol validation/recipes/maic.json \
 Each recipe declares its seeds, budget, task and numerical rules. Use a new
 output directory per seed. Results include full resolved settings, source and
 checkpoint hashes, environment versions, host and measured runtime.
+
+A confirmation pass requires every registered seed to meet every criterion.
+Inspect these results with `python tools/check_validation.py --learning --json`.
+Use `--require-learning` to fail if any method lacks a passing learning check.
+The checker also rejects fresh evidence whose recorded implementation hashes
+differ from this checkout. Historical evidence has weaker provenance as noted above.
+
+Binary signaling is a minimal communication learning check with two target states.
+Its success rate does not measure generalization to new partners or large teams.
+A pass on one task can coexist with failures elsewhere; preserved failed panels
+and the experiment decisions are recorded in [LABBOOK.md](../LABBOOK.md).

@@ -176,6 +176,8 @@ def render(inventory: dict, rows: list[dict], learning_rows: list[dict] | None =
         "Unknown rules, malformed data and missing files are insufficient evidence.",
         "Message ablation measures reliance of a trained policy; a separately trained",
         "message-free policy is needed to assess attainable performance without messages.", "",
+        "The first table audits the original curve files. See [bounded learning checks](#bounded-learning-checks)",
+        "for subsequent confirmation, frozen recipes and the current learning status.", "",
         "| Method / specification | Mechanism tests | Recorded numerical criteria | Ablation runs | Reference comparison |",
         "|---|---|---|---|---|",
     ]
@@ -212,18 +214,29 @@ def render(inventory: dict, rows: list[dict], learning_rows: list[dict] | None =
             "Fresh confirmation fixes the recipe and criteria before running three new seeds.",
             "These checks establish learning on the listed task, not published benchmark",
             "performance or communication benefit. Original failures above remain visible.", "",
-            "| Method | Learning check | Evidence basis |", "|---|---|---|",
+            "| Method | Learning check | Evidence basis | Frozen recipe |", "|---|---|---|---|",
         ])
         for row in learning_rows:
             passing = sum(run["status"] == "pass" for run in row["runs"])
+            protocol = inventory["algorithms"][row["algorithm"]].get("learning", {}).get("protocol")
+            recipe = f"[JSON](../{protocol})" if protocol else "Historical curve data"
             lines.append(f"| {row['algorithm']} | {row['status']} ({passing}/{len(row['runs'])}) "
-                         f"| {row['basis']} |")
+                         f"| {row['basis']} | {recipe} |")
         lines.extend(["", "Reproduce new confirmation jobs from a checkout:", "", "```bash",
                       "python -m tools.run_validation --protocol validation/recipes/maic.json \\",
                       "  --seed 101 --out runs/maic-101", "```", "",
                       "Each recipe declares its seeds, budget, task and numerical rules. Use a new",
                       "output directory per seed. Results include full resolved settings, source and",
-                      "checkpoint hashes, environment versions, host and measured runtime.", ""])
+                      "checkpoint hashes, environment versions, host and measured runtime.", "",
+                      "A confirmation pass requires every registered seed to meet every criterion.",
+                      "Inspect these results with `python tools/check_validation.py --learning --json`.",
+                      "Use `--require-learning` to fail if any method lacks a passing learning check.",
+                      "The checker also rejects fresh evidence whose recorded implementation hashes",
+                      "differ from this checkout. Historical evidence has weaker provenance as noted above.", "",
+                      "Binary signaling is a minimal communication learning check with two target states.",
+                      "Its success rate does not measure generalization to new partners or large teams.",
+                      "A pass on one task can coexist with failures elsewhere; preserved failed panels",
+                      "and the experiment decisions are recorded in [LABBOOK.md](../LABBOOK.md).", ""])
     return "\n".join(lines)
 
 

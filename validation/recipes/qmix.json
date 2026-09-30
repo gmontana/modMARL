@@ -1,10 +1,10 @@
 {
   "algorithm": "qmix",
-  "scope": "fresh-seed bounded navigation learning confirmation",
+  "scope": "fresh three-seed confirmation after controlled development repair",
   "seeds": [
-    101,
-    103,
-    107
+    201,
+    203,
+    207
   ],
   "config": {
     "episodes": 10000,
@@ -14,7 +14,8 @@
     "warmup_episodes": 32,
     "batch_size": 32,
     "epsilon_anneal_steps": 20000,
-    "evaluation_episodes": 100
+    "evaluation_episodes": 100,
+    "gamma": 0.9
   },
   "criteria": {
     "return_margin_over_initial": 1.0,

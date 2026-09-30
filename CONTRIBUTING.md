@@ -28,6 +28,26 @@ Git. Do not regenerate the full curve catalogue for a local change. For a change
 validation claim, inspect `python tools/check_validation.py --json`, update the
 inventory deliberately, then regenerate the public table with `--write`.
 
+For new learning evidence, copy a JSON recipe from `validation/recipes/` and fix
+the task, budget, acceptance rules and three unused training seeds before running.
+Require improvement over both the initialized policy and random actions, plus a
+task outcome such as success or distance. Develop on separate seeds first. Run
+each registered seed from a clean committed checkout:
+
+```bash
+python -m tools.run_validation --protocol validation/recipes/ic3net.json \
+  --seed 101 --out runs/ic3net-101
+```
+
+Keep all outcomes, including failed panels. Commit the result JSON and its
+provenance/environment sidecars, and add a `learning` entry in the inventory that
+points to the complete seed panel and frozen protocol. List imports from other
+algorithm modules in `source_dependencies`; common components and environments
+are checked automatically. Use `python tools/check_validation.py --learning --json`
+to inspect outcomes. `--require-learning` requires all methods to pass; `--check`
+also checks that the documentation matches. Do not silently replace a failed
+seed, lower its threshold, or call a reused development run fresh confirmation.
+
 Package verification:
 
 ```bash

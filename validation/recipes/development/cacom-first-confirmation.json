@@ -1,10 +1,10 @@
 {
   "algorithm": "cacom",
-  "scope": "fresh three-seed confirmation after controlled development repair",
+  "scope": "fresh confirmation of paper-action gate labels on one-step communication; not released-code parity or paper benchmark replication",
   "seeds": [
-    301,
-    303,
-    307
+    201,
+    203,
+    207
   ],
   "config": {
     "env": "target_signaling",
@@ -15,7 +15,7 @@
     "episodes": 20000,
     "gate_start_steps": 10000,
     "gate_update_every_steps": 10,
-    "epsilon_anneal_steps": 20000,
+    "epsilon_anneal_steps": 5000,
     "gate_label_mode": "paper"
   },
   "criteria": {
