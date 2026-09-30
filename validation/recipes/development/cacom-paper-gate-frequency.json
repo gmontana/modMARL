@@ -1,10 +1,9 @@
 {
-  "algorithm": "schednet",
-  "scope": "fresh-seed one-step signaling confirmation with released actor learning rate",
+  "algorithm": "cacom",
+  "scope": "development task diagnosis, not confirmation",
   "seeds": [
-    301,
-    303,
-    307
+    11,
+    107
   ],
   "config": {
     "env": "target_signaling",
@@ -13,10 +12,10 @@
     "evaluation_episodes": 300,
     "device": "cpu",
     "episodes": 20000,
-    "actor_learning_rate": 1e-05,
-    "weight_learning_rate": 0.0001,
-    "critic_learning_rate": 0.001,
-    "epsilon_decay_steps": 20000
+    "gate_start_steps": 10000,
+    "gate_update_every_steps": 10,
+    "epsilon_anneal_steps": 5000,
+    "gate_label_mode": "paper"
   },
   "criteria": {
     "minimum_success_rate": 0.8,

@@ -56,6 +56,26 @@ def main():
         agent, env, cfg["evaluation_episodes"], cfg["seed"] + 100000,
         torch.device("cpu"), epsilon=0.0, force_all_links=True,
     )
+    if cfg["env"] == "target_signaling" and env.n_agents == 2:
+        diagnostics = []
+        with torch.no_grad():
+            for target in (0, 1):
+                env.reset(seed=0)
+                env.target_bit = target
+                obs = torch.from_numpy(env._observe()).unsqueeze(0)
+                inputs = torch.cat([obs, torch.zeros(1, 2, 2), torch.eye(2).unsqueeze(0)], -1)
+                hidden = agent.init_hidden(1, torch.device("cpu"))
+                features, requests = agent.network.encode(inputs, hidden)
+                on = torch.zeros(1, 2, 2, 1)
+                on[:, 0, 1] = 1
+                on_messages, logits, _ = agent.network.communication(features, requests, forced_mask=on)
+                off_messages, _, _ = agent.network.communication(features, requests, forced_mask=on * 0)
+                q_on, _ = agent.network.policy(features, on_messages, hidden)
+                q_off, _ = agent.network.policy(features, off_messages, hidden)
+                diagnostics.append({"target": target, "q_on": q_on.tolist(), "q_off": q_off.tolist(),
+                                    "gate_probabilities": logits.softmax(-1).tolist(),
+                                    "local_gap": float(q_on[:, 1].max() - q_off[:, 1].max())})
+        payload["gate_diagnostics"] = diagnostics
     payload["acceptance"] = evaluate_run(payload)
     payload["measurement_repair"] = "same checkpoint and exact same returns; added task metrics"
     write_json_with_provenance(args.out, payload, started_at=start,

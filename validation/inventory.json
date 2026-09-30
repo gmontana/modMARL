@@ -487,7 +487,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference."
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference. Fresh confirmation under explicit navigation criteria is reported below.",
+      "learning": {
+        "artifacts": "figures/validation_data/vdn/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/vdn.json",
+        "basis": "fresh confirmation: navigation, 20k episodes"
+      }
     }
   }
 }

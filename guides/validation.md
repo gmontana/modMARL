@@ -77,7 +77,7 @@ message-free policy is needed to assess attainable performance without messages.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
 - **qmix:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.
 - **schednet:** Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.
-- **vdn:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference.
+- **vdn:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference. Fresh confirmation under explicit navigation criteria is reported below.
 
 The 93 historical curve artifacts do not uniformly identify the generating modMARL
 commit or full runtime environment. Their `source_revision` identifies the upstream
@@ -124,7 +124,7 @@ performance or communication benefit. Original failures above remain visible.
 | schednet | fail (2/3) | failed fresh confirmation: delayed signaling, 20k episodes |
 | sms | pass (3/3) | reused historical evidence |
 | tarmac | pass (3/3) | reused historical evidence |
-| vdn | missing criterion (0/3) | reused historical evidence |
+| vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes |
 
 Reproduce new confirmation jobs from a checkout:
 
