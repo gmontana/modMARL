@@ -21,6 +21,15 @@ controller sees the top-level ``default.yaml`` value ``True`` -- and the paper a
 ("observation and last action").  The paper reports VDN
 for Hallway while the pinned config selects QMIX; both remain explicit. Hallway uses
 three agents, lengths (2, 6, 10), horizon 20, and simultaneous-arrival reward.
+
+Normalization is another release detail: ``test_mode=True`` uses mean latents
+and pruned attention but never switches BatchNorm to running statistics. The
+training example reproduces this batch-statistics evaluation and crops replay to
+the longest filled episode as the official runner does. Evaluation statistics
+span the current team's agents; this is not strictly local message generation.
+Direct ``agent.eval()`` still has ordinary PyTorch semantics. See
+``tools/reference/check_maic.py`` for a pinned encoder-normalization comparison;
+it does not assert whole-policy or learning-curve parity.
 """
 
 from __future__ import annotations

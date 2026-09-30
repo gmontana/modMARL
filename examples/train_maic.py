@@ -7,18 +7,27 @@ defaults here. (``join1.yaml`` disables ``obs_last_action`` only under ``env_arg
 where it is dead config -- the controller reads the top-level ``default.yaml`` value.)
 The paper instead reports VDN for Hallway, so ``mixer="vdn"`` remains
 an explicit paper configuration rather than being silently conflated with the release.
+
+The release's test flag selects mean latents and prunes messages but leaves
+BatchNorm using current-batch statistics. Evaluation defaults to that behavior;
+``evaluation_normalization="running"`` retains the earlier port's diagnostic.
+Batch statistics span agents in the current team, so this release behavior must
+not be interpreted as strictly local message generation. Evaluation preserves all
+model buffers. Replay is cropped to its longest filled episode, as in the official
+``src/run.py``; padded tails must not update normalization statistics.
 """
 
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 
 import numpy as np
 import torch
 
 from marl_envs import make_env
 from modmarl.algorithms.maic import MAICAgent
-from modmarl.common.replay import EpisodeReplayBuffer
+from modmarl.common.replay import EpisodeBatch, EpisodeReplayBuffer
 
 GRAD_CLIP = 10.0
 PRUNE_DELTA = 0.25
@@ -35,7 +44,10 @@ def train(*, env: str = "maic_hallway", n_agents: int = 3, horizon: int = 20,
           mi_loss_weight: float = 0.001, entropy_loss_weight: float = 0.01,
           updates_per_episode: int = 1, target_update_every: int = 200,
           evaluation_episodes: int = 300, device: str = "cpu",
+          evaluation_normalization: str = "batch",
           checkpoint: str | None = None) -> dict:
+    if evaluation_normalization not in {"batch", "running"}:
+        raise ValueError("evaluation_normalization must be 'batch' or 'running'")
     torch.manual_seed(seed)
     np.random.seed(seed)
     dev = torch.device(device)
@@ -51,9 +63,10 @@ def train(*, env: str = "maic_hallway", n_agents: int = 3, horizon: int = 20,
     replay = EpisodeReplayBuffer(buffer_episodes, environment.horizon, n, obs_dim)
 
     evaluation_seed = seed + 100_000
-    initial = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes, dev)
+    initial = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes, dev,
+                        normalization=evaluation_normalization)
     random = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes,
-                       dev, random_policy=True)
+                       dev, random_policy=True, normalization=evaluation_normalization)
     returns: list[float] = []
     training_metrics: list[dict[str, float | int]] = []
     total_steps = 0
@@ -78,12 +91,15 @@ def train(*, env: str = "maic_hallway", n_agents: int = 3, horizon: int = 20,
 
     if checkpoint is not None:
         torch.save(agent.state_dict(), checkpoint)
-    final = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes, dev)
+    final = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes, dev,
+                      normalization=evaluation_normalization)
     ablated = _evaluate(agent, env, n_agents, horizon, evaluation_seed, evaluation_episodes,
-                        dev, ablate_messages=True)
+                        dev, ablate_messages=True, normalization=evaluation_normalization)
     return {
         "algorithm": "maic", "env": env, "episodes": episodes, "n_agents": n,
         "mixer": mixer, "include_previous_action": include_previous_action,
+        "evaluation_normalization": evaluation_normalization,
+        "total_steps": total_steps,
         "final_return": returns[-1] if returns else 0.0,
         "best_return": max(returns) if returns else 0.0, "returns": returns,
         "training_metrics": training_metrics,
@@ -130,7 +146,18 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
 
 
 def _update(agent, optimizer, batch, gamma, mi_loss_weight, entropy_loss_weight) -> dict[str, float]:
-    batch_size, horizon = batch.actions.shape[:2]
+    batch_size = batch.actions.shape[0]
+    # PyMARL crops to max_t_filled (including the final observation) before
+    # calling the learner. Masking losses alone leaves BatchNorm affected by
+    # wholly padded timesteps, and wastes recurrent updates on those timesteps.
+    horizon = int(batch.mask.sum(dim=1).max().item())
+    if horizon == 0:
+        raise ValueError("MAIC update requires at least one filled transition")
+    batch = EpisodeBatch(
+        obs=batch.obs[:, :horizon + 1], actions=batch.actions[:, :horizon],
+        rewards=batch.rewards[:, :horizon], dones=batch.dones[:, :horizon],
+        mask=batch.mask[:, :horizon],
+    )
     dev = batch.obs.device
     hidden = agent.init_hidden(batch_size, dev)
     target_hidden = agent.init_hidden(batch_size, dev)
@@ -174,20 +201,48 @@ def _update(agent, optimizer, batch, gamma, mi_loss_weight, entropy_loss_weight)
         "td_loss": float(td_loss.detach()),
         "teammate_model_loss": float(mi_loss.detach()),
         "sparsity_loss": float(sparsity_loss.detach()),
-        "q_mean": float(q_total.detach().mean()),
-        "target_mean": float(targets.detach().mean()),
+        "q_mean": float((q_total.detach() * batch.mask).sum() / batch.mask.sum()),
+        "target_mean": float((targets.detach() * batch.mask).sum() / batch.mask.sum()),
         "gradient_norm": float(grad_norm.detach()),
     }
 
 
+@contextmanager
+def _evaluation_mode(agent, normalization):
+    if normalization not in {"batch", "running"}:
+        raise ValueError("normalization must be 'batch' or 'running'")
+    modes = [(module, module.training) for module in agent.modules()]
+    norms = [(module, module.track_running_stats) for module in agent.modules()
+             if isinstance(module, torch.nn.BatchNorm1d)]
+    agent.eval()
+    try:
+        if normalization == "batch":
+            for module, _ in norms:
+                module.train()
+                # Use the release's per-batch formula without changing persistent
+                # statistics or num_batches_tracked during evaluation.
+                module.track_running_stats = False
+        yield
+    finally:
+        for module, track_running_stats in norms:
+            module.track_running_stats = track_running_stats
+        for module, training in modes:
+            module.training = training
+
+
 @torch.no_grad()
 def _evaluate(agent, env_name, n_agents, horizon, seed, episodes, device, *,
-              random_policy=False, ablate_messages=False):
+              random_policy=False, ablate_messages=False, normalization="batch"):
+    with _evaluation_mode(agent, normalization):
+        return _evaluate_episodes(agent, env_name, n_agents, horizon, seed, episodes, device,
+                                  random_policy=random_policy, ablate_messages=ablate_messages)
+
+
+def _evaluate_episodes(agent, env_name, n_agents, horizon, seed, episodes, device, *,
+                       random_policy, ablate_messages):
     environment = make_env(env_name, n_agents, horizon, seed)
     generator = np.random.default_rng(seed)
     returns, successes, communication_rates = [], [], []
-    was_training = agent.training
-    agent.eval()
     try:
         for episode in range(episodes):
             obs, _ = environment.reset(seed=seed + episode)
@@ -219,7 +274,6 @@ def _evaluate(agent, env_name, n_agents, horizon, seed, episodes, device, *,
             communication_rates.append(float(np.mean(rates)))
     finally:
         environment.close()
-        agent.train(was_training)
     return {"returns": returns, "successes": successes,
             "win_rate": float(np.mean(successes)) if successes else 0.0,
             "communication_rates": communication_rates,

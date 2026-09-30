@@ -283,7 +283,7 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. Message ablation has no effect for seed 11; investigate before claiming robust communication gains."
+      "notes": "All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. These historical runs predate the evaluation-normalization and replay-tail fixes. A 2,000-episode development pilot after those fixes still has zero wins; full-budget learning remains unresolved. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy or learning parity."
     },
     "mappo": {
       "implementation": "modmarl/algorithms/mappo.py",

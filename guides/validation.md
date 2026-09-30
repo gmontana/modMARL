@@ -71,7 +71,7 @@ message-free policy is needed to assess attainable performance without messages.
 - **iql:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.
 - **iwol:** The curves cover Im-IWoL (zero execution messages), not Ex-IWoL or the published robotics tables. Implementation follows the pinned v3 specification; the January 2026 v4 revision is not automatically validated.
 - **magic:** The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves.
-- **maic:** All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. Message ablation has no effect for seed 11; investigate before claiming robust communication gains.
+- **maic:** All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. These historical runs predate the evaluation-normalization and replay-tail fixes. A 2,000-episode development pilot after those fixes still has zero wins; full-budget learning remains unresolved. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy or learning parity.
 - **masia:** Hallway success uses a win reward of 1, whereas NDQ uses 10. The task name alone does not establish comparable configuration; there is no recorded message ablation.
 - **mdmaddpg:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
