@@ -411,7 +411,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.",
+      "learning": {
+        "artifacts": "figures/validation_data/qmix/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/development/qmix-first-confirmation.json",
+        "basis": "failed fresh confirmation: navigation, 10k episodes"
+      }
     },
     "schednet": {
       "implementation": "modmarl/algorithms/schednet.py",
@@ -425,7 +435,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved."
+      "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.",
+      "learning": {
+        "artifacts": "figures/validation_data/schednet/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/development/schednet-first-confirmation.json",
+        "basis": "failed fresh confirmation: delayed signaling, 20k episodes"
+      }
     },
     "sms": {
       "implementation": "modmarl/algorithms/sms.py",

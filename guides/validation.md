@@ -120,8 +120,8 @@ performance or communication benefit. Original failures above remain visible.
 | mat | pass (3/3) | reused historical evidence |
 | mdmaddpg | pass (3/3) | reused historical evidence |
 | ndq | pass (3/3) | reused historical evidence |
-| qmix | missing criterion (0/3) | reused historical evidence |
-| schednet | fail (2/3) | reused historical evidence |
+| qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes |
+| schednet | fail (2/3) | failed fresh confirmation: delayed signaling, 20k episodes |
 | sms | pass (3/3) | reused historical evidence |
 | tarmac | pass (3/3) | reused historical evidence |
 | vdn | missing criterion (0/3) | reused historical evidence |
