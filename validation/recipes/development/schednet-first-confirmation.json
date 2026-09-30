@@ -1,15 +1,15 @@
 {
   "algorithm": "schednet",
-  "scope": "fresh-seed one-step signaling confirmation after failed delayed-task panel",
+  "scope": "fresh-seed bounded learning confirmation; not a paper benchmark reproduction",
   "seeds": [
-    201,
-    203,
-    207
+    101,
+    103,
+    107
   ],
   "config": {
-    "env": "target_signaling",
+    "env": "delayed_signaling",
     "n_agents": 2,
-    "horizon": 1,
+    "horizon": 3,
     "evaluation_episodes": 300,
     "device": "cpu",
     "episodes": 20000,

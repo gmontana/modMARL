@@ -119,6 +119,7 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                             if source.is_absolute() and source.is_relative_to(source_root):
                                 recorded_sources[str(source.relative_to(source_root))] = item["sha256"]
                         required = [root / entry["implementation"], root / f"examples/train_{algorithm}.py"]
+                        required.extend(root / name for name in entry.get("source_dependencies", []))
                         for package in ("marl_envs", "modmarl/common", "modmarl/components"):
                             required.extend((root / package).rglob("*.py"))
                         for source in required:
