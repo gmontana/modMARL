@@ -161,30 +161,6 @@ def test_gate_labels_train_gate_without_policy_gradients() -> None:
     assert all(parameter.grad is None for parameter in agent.policy_parameters())
 
 
-def test_paper_gate_compares_actions_under_one_mixed_value_function(monkeypatch) -> None:
-    agent = _agent()
-    q_on = torch.tensor([[[0., 0., 0., 0., 0.], [2., 1., 0., 0., 0.], [2., 1., 0., 0., 0.]]])
-    q_off = torch.tensor([[[0., 0., 0., 0., 0.], [1., 3., 0., 0., 0.], [3., 1., 0., 0., 0.]]])
-    obs = torch.randn(1, 3, 4)
-    hidden = agent.init_hidden(1, torch.device("cpu"))
-
-    class WeightedMixer(torch.nn.Module):
-        def forward(self, values, state):
-            return (values * values.new_tensor([1., 2., 3.])).sum(-1, keepdim=True)
-
-    def labels(mode, threshold):
-        outputs = iter([q_on, q_off])
-        monkeypatch.setattr(agent.network, "policy", lambda *args: (next(outputs), hidden))
-        return agent.network.gate_labels(obs, hidden, 0, threshold, mode=mode,
-                                         mixer=WeightedMixer(), state=obs.flatten(1))[1]
-
-    # Release compares 2 - 3 and prunes even though the no-message action is worse.
-    assert labels("release", 0).tolist() == [[1, 1]]
-    # Paper changes only receiver 1's action: its mixed-value gain is 2*(2-1)=2.
-    # Receiver 2 selects the same action, so its action-value gain is zero.
-    assert labels("paper", 1.5).tolist() == [[0, 1]]
-
-
 def test_policy_update_and_gate_update_are_finite_and_separate(monkeypatch) -> None:
     torch.manual_seed(0)
     agent = _agent()

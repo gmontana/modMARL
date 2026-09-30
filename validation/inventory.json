@@ -41,7 +41,7 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "Recorded return and ablation margins pass; task success remains zero under the saved success metric. Reference code is private; see the implementation reconciliation."
+      "notes": "Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation."
     },
     "cmvc": {
       "implementation": "modmarl/algorithms/cmvc/algorithm.py",
@@ -155,7 +155,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves."
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.",
+      "learning": {
+        "artifacts": "figures/validation_data/ic3net/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/ic3net.json",
+        "basis": "fresh confirmation: delayed signaling, 20k episodes"
+      }
     },
     "intention_sharing": {
       "implementation": "modmarl/algorithms/intention_sharing.py",
@@ -269,7 +279,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves."
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.",
+      "learning": {
+        "artifacts": "figures/validation_data/magic/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/magic.json",
+        "basis": "fresh confirmation: delayed signaling, 20k episodes"
+      }
     },
     "maic": {
       "implementation": "modmarl/algorithms/maic.py",
@@ -283,7 +303,7 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. These historical runs predate the evaluation-normalization and replay-tail fixes. A 2,000-episode development pilot after those fixes still has zero wins; full-budget learning remains unresolved. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy or learning parity."
+      "notes": "Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity."
     },
     "mappo": {
       "implementation": "modmarl/algorithms/mappo.py",

@@ -42,7 +42,6 @@ def train(
     warmup_episodes: int = 32,
     gate_start_steps: int = 200_000,
     gate_update_every_steps: int = 10_000,
-    gate_label_mode: str = "release",
     target_update_every: int = 200,
     epsilon_start: float = 1.0,
     epsilon_end: float = 0.05,
@@ -108,7 +107,6 @@ def train(
                     agent, gate_optimizer, batch,
                     helper=int(gate_rng.integers(agent.n_agents)),
                     force_keep=force_all_links,
-                    mode=gate_label_mode,
                 )
                 last_gate_update_step = total_steps
                 gate_updates += 1
@@ -141,7 +139,6 @@ def train(
         },
         "total_steps": total_steps,
         "gate_updates": gate_updates, "checkpoint": checkpoint,
-        "gate_label_mode": gate_label_mode,
     }
 
 
@@ -286,7 +283,6 @@ def _update_policy(agent, optimizer, batch, gamma, auxiliary_weight, *, force_al
 
 def _update_gate(
     agent, optimizer, batch, helper: int, threshold: float = 0.0, *, force_keep: bool = False,
-    mode: str = "release",
 ):
     hidden = agent.init_hidden(batch.obs.shape[0], batch.obs.device)
     agent_ids = torch.eye(agent.n_agents, device=batch.obs.device).unsqueeze(0).expand(
@@ -304,13 +300,9 @@ def _update_gate(
         inputs = batch.obs[:, timestep]
         if agent.network.obs_dim != inputs.shape[-1]:
             inputs = torch.cat([inputs, previous_actions, agent_ids], dim=-1)
-        if mode == "release":
-            logits, labels = agent.network.gate_labels(inputs, hidden, helper, threshold)
-        else:
-            logits, labels = agent.network.gate_labels(
-                inputs, hidden, helper, threshold, mode=mode,
-                mixer=agent.mixer, state=batch.obs[:, timestep].flatten(1),
-            )
+        logits, labels = agent.network.gate_labels(
+            inputs, hidden, helper, threshold,
+        )
         if force_keep:
             labels = torch.zeros_like(labels)
         losses.append(F.cross_entropy(logits.reshape(-1, 2), labels.reshape(-1)))

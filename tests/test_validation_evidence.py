@@ -88,3 +88,50 @@ def test_missing_artifact_cannot_be_acknowledged_as_a_numerical_failure(tmp_path
     inventory = copy.deepcopy(inventory)
     inventory["algorithms"] = {"maic": inventory["algorithms"]["maic"]}
     assert inspect_evidence(tmp_path, inventory)[0]["status"] == "insufficient evidence"
+
+
+@pytest.mark.parametrize("mutation", ["result", "protocol", "dirty", "missing_metadata", "source"])
+def test_confirmation_requires_matching_protocol_and_provenance(tmp_path, mutation):
+    import hashlib
+
+    protocol = {"algorithm": "example", "seeds": [3, 5, 7], "config": {"episodes": 2},
+                "criteria": {"return_margin_over_random": 1.0}}
+    (tmp_path / "protocol.json").write_text(json.dumps(protocol))
+    (tmp_path / "source.py").touch()
+    (tmp_path / "examples").mkdir()
+    (tmp_path / "examples/train_example.py").touch()
+    sources = [{"path": str(tmp_path / name), "sha256": hashlib.sha256(b"").hexdigest()}
+               for name in ("source.py", "examples/train_example.py")]
+    inventory = {"algorithms": {"example": {
+        "source_revision": "test", "artifacts": "run*.json", "seeds": [3, 5, 7],
+        "implementation": "source.py", "tests": "source.py", "reference_comparisons": [],
+        "learning": {"artifacts": "seed*/result.json", "protocol": "protocol.json"},
+    }}}
+    for seed in protocol["seeds"]:
+        directory = tmp_path / f"seed{seed}"
+        directory.mkdir()
+        payload = {**_payload(), "algorithm": "example", "seed": seed, "status": "completed",
+                   "protocol": protocol, "resolved_config": {"episodes": 2}}
+        path = directory / "result.json"
+        path.write_text(json.dumps(payload))
+        metadata = {"primary_output": {"sha256": hashlib.sha256(path.read_bytes()).hexdigest()},
+                    "git": {"commit": "abc", "dirty": False, "repo_root": str(tmp_path)},
+                    "inputs": sources}
+        (directory / "result.metadata.json").write_text(json.dumps(metadata))
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "pass"
+    if mutation == "result":
+        with (tmp_path / "seed3/result.json").open("a") as handle:
+            handle.write("\n")
+    elif mutation == "protocol":
+        protocol["criteria"]["return_margin_over_random"] = 0
+        (tmp_path / "protocol.json").write_text(json.dumps(protocol))
+    elif mutation == "dirty":
+        path = tmp_path / "seed3/result.metadata.json"
+        metadata = json.loads(path.read_text())
+        metadata["git"]["dirty"] = True
+        path.write_text(json.dumps(metadata))
+    elif mutation == "missing_metadata":
+        (tmp_path / "seed3/result.metadata.json").unlink()
+    else:
+        (tmp_path / "source.py").write_text("# changed\n")
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "insufficient evidence"

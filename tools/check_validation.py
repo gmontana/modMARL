@@ -99,6 +99,9 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                         protocol = json.loads((root / entry["protocol"]).read_text())
                         if (payload.get("protocol") != protocol
                                 or payload.get("status") != "completed"
+                                or len(set(protocol["seeds"])) < 3
+                                or sorted(entry["seeds"]) != sorted(protocol["seeds"])
+                                or entry.get("criteria")
                                 or payload["seed"] not in protocol["seeds"]
                                 or payload.get("validation_criterion") != protocol["criteria"]
                                 or any(payload["resolved_config"].get(key) != value
@@ -109,6 +112,19 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                             raise ValueError("Result hash does not match provenance")
                         if not metadata["git"]["commit"] or metadata["git"]["dirty"]:
                             raise ValueError("Confirmation must identify a clean committed checkout")
+                        source_root = Path(metadata["git"]["repo_root"])
+                        recorded_sources = {}
+                        for item in metadata["inputs"]:
+                            source = Path(item["path"])
+                            if source.is_absolute() and source.is_relative_to(source_root):
+                                recorded_sources[str(source.relative_to(source_root))] = item["sha256"]
+                        required = [root / entry["implementation"], root / f"examples/train_{algorithm}.py"]
+                        for package in ("marl_envs", "modmarl/common", "modmarl/components"):
+                            required.extend((root / package).rglob("*.py"))
+                        for source in required:
+                            name = str(source.relative_to(root))
+                            if recorded_sources.get(name) != hashlib.sha256(source.read_bytes()).hexdigest():
+                                raise ValueError(f"Confirmation source changed or is unrecorded: {name}")
                     criteria = dict(payload.get("validation_criterion") or {})
                     criteria.update(entry.get("criteria", {}))
                     # Beating random without improving the initialized policy is

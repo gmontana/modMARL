@@ -61,17 +61,17 @@ message-free policy is needed to assess attainable performance without messages.
 
 - **atoc:** Paper-based implementation with explicit underspecified architecture choices; no author release used for parity.
 - **cacom:** Seed 7 finishes below its random-policy reference. Learning acceptance is unresolved.
-- **cdc:** Recorded return and ablation margins pass; task success remains zero under the saved success metric. Reference code is private; see the implementation reconciliation.
+- **cdc:** Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation.
 - **cmvc:** Paper-based implementation; the linked release was empty at reconciliation. Its recorded criterion only requires beating random, not reproducing the journal results.
 - **commformer:** Follows the released proceedings configuration and documented quirks. Local navigation curves do not reproduce the published benchmark tables.
 - **expocomm:** Three-agent navigation demonstrates bounded learning, not the paper's large-team scalability or performance tables. Deliberate paper/release differences are documented in the module.
-- **ic3net:** The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves.
+- **ic3net:** The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.
 - **intention_sharing:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ippo:** Third-party reference supplies implementation details; recorded navigation acceptance does not apply to the new bounded signaling example.
 - **iql:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.
 - **iwol:** The curves cover Im-IWoL (zero execution messages), not Ex-IWoL or the published robotics tables. Implementation follows the pinned v3 specification; the January 2026 v4 revision is not automatically validated.
-- **magic:** The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves.
-- **maic:** All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. These historical runs predate the evaluation-normalization and replay-tail fixes. A 2,000-episode development pilot after those fixes still has zero wins; full-budget learning remains unresolved. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy or learning parity.
+- **magic:** The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.
+- **maic:** Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity.
 - **masia:** Hallway success uses a win reward of 1, whereas NDQ uses 10. The task name alone does not establish comparable configuration; there is no recorded message ablation.
 - **mdmaddpg:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
@@ -104,7 +104,7 @@ performance or communication benefit. Original failures above remain visible.
 | expocomm | pass (3/3) | reused historical evidence |
 | happo | pass (3/3) | reused historical evidence |
 | i2c | pass (3/3) | reused historical evidence |
-| ic3net | fail (2/3) | reused historical evidence |
+| ic3net | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes |
 | intention_sharing | pass (3/3) | reused historical evidence |
 | ippo | pass (3/3) | reused historical evidence |
 | iql | missing criterion (0/3) | reused historical evidence |
@@ -112,7 +112,7 @@ performance or communication benefit. Original failures above remain visible.
 | maac | pass (3/3) | reused historical evidence |
 | maddpg | pass (3/3) | reused historical evidence |
 | maddpg_m | pass (3/3) | reused historical evidence |
-| magic | pass (3/3) | reused historical evidence |
+| magic | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes |
 | maic | fail (0/3) | reused historical evidence |
 | mappo | pass (3/3) | reused historical evidence |
 | marc | pass (3/3) | reused historical evidence |
