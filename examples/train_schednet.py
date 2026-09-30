@@ -262,10 +262,15 @@ def _update(agent, actor_opt, critic_opt, weight_opt, batch, k):
     actor_loss.backward()
     actor_opt.step()
 
-    # --- Weight generator: deterministic policy gradient through the schedule head. ---
+    # --- Released WG chain rule: critic derivative at replayed priorities. ---
+    # agent.py calls grads_for_scheduler(s, p), where p comes from replay,
+    # then feeds that derivative to the current weight generator. Evaluating
+    # the critic at current mu(o) instead is the paper's DDPG interpretation.
     agent.critic.requires_grad_(False)
-    _, schedule_value_for_weights = agent.critic(batch.obs, agent.weight_generator(batch.obs))
-    weight_loss = -schedule_value_for_weights.mean()
+    replay_priorities = batch.weights.detach().requires_grad_(True)
+    _, schedule_value_for_weights = agent.critic(batch.obs, replay_priorities)
+    priority_gradient = torch.autograd.grad(schedule_value_for_weights.sum(), replay_priorities)[0]
+    weight_loss = -(agent.weight_generator(batch.obs) * priority_gradient.detach()).sum(-1).mean()
     weight_opt.zero_grad(set_to_none=True)
     weight_loss.backward()
     weight_opt.step()
