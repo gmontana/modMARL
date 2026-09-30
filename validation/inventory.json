@@ -207,7 +207,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Fresh confirmation under explicit navigation criteria is reported below.",
+      "learning": {
+        "artifacts": "figures/validation_data/iql/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/iql.json",
+        "basis": "fresh confirmation: navigation, 5k episodes"
+      }
     },
     "iwol": {
       "implementation": "modmarl/algorithms/iwol.py",

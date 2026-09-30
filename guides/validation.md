@@ -68,7 +68,7 @@ message-free policy is needed to assess attainable performance without messages.
 - **ic3net:** The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.
 - **intention_sharing:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ippo:** Third-party reference supplies implementation details; recorded navigation acceptance does not apply to the new bounded signaling example.
-- **iql:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.
+- **iql:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Fresh confirmation under explicit navigation criteria is reported below.
 - **iwol:** The curves cover Im-IWoL (zero execution messages), not Ex-IWoL or the published robotics tables. Implementation follows the pinned v3 specification; the January 2026 v4 revision is not automatically validated.
 - **magic:** The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.
 - **maic:** Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity.
@@ -107,7 +107,7 @@ performance or communication benefit. Original failures above remain visible.
 | ic3net | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes |
 | intention_sharing | pass (3/3) | reused historical evidence |
 | ippo | pass (3/3) | reused historical evidence |
-| iql | missing criterion (0/3) | reused historical evidence |
+| iql | pass (3/3) | fresh confirmation: navigation, 5k episodes |
 | iwol | pass (3/3) | reused historical evidence |
 | maac | pass (3/3) | reused historical evidence |
 | maddpg | pass (3/3) | reused historical evidence |
