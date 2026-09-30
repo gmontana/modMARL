@@ -27,7 +27,20 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Seed 7 finishes below its random-policy reference. Learning acceptance is unresolved."
+      "notes": "Historical seed 7 fails. The optional paper-action gate mode addresses a demonstrated label discrepancy; its first fresh confirmation still fails one seed. Release labels remain the default. Current learning acceptance is unresolved.",
+      "learning": {
+        "artifacts": "figures/validation_data/cacom-paper/seed*/result.json",
+        "seeds": [
+          201,
+          203,
+          207
+        ],
+        "protocol": "validation/recipes/cacom.json",
+        "source_dependencies": [
+          "modmarl/algorithms/qmix.py"
+        ],
+        "basis": "fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation"
+      }
     },
     "cdc": {
       "implementation": "modmarl/algorithms/cdc.py",
@@ -409,7 +422,9 @@
         13,
         17
       ],
-      "reference_comparisons": [],
+      "reference_comparisons": [
+        "figures/reference_data/qmix_update_parity.json"
+      ],
       "acknowledged_status": "missing criterion",
       "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.",
       "learning": {
@@ -437,14 +452,14 @@
       "acknowledged_status": "fail",
       "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.",
       "learning": {
-        "artifacts": "figures/validation_data/schednet/seed*/result.json",
+        "artifacts": "figures/validation_data/schednet-release/seed*/result.json",
         "seeds": [
-          101,
-          103,
-          107
+          401,
+          403,
+          407
         ],
-        "protocol": "validation/recipes/development/schednet-first-confirmation.json",
-        "basis": "failed fresh confirmation: delayed signaling, 20k episodes"
+        "protocol": "validation/recipes/development/schednet-fourth-confirmation.json",
+        "basis": "fresh one-step confirmation; seed 401 fails, slower exploration under investigation"
       }
     },
     "sms": {

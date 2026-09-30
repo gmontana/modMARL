@@ -1,10 +1,10 @@
 {
   "algorithm": "schednet",
-  "scope": "fresh-seed one-step signaling confirmation with released learning rates and exploration",
+  "scope": "fresh-seed one-step signaling confirmation with all released learning rates",
   "seeds": [
-    501,
-    503,
-    507
+    401,
+    403,
+    407
   ],
   "config": {
     "env": "target_signaling",
@@ -16,7 +16,7 @@
     "actor_learning_rate": 1e-05,
     "weight_learning_rate": 1e-05,
     "critic_learning_rate": 0.0001,
-    "epsilon_decay_steps": 750000
+    "epsilon_decay_steps": 20000
   },
   "criteria": {
     "minimum_success_rate": 0.8,

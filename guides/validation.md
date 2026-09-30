@@ -43,7 +43,7 @@ message-free policy is needed to assess attainable performance without messages.
 | [mat](../modmarl/algorithms/mat.py) | [tests](../tests/test_mat.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [mdmaddpg](../modmarl/algorithms/mdmaddpg.py) | [tests](../tests/test_mdmaddpg.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [ndq](../modmarl/algorithms/ndq.py) | [tests](../tests/test_ndq.py) | pass (3/3 seeds pass) | 3/3 | Not recorded |
-| [qmix](../modmarl/algorithms/qmix.py) | [tests](../tests/test_qmix.py) | missing criterion (0/3 seeds pass) | 0/3 | Not recorded |
+| [qmix](../modmarl/algorithms/qmix.py) | [tests](../tests/test_qmix.py) | missing criterion (0/3 seeds pass) | 0/3 | [artifact](../figures/reference_data/qmix_update_parity.json) |
 | [schednet](../modmarl/algorithms/schednet.py) | [tests](../tests/test_schednet.py) | fail (2/3 seeds pass) | 0/3 | Not recorded |
 | [sms](../modmarl/algorithms/sms.py) | [tests](../tests/test_sms.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [tarmac](../modmarl/algorithms/tarmac.py) | [tests](../tests/test_tarmac.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
@@ -60,7 +60,7 @@ message-free policy is needed to assess attainable performance without messages.
 ## Limits and unresolved cases
 
 - **atoc:** Paper-based implementation with explicit underspecified architecture choices; no author release used for parity.
-- **cacom:** Seed 7 finishes below its random-policy reference. Learning acceptance is unresolved.
+- **cacom:** Historical seed 7 fails. The optional paper-action gate mode addresses a demonstrated label discrepancy; its first fresh confirmation still fails one seed. Release labels remain the default. Current learning acceptance is unresolved.
 - **cdc:** Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation.
 - **cmvc:** Paper-based implementation; the linked release was empty at reconciliation. Its recorded criterion only requires beating random, not reproducing the journal results.
 - **commformer:** Follows the released proceedings configuration and documented quirks. Local navigation curves do not reproduce the published benchmark tables.
@@ -95,7 +95,7 @@ performance or communication benefit. Original failures above remain visible.
 | Method | Learning check | Evidence basis |
 |---|---|---|
 | atoc | pass (3/3) | reused historical evidence |
-| cacom | fail (2/3) | reused historical evidence |
+| cacom | fail (2/3) | fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation |
 | cdc | pass (3/3) | reused historical evidence |
 | cmvc | pass (3/3) | reused historical evidence |
 | commformer | pass (3/3) | reused historical evidence |
@@ -121,7 +121,7 @@ performance or communication benefit. Original failures above remain visible.
 | mdmaddpg | pass (3/3) | reused historical evidence |
 | ndq | pass (3/3) | reused historical evidence |
 | qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes |
-| schednet | fail (2/3) | failed fresh confirmation: delayed signaling, 20k episodes |
+| schednet | fail (2/3) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation |
 | sms | pass (3/3) | reused historical evidence |
 | tarmac | pass (3/3) | reused historical evidence |
 | vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes |
