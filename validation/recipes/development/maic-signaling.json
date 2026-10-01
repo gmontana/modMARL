@@ -19,6 +19,7 @@
   "criteria": {
     "minimum_win_rate": 0.8,
     "return_margin_over_initial": 0.2,
-    "return_margin_over_random": 0.2
+    "return_margin_over_random": 0.2,
+    "return_margin_over_no_message": 0.2
   }
 }
