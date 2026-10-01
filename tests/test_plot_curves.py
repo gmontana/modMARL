@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from tools.plot_curves import PANEL_ORDER, _load, _panel_title, _validate_complete
+from tools.plot_curves import PANEL_ORDER, _load, _load_inventory, _panel_title, _validate_complete
 from tools.train_curves import ALGORITHMS, SOURCE_REVISIONS, _clear_outputs, _selected_seeds
 
 COMMUNICATION_METHODS = {
@@ -49,6 +49,29 @@ def test_load_rejects_curve_without_source_revision(tmp_path) -> None:
 
     with pytest.raises(ValueError, match="does not record source_revision"):
         _load(tmp_path, window=1)
+
+
+def test_inventory_plot_uses_selected_panel_without_mixing_old_failures(tmp_path) -> None:
+    (tmp_path / "validation").mkdir()
+    inventory = {"algorithms": {
+        "qmix": {"artifacts": "old.json", "learning": {"artifacts": "new.json"}},
+        "vdn": {"artifacts": "vdn.json"},
+    }}
+    path = tmp_path / "validation/inventory.json"
+    path.write_text(json.dumps(inventory))
+    for filename, algorithm, returns in (
+        ("old.json", "qmix", [-10., -9.]), ("new.json", "qmix", [-2., -1.]),
+        ("vdn.json", "vdn", [-3., -2.]),
+    ):
+        (tmp_path / filename).write_text(json.dumps({
+            "algorithm": algorithm, "env": "navigation", "source_revision": "reference",
+            "returns": returns,
+        }))
+    series = _load_inventory(path, window=1)
+    assert series["qmix"]["mean"].tolist() == [-2., -1.]
+    assert series["qmix"]["n_seeds"] == 1
+    assert series["vdn"]["mean"].tolist() == [-3., -2.]
+    assert (tmp_path / "old.json").exists()
 
 
 def test_explicit_curve_seeds_override_the_count() -> None:
