@@ -61,7 +61,7 @@
     "path": "/path/to/storage/modMARL-validation-20261001/schednet-gradient-confirmation/schednet/seed601/result.json",
     "exists": true,
     "size_bytes": 210165,
-    "sha256": "46ca42372dccae60821d88eb364fb004b2f45d8acd9df910cc4069e953d44c9c",
+    "sha256": "9045a39ba5ee80cd769bd28d83626d60364f11a836aa134e2a5072d16429abff",
     "artifact_id": "46ca42372dccae60821d88eb364fb004b2f45d8acd9df910cc4069e953d44c9c",
     "modified_at": "2026-10-01T00:04:14.798308+00:00"
   },

@@ -1,4 +1,4 @@
-include AGENTS.md CITATION.cff CONTRIBUTING.md LABBOOK.md
+include AGENTS.md CITATION.cff CONTRIBUTING.md
 include modMARL.png modMARL-dark.png
 recursive-include examples *.py
 recursive-include tools *.py *.txt

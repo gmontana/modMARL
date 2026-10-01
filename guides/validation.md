@@ -156,5 +156,9 @@ differ from this checkout. Historical evidence has weaker provenance as noted ab
 
 Binary signaling is a minimal communication learning check with two target states.
 Its success rate does not measure generalization to new partners or large teams.
-A pass on one task can coexist with failures elsewhere; preserved failed panels
-and the experiment decisions are recorded in [LABBOOK.md](../LABBOOK.md).
+A pass on one task can coexist with failures elsewhere; failed panels are
+preserved alongside subsequent repairs.
+
+Machine names, user names and storage paths were redacted from the recorded
+provenance on 2026-10-01. Result files changed only in those strings, and their
+recorded hashes were recomputed after the redaction; no metric was altered.

@@ -23,7 +23,7 @@ Useful baselines and recent communication methods are welcome when they address
 a concrete gap; publication year alone is not an acceptance criterion.
 
 For research runs, record the question, frozen protocol, costs, results (including
-failures), and next decision in the single `LABBOOK.md`. Keep large outputs out of
+failures), and next decision in your lab book, kept outside the repository. Keep large outputs out of
 Git. Do not regenerate the full curve catalogue for a local change. For a changed
 validation claim, inspect `python tools/check_validation.py --json`, update the
 inventory deliberately, then regenerate the public table with `--write`.

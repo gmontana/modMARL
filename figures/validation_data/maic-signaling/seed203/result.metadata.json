@@ -61,7 +61,7 @@
     "path": "/path/to/storage/modMARL-validation-20261001/maic-signaling-confirmation/maic/seed203/result.json",
     "exists": true,
     "size_bytes": 476409,
-    "sha256": "f0e8ba33b2cdecf75a9fe302e5f551166a6db8f11136e7020856f66dc362cf81",
+    "sha256": "53f655c60eb90d5abb1105e1647442fe8b0df641411b2cb6d82b8f26e16ff1bb",
     "artifact_id": "f0e8ba33b2cdecf75a9fe302e5f551166a6db8f11136e7020856f66dc362cf81",
     "modified_at": "2026-10-01T00:42:02.950946+00:00"
   },

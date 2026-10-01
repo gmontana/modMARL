@@ -55,8 +55,7 @@ retained. The 32-episode smoke took 2.7 seconds, the 3,000-episode development p
 startup and artifact reporting. Runtime and seeded outcomes can change with hardware
 or dependencies. The smoke and pilot are not learning evidence.
 
-See [the labbook](../LABBOOK.md) for subsequent verification, and
-`figures/demo_data/` for the published raw results. Rebuild their figure with:
+See `figures/demo_data/` for the published raw results. Rebuild their figure with:
 
 ```bash
 python -m modmarl.demo plot --results figures/demo_data --out runs/published-figure

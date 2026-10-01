@@ -41,7 +41,8 @@ points are the self-contained training examples `examples/train_<algo>.py`
   The numerical criteria are scoped learning evidence, not blanket certification.
 - Packaged demo: `python -m modmarl.demo train --episodes 32 --out runs/smoke`.
   The 32-episode recipe is an execution check; `compare` runs the frozen six-run
-  recipe. Keep experiment records in `LABBOOK.md` and local outputs under `runs/`.
+  recipe. Keep experiment records in the maintainers' private lab book, outside
+  this repository, and local outputs under `runs/`.
 - When a paper's release contradicts its text, the discrepancy is documented in
   the module docstring and the release's quirks are reproduced, not tidied
   (see `modmarl/algorithms/commformer.py`).

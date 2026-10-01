@@ -24,3 +24,6 @@ dist/
 
 # Local demonstration outputs (release evidence is copied explicitly into figures/)
 runs/
+
+# Private research records: never published
+LABBOOK.md

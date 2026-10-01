@@ -61,7 +61,7 @@
     "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.json",
     "exists": true,
     "size_bytes": 447575,
-    "sha256": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+    "sha256": "efb22ce1e8f00152d5414e194a82ea89b3d0e7b2e5a00c1ea943ce5af8da4503",
     "artifact_id": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
     "modified_at": "2026-10-01T00:38:49.776775+00:00"
   },

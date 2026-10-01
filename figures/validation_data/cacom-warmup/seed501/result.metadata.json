@@ -61,7 +61,7 @@
     "path": "/path/to/storage/modMARL-validation-20261001/cacom-warmup-confirmation/cacom/seed501/result.json",
     "exists": true,
     "size_bytes": 411498,
-    "sha256": "04f6f78b10586c1be73ddada444a51d9946c0a4143da091e65c29d720d949493",
+    "sha256": "ab042e8a261f0be46c06edc785e340deda0e82ac90b4b7f2db91414b7c64cd46",
     "artifact_id": "04f6f78b10586c1be73ddada444a51d9946c0a4143da091e65c29d720d949493",
     "modified_at": "2026-10-01T01:01:02.922961+00:00"
   },
