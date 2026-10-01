@@ -1,10 +1,10 @@
 {
   "algorithm": "cacom",
-  "scope": "fresh confirmation of paper-action gates after longer classifier convergence",
+  "scope": "fresh bounded signaling confirmation with paper-action labels, released RMSProp and 30k full-link warmup",
   "seeds": [
-    401,
-    403,
-    407
+    501,
+    503,
+    507
   ],
   "config": {
     "env": "target_signaling",
@@ -13,7 +13,7 @@
     "evaluation_episodes": 300,
     "device": "cpu",
     "episodes": 40000,
-    "gate_start_steps": 10000,
+    "gate_start_steps": 30000,
     "gate_update_every_steps": 10,
     "epsilon_anneal_steps": 20000,
     "gate_label_mode": "paper"
