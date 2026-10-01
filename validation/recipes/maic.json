@@ -1,15 +1,25 @@
 {
   "algorithm": "maic",
-  "scope": "fresh-seed learning confirmation; no claim of communication benefit",
-  "seeds": [101, 103, 107],
+  "scope": "fresh basic signaling learning and message reliance; local running-statistics evaluation; not Hallway reproduction",
+  "seeds": [
+    201,
+    203,
+    207
+  ],
   "config": {
-    "env": "maic_hallway", "n_agents": 3, "horizon": 20,
-    "episodes": 100000, "mixer": "qmix", "evaluation_episodes": 300,
-    "evaluation_normalization": "batch", "device": "cpu"
+    "env": "target_signaling",
+    "n_agents": 3,
+    "horizon": 1,
+    "episodes": 20000,
+    "mixer": "vdn",
+    "evaluation_episodes": 300,
+    "evaluation_normalization": "running",
+    "device": "cpu"
   },
   "criteria": {
     "minimum_win_rate": 0.8,
-    "return_margin_over_initial": 1.0,
-    "return_margin_over_random": 1.0
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2,
+    "return_margin_over_no_message": 0.2
   }
 }

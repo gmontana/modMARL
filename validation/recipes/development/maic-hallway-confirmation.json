@@ -1,0 +1,15 @@
+{
+  "algorithm": "maic",
+  "scope": "fresh-seed learning confirmation; no claim of communication benefit",
+  "seeds": [101, 103, 107],
+  "config": {
+    "env": "maic_hallway", "n_agents": 3, "horizon": 20,
+    "episodes": 100000, "mixer": "qmix", "evaluation_episodes": 300,
+    "evaluation_normalization": "batch", "device": "cpu"
+  },
+  "criteria": {
+    "minimum_win_rate": 0.8,
+    "return_margin_over_initial": 1.0,
+    "return_margin_over_random": 1.0
+  }
+}
