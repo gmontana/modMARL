@@ -49,7 +49,7 @@ also checks that the documentation matches. Do not silently replace a failed
 seed, lower its threshold, or call a reused development run fresh confirmation.
 The optional slow tests use those same recipes and registered seeds. Select a
 method with `pytest -o addopts='' -m slow tests/test_learning.py -k ic3net`;
-running the entire slow suite includes the much longer MAIC budget. Legacy
+running the entire slow suite retrains all registered panels. Legacy
 training-return probes for other methods remain separate from acceptance evidence.
 
 Package verification:

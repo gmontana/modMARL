@@ -1,7 +1,7 @@
 """Run one frozen learning-validation job with its protocol and provenance.
 
-Example: python -m tools.run_validation --protocol validation/recipes/maic.json
-    --seed 101 --out runs/confirmation/maic-101
+Example: python -m tools.run_validation --protocol validation/recipes/ic3net.json
+    --seed 101 --out runs/confirmation/ic3net-101
 Protocols declare the task, budget, seeds and acceptance rules before execution.
 Existing output directories are never overwritten. Run independent jobs in separate
 processes; each uses one PyTorch CPU thread unless its config selects a GPU.

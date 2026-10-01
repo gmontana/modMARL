@@ -34,7 +34,8 @@ with an entity schema should pass ``entity_schema`` as ``(count, length)`` pairs
 entity *type*, mirroring the release's ``obs_segs``: every token of a type shares one
 encoder, which is what makes the encoder permutation-equivariant over interchangeable
 entities. Without an environment schema, each scalar observation feature is conservatively
-treated as its own single-token type; validation always supplies the navigation schema.
+treated as its own single-token type. Navigation runs supply the entity schema;
+the minimal signaling recipe uses scalar tokens.
 """
 
 from __future__ import annotations

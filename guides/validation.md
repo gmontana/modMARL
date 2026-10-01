@@ -74,7 +74,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 - **iql:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Fresh confirmation under explicit navigation criteria is reported below.
 - **iwol:** The curves cover Im-IWoL (zero execution messages), not Ex-IWoL or the published robotics tables. Implementation follows the pinned v3 specification; the January 2026 v4 revision is not automatically validated.
 - **magic:** The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.
-- **maic:** Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity.
+- **maic:** Fresh three-agent signaling confirmation passes all three seeds using VDN and running-statistics evaluation, including a message-ablation margin. This establishes local-policy task learning and message reliance on this task. Hallway reproduction remains unresolved: fresh seed 103 fails, 101/107 were stopped for compute futility after that failure; original historical failures remain. The pinned encoder comparison is component-only, not whole-policy parity.
 - **masia:** Hallway success uses a win reward of 1, whereas NDQ uses 10. The task name alone does not establish comparable configuration; there is no recorded message ablation.
 - **mdmaddpg:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
@@ -116,7 +116,7 @@ performance or communication benefit. Original failures above remain visible.
 | maddpg | pass (3/3) | reused historical evidence | Historical curve data |
 | maddpg_m | pass (3/3) | reused historical evidence | Historical curve data |
 | magic | pass (3/3) | fresh confirmation: delayed signaling, 20k episodes | [JSON](../validation/recipes/magic.json) |
-| maic | fail (0/3) | reused historical evidence | Historical curve data |
+| maic | pass (3/3) | fresh three-agent signaling, 20k episodes, VDN, local running statistics and message-ablation control | [JSON](../validation/recipes/maic.json) |
 | mappo | pass (3/3) | reused historical evidence | Historical curve data |
 | marc | pass (3/3) | reused historical evidence | Historical curve data |
 | masia | pass (3/3) | reused historical evidence | Historical curve data |

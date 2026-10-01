@@ -1,0 +1,58 @@
+{
+  "algorithm": "maic",
+  "seed": 103,
+  "protocol": {
+    "algorithm": "maic",
+    "scope": "fresh-seed learning confirmation; no claim of communication benefit",
+    "seeds": [
+      101,
+      103,
+      107
+    ],
+    "config": {
+      "env": "maic_hallway",
+      "n_agents": 3,
+      "horizon": 20,
+      "episodes": 100000,
+      "mixer": "qmix",
+      "evaluation_episodes": 300,
+      "evaluation_normalization": "batch",
+      "device": "cpu"
+    },
+    "criteria": {
+      "minimum_win_rate": 0.8,
+      "return_margin_over_initial": 1.0,
+      "return_margin_over_random": 1.0
+    }
+  },
+  "resolved_config": {
+    "env": "maic_hallway",
+    "n_agents": 3,
+    "horizon": 20,
+    "episodes": 100000,
+    "seed": 103,
+    "lr": 0.0005,
+    "hidden_dim": 64,
+    "latent_dim": 8,
+    "attention_dim": 32,
+    "mixer_hidden_dim": 32,
+    "mixer": "qmix",
+    "include_previous_action": true,
+    "buffer_episodes": 5000,
+    "batch_episodes": 32,
+    "warmup_episodes": 32,
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.05,
+    "epsilon_anneal_steps": 50000,
+    "gamma": 0.99,
+    "mi_loss_weight": 0.001,
+    "entropy_loss_weight": 0.01,
+    "updates_per_episode": 1,
+    "target_update_every": 200,
+    "evaluation_episodes": 300,
+    "device": "cpu",
+    "evaluation_normalization": "batch",
+    "checkpoint": "/path/to/storage/modMARL-validation-20261001/maic-confirmation/maic/seed103/checkpoint.pt"
+  },
+  "status": "running"
+}

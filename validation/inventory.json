@@ -328,7 +328,20 @@
         "figures/reference_data/maic_normalization/normalization.json"
       ],
       "acknowledged_status": "fail",
-      "notes": "Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity."
+      "notes": "Fresh three-agent signaling confirmation passes all three seeds using VDN and running-statistics evaluation, including a message-ablation margin. This establishes local-policy task learning and message reliance on this task. Hallway reproduction remains unresolved: fresh seed 103 fails, 101/107 were stopped for compute futility after that failure; original historical failures remain. The pinned encoder comparison is component-only, not whole-policy parity.",
+      "learning": {
+        "artifacts": "figures/validation_data/maic-signaling/seed*/result.json",
+        "seeds": [
+          201,
+          203,
+          207
+        ],
+        "protocol": "validation/recipes/maic.json",
+        "source_dependencies": [
+          "modmarl/algorithms/qmix.py"
+        ],
+        "basis": "fresh three-agent signaling, 20k episodes, VDN, local running statistics and message-ablation control"
+      }
     },
     "mappo": {
       "implementation": "modmarl/algorithms/mappo.py",
