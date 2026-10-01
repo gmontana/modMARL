@@ -42,6 +42,13 @@ def evaluate_run(payload: dict) -> dict:
             raise ValueError("Evaluation seed/count mismatch")
         if payload["episodes"] != len(payload["returns"]) or not payload["source_revision"]:
             raise ValueError("Episode count or source revision missing/inconsistent")
+
+        def evaluation_mean(evaluation: dict, field: str) -> float:
+            value = _mean(evaluation, field)
+            if len(evaluation[field]) != len(seeds):
+                raise ValueError(f"Evaluation seed/count mismatch for {field}")
+            return value
+
         criteria = payload.get("validation_criterion")
         if not criteria:
             return {"status": "missing criterion", "details": []}
@@ -63,12 +70,12 @@ def evaluate_run(payload: dict) -> dict:
             elif name == "return_margin_over_initial":
                 actual = final_return - initial
             elif name == "return_margin_over_no_message":
-                actual = final_return - _mean(payload["message_ablated_evaluation"], "returns")
+                actual = final_return - evaluation_mean(payload["message_ablated_evaluation"], "returns")
             elif name == "maximum_mean_distance":
-                actual = _mean(final, "mean_distances")
+                actual = evaluation_mean(final, "mean_distances")
             elif name in ("minimum_win_rate", "minimum_success_rate", "final_success_rate"):
-                actual = _mean(final, "successes")
-                if not 0 <= actual <= 1:
+                actual = evaluation_mean(final, "successes")
+                if any(not 0 <= success <= 1 for success in final["successes"]):
                     raise ValueError("Success fraction outside [0, 1]")
             elif name == "minimum_final_mean_return":
                 actual = final_return

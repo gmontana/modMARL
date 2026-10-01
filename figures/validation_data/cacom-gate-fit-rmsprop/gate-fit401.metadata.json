@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-10-01T00:38:28.963206+00:00",
+  "finished_at": "2026-10-01T00:38:50.932832+00:00",
+  "argv": [
+    "/path/to/storage/repos/modMARL-validation-stage15/tools/reference/check_cacom_evaluation.py",
+    "--result",
+    "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/cacom/seed401/result.json",
+    "--fit-gate-updates",
+    "5000",
+    "--out",
+    "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.json"
+  ],
+  "run": {
+    "run_id": "628013ee00c3eb6b",
+    "script": "check_cacom_evaluation.py"
+  },
+  "git": {
+    "repo_root": "/path/to/storage/repos/modMARL-validation-stage15",
+    "branch": "",
+    "commit": "9e6bda6219ee00c6a0e7be03b5dda189a30a5698",
+    "short_commit": "9e6bda6",
+    "dirty": false,
+    "status_short": []
+  },
+  "python": {
+    "modmarl_version": null,
+    "executable": "/path/to/storage/modMARL-validation-20261001/cpu-env/bin/python",
+    "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+    "python_implementation": "CPython",
+    "torch_version": "2.5.1+cpu",
+    "numpy_version": "2.2.6"
+  },
+  "hardware": {
+    "hostname": "gpu-node",
+    "fqdn": "gpu-node",
+    "user": "user",
+    "cwd": "/path/to/storage/repos/modMARL-validation-stage15",
+    "cpu_info": {
+      "machine": "x86_64",
+      "processor": "x86_64"
+    },
+    "torch_cuda": {
+      "is_available": false,
+      "device_count": 0,
+      "device_names": []
+    },
+    "nvidia_smi": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.total,driver_version",
+        "--format=csv,noheader"
+      ],
+      "returncode": 0,
+      "stdout": "0, GPU-224b3986-7367-3fc1-6ea3-c49f429bc424, NVIDIA RTX A5000, 24564 MiB, 580.178.04",
+      "stderr": ""
+    }
+  },
+  "primary_output": {
+    "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.json",
+    "exists": true,
+    "size_bytes": 447575,
+    "sha256": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+    "artifact_id": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+    "modified_at": "2026-10-01T00:38:49.776775+00:00"
+  },
+  "inputs": [
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/cacom/seed401/result.json",
+      "exists": true,
+      "size_bytes": 411566,
+      "sha256": "82081edb334ab37cbe1751943f7f83ff42927fb227f15a430595ea4f18f9896a",
+      "artifact_id": "82081edb334ab37cbe1751943f7f83ff42927fb227f15a430595ea4f18f9896a",
+      "modified_at": "2026-10-01T00:32:55.745631+00:00"
+    },
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/cacom/seed401/checkpoint.pt",
+      "exists": true,
+      "size_bytes": 383186,
+      "sha256": "1d71473d84d9d055974f345d42454b4cf139129bd93f3e092808eb8d68fd586a",
+      "artifact_id": "1d71473d84d9d055974f345d42454b4cf139129bd93f3e092808eb8d68fd586a",
+      "modified_at": "2026-10-01T00:32:55.390628+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage15/tools/reference/check_cacom_evaluation.py",
+      "exists": true,
+      "size_bytes": 7317,
+      "sha256": "5a01d55ddf7aeca2df7567f7700bacbbf42fcb1773aef4ac55a6f67cb687bc9f",
+      "artifact_id": "5a01d55ddf7aeca2df7567f7700bacbbf42fcb1773aef4ac55a6f67cb687bc9f",
+      "modified_at": "2026-10-01T00:37:31.447297+00:00"
+    },
+    {
+      "path": "examples/train_cacom.py",
+      "exists": true,
+      "size_bytes": 15226,
+      "sha256": "db52fdf1a02f85b37c27bd3ec34e0cbebfa9fc17ff5d4f8dd5ffbc5c8cce8d85",
+      "artifact_id": "db52fdf1a02f85b37c27bd3ec34e0cbebfa9fc17ff5d4f8dd5ffbc5c8cce8d85",
+      "modified_at": "2026-10-01T00:37:16.450206+00:00"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.json",
+      "exists": true,
+      "size_bytes": 447575,
+      "sha256": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+      "artifact_id": "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+      "modified_at": "2026-10-01T00:38:49.776775+00:00"
+    },
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.environment.txt",
+      "exists": true,
+      "size_bytes": 341,
+      "sha256": "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "artifact_id": "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "modified_at": "2026-10-01T00:38:49.903775+00:00"
+    },
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/gate-fit401.gate-fit.pt",
+      "exists": true,
+      "size_bytes": 384706,
+      "sha256": "aee66ec915f018d09f0397eb96c554ee32a9a6713cd629a96f5309b35fd61617",
+      "artifact_id": "aee66ec915f018d09f0397eb96c554ee32a9a6713cd629a96f5309b35fd61617",
+      "modified_at": "2026-10-01T00:38:49.722774+00:00"
+    }
+  ],
+  "lineage": {
+    "input_artifact_ids": [
+      "82081edb334ab37cbe1751943f7f83ff42927fb227f15a430595ea4f18f9896a",
+      "1d71473d84d9d055974f345d42454b4cf139129bd93f3e092808eb8d68fd586a",
+      "5a01d55ddf7aeca2df7567f7700bacbbf42fcb1773aef4ac55a6f67cb687bc9f",
+      "db52fdf1a02f85b37c27bd3ec34e0cbebfa9fc17ff5d4f8dd5ffbc5c8cce8d85"
+    ],
+    "output_artifact_ids": [
+      "9eaa714cafb96e3919a4a1bc78ce82a57faf8fe03918c4eb014b9bd17d7799dd",
+      "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "aee66ec915f018d09f0397eb96c554ee32a9a6713cd629a96f5309b35fd61617"
+    ],
+    "parent_run_ids": [
+      "aa120927e78bb6fb"
+    ],
+    "parent_records": [
+      {
+        "path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/cacom/seed401/result.json",
+        "metadata_path": "/path/to/storage/modMARL-validation-20261001/cacom-optimizer-development/cacom/seed401/result.metadata.json",
+        "run_id": "aa120927e78bb6fb",
+        "artifact_id": "82081edb334ab37cbe1751943f7f83ff42927fb227f15a430595ea4f18f9896a"
+      }
+    ]
+  },
+  "extra": {}
+}

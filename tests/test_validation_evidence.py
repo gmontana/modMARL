@@ -55,6 +55,19 @@ def test_relative_return_uses_random_magnitude_and_handles_zero():
     assert evaluate_run(payload)["status"] == "insufficient evidence"
 
 
+@pytest.mark.parametrize("criterion,evaluation,field,values", [
+    ("minimum_success_rate", "final_evaluation", "successes", [1]),
+    ("minimum_success_rate", "final_evaluation", "successes", [-1, 3]),
+    ("maximum_mean_distance", "final_evaluation", "mean_distances", [0]),
+    ("return_margin_over_no_message", "message_ablated_evaluation", "returns", [-1]),
+])
+def test_task_and_ablation_metrics_cover_all_evaluation_seeds(criterion, evaluation, field, values):
+    payload = _payload()
+    payload["validation_criterion"] = {criterion: 0.8}
+    payload.setdefault(evaluation, {})[field] = values
+    assert evaluate_run(payload)["status"] == "insufficient evidence"
+
+
 def test_inventory_and_document_match_recorded_evidence():
     inventory = json.loads((ROOT / "validation/inventory.json").read_text())
     assert set(inventory["algorithms"]) == {name for name, _ in ALGORITHMS}
