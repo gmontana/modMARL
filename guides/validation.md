@@ -39,7 +39,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 | [maddpg](../modmarl/algorithms/maddpg.py) | [tests](../tests/test_maddpg.py) | pass (3/3 seeds pass) | 0/3 | [artifact](../figures/reference_data/maddpg_openai_parity.json) |
 | [maddpg_m](../modmarl/algorithms/maddpg_m.py) | [tests](../tests/test_maddpg_m.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [magic](../modmarl/algorithms/magic.py) | [tests](../tests/test_magic.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
-| [maic](../modmarl/algorithms/maic.py) | [tests](../tests/test_maic.py) | fail (0/3 seeds pass) | 3/3 | Not recorded |
+| [maic](../modmarl/algorithms/maic.py) | [tests](../tests/test_maic.py) | fail (0/3 seeds pass) | 3/3 | [artifact](../figures/reference_data/maic_normalization/normalization.json) |
 | [mappo](../modmarl/algorithms/mappo.py) | [tests](../tests/test_mappo.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [marc](../modmarl/algorithms/marc.py) | [tests](../tests/test_marc.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |
 | [masia](../modmarl/algorithms/masia.py) | [tests](../tests/test_masia.py) | pass (3/3 seeds pass) | 0/3 | Not recorded |

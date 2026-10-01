@@ -324,7 +324,9 @@
         13,
         17
       ],
-      "reference_comparisons": [],
+      "reference_comparisons": [
+        "figures/reference_data/maic_normalization/normalization.json"
+      ],
       "acknowledged_status": "fail",
       "notes": "Historical runs miss the 80% win threshold and predate the evaluation-normalization/replay-tail fixes. Repaired seed-11 development reaches 300/300 wins, also with messages disabled; fresh confirmation is pending. The official evaluation uses batch statistics across agents, so matching it does not establish strictly local message generation. The pinned encoder comparison is component-only, not whole-policy parity."
     },
