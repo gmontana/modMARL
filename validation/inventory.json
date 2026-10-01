@@ -452,16 +452,16 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.",
+      "notes": "Historical seed 3 fails. Matching the released replay-priority critic derivative repairs earlier scheduling failures, but 20k-step confirmation still fails one seed. Longer-budget confirmation is pending; all failed panels remain recorded.",
       "learning": {
-        "artifacts": "figures/validation_data/schednet-release/seed*/result.json",
+        "artifacts": "figures/validation_data/schednet-gradient/seed*/result.json",
         "seeds": [
-          401,
-          403,
-          407
+          601,
+          603,
+          607
         ],
-        "protocol": "validation/recipes/development/schednet-fourth-confirmation.json",
-        "basis": "fresh one-step confirmation; seed 401 fails, slower exploration under investigation"
+        "protocol": "validation/recipes/development/schednet-sixth-confirmation.json",
+        "basis": "fresh released-gradient confirmation; 20k budget still fails seed 607"
       }
     },
     "sms": {

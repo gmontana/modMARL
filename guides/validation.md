@@ -79,7 +79,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 - **mdmaddpg:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
 - **qmix:** Historical curves have no saved criterion. Fresh navigation confirmation passes with gamma 0.9; gamma 0.99 failed a seed even at 30k episodes. Controlled updates match pinned PyMARL exactly with the documented modern-autograd compatibility patch.
-- **schednet:** Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.
+- **schednet:** Historical seed 3 fails. Matching the released replay-priority critic derivative repairs earlier scheduling failures, but 20k-step confirmation still fails one seed. Longer-budget confirmation is pending; all failed panels remain recorded.
 - **vdn:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference. Fresh confirmation under explicit navigation criteria is reported below.
 
 The 93 historical curve artifacts do not uniformly identify the generating modMARL
@@ -124,7 +124,7 @@ performance or communication benefit. Original failures above remain visible.
 | mdmaddpg | pass (3/3) | reused historical evidence | Historical curve data |
 | ndq | pass (3/3) | reused historical evidence | Historical curve data |
 | qmix | pass (3/3) | fresh navigation confirmation, 10k episodes with gamma 0.9 | [JSON](../validation/recipes/qmix.json) |
-| schednet | insufficient evidence (0/0) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation | [JSON](../validation/recipes/development/schednet-fourth-confirmation.json) |
+| schednet | fail (2/3) | fresh released-gradient confirmation; 20k budget still fails seed 607 | [JSON](../validation/recipes/development/schednet-sixth-confirmation.json) |
 | sms | pass (3/3) | reused historical evidence | Historical curve data |
 | tarmac | pass (3/3) | reused historical evidence | Historical curve data |
 | vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes | [JSON](../validation/recipes/vdn.json) |

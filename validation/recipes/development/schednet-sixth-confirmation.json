@@ -1,10 +1,10 @@
 {
   "algorithm": "schednet",
-  "scope": "fresh confirmation of released scheduler gradient with adequate convergence budget",
+  "scope": "fresh confirmation of released replay-priority scheduler gradient and original rate/exploration settings",
   "seeds": [
-    701,
-    703,
-    707
+    601,
+    603,
+    607
   ],
   "config": {
     "env": "target_signaling",
@@ -12,7 +12,7 @@
     "horizon": 1,
     "evaluation_episodes": 300,
     "device": "cpu",
-    "episodes": 50000,
+    "episodes": 20000,
     "actor_learning_rate": 1e-05,
     "weight_learning_rate": 1e-05,
     "critic_learning_rate": 0.0001,
