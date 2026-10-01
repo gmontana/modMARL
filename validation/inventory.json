@@ -452,16 +452,16 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Historical seed 3 fails. Matching the released replay-priority critic derivative repairs earlier scheduling failures, but 20k-step confirmation still fails one seed. Longer-budget confirmation is pending; all failed panels remain recorded.",
+      "notes": "Fresh one-step confirmation passes all three seeds with the released replay-priority critic derivative and a 50k budget. Historical navigation and several shorter-budget panels fail; they remain preserved. This establishes task learning, not the paper benchmark results.",
       "learning": {
-        "artifacts": "figures/validation_data/schednet-gradient/seed*/result.json",
+        "artifacts": "figures/validation_data/schednet-convergence/seed*/result.json",
         "seeds": [
-          601,
-          603,
-          607
+          701,
+          703,
+          707
         ],
-        "protocol": "validation/recipes/development/schednet-sixth-confirmation.json",
-        "basis": "fresh released-gradient confirmation; 20k budget still fails seed 607"
+        "protocol": "validation/recipes/schednet.json",
+        "basis": "fresh one-step confirmation; released scheduler derivative, 50k episodes"
       }
     },
     "sms": {
