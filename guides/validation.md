@@ -3,7 +3,7 @@
 Generated from `validation/inventory.json` and committed artifacts with
 `python tools/check_validation.py --write`. Check without training using `--check`.
 
-**Current bounded learning checks: 30/31 methods pass.**
+**Current bounded learning checks: 31/31 methods pass.**
 See [current results and frozen recipes](#bounded-learning-checks);
 the first table below preserves the historical audit.
 
@@ -67,7 +67,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 ## Limits and unresolved cases
 
 - **atoc:** Paper-based implementation with explicit underspecified architecture choices; no author release used for parity.
-- **cacom:** Historical seed 7 and subsequent short signaling panels fail. Paper-action gate labels alone do not establish reliable learning; the released RMSProp optimizer is under investigation. Release labels remain the default. Failed panels are preserved; current learning acceptance is unresolved.
+- **cacom:** Fresh signaling confirmation passes all three seeds with paper-action labels, released RMSProp and 30k full-link warmup in a 40k episode budget. Final link-retention rates are 0.747/1.0/1.0: this supports task learning, not reliable sparsification or bandwidth savings. Release labels remain the default and are not covered by this confirmation. Historical and subsequent failed panels are preserved.
 - **cdc:** Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation.
 - **cmvc:** Paper-based implementation; the linked release was empty at reconciliation. Its recorded criterion only requires beating random, not reproducing the journal results.
 - **commformer:** Follows the released proceedings configuration and documented quirks. Local navigation curves do not reproduce the published benchmark tables.
@@ -102,7 +102,7 @@ performance or communication benefit. Original failures above remain visible.
 | Method | Learning check | Evidence basis | Frozen recipe |
 |---|---|---|---|
 | atoc | pass (3/3) | reused historical evidence | Historical curve data |
-| cacom | insufficient evidence (0/0) | 40k paper-label panel fails 401/407; released optimizer under investigation | [JSON](../validation/recipes/development/cacom-third-confirmation.json) |
+| cacom | pass (3/3) | fresh signaling, paper-action labels, 40k episodes with 30k gate warmup; no bandwidth-savings claim | [JSON](../validation/recipes/cacom.json) |
 | cdc | pass (3/3) | reused historical evidence | Historical curve data |
 | cmvc | pass (3/3) | reused historical evidence | Historical curve data |
 | commformer | pass (3/3) | reused historical evidence | Historical curve data |

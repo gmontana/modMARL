@@ -27,19 +27,19 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Historical seed 7 and subsequent short signaling panels fail. Paper-action gate labels alone do not establish reliable learning; the released RMSProp optimizer is under investigation. Release labels remain the default. Failed panels are preserved; current learning acceptance is unresolved.",
+      "notes": "Fresh signaling confirmation passes all three seeds with paper-action labels, released RMSProp and 30k full-link warmup in a 40k episode budget. Final link-retention rates are 0.747/1.0/1.0: this supports task learning, not reliable sparsification or bandwidth savings. Release labels remain the default and are not covered by this confirmation. Historical and subsequent failed panels are preserved.",
       "learning": {
-        "artifacts": "figures/validation_data/cacom-convergence/seed*/result.json",
+        "artifacts": "figures/validation_data/cacom-warmup/seed*/result.json",
         "seeds": [
-          401,
-          403,
-          407
+          501,
+          503,
+          507
         ],
-        "protocol": "validation/recipes/development/cacom-third-confirmation.json",
+        "protocol": "validation/recipes/cacom.json",
         "source_dependencies": [
           "modmarl/algorithms/qmix.py"
         ],
-        "basis": "40k paper-label panel fails 401/407; released optimizer under investigation"
+        "basis": "fresh signaling, paper-action labels, 40k episodes with 30k gate warmup; no bandwidth-savings claim"
       }
     },
     "cdc": {
