@@ -414,3 +414,81 @@ def test_attention_matches_the_released_equation_two() -> None:
             expected[b, i] = torch.softmax(logits, dim=-1)
 
     torch.testing.assert_close(got, expected, rtol=0.0, atol=1e-12)
+
+
+def test_evaluation_uses_release_batch_statistics_without_mutating_agent() -> None:
+    # Official MAIC test_mode changes latent sampling/pruning, not BatchNorm mode.
+    # Deliberately distinct running statistics make accidental eval() detectable.
+    torch.manual_seed(41)
+    agent = MAICAgent(3, 1, 3, hidden_dim=16, latent_dim=4, attention_dim=8)
+    bn = agent.network.embed_net.layers[1]
+    bn.running_mean.fill_(7.0)
+    bn.running_var.fill_(3.0)
+    before = {key: value.clone() for key, value in agent.state_dict().items()}
+    before_modes = [module.training for module in agent.modules()]
+    observed = []
+
+    def check_batch_statistics(module, inputs, output):
+        x = inputs[0].detach()
+        expected = (x - x.mean(0)) / torch.sqrt(x.var(0, unbiased=False) + module.eps)
+        expected = expected * module.weight.detach() + module.bias.detach()
+        observed.append((output.detach().clone(), expected))
+
+    handle = bn.register_forward_hook(check_batch_statistics)
+    try:
+        first = train_maic._evaluate(agent, "maic_hallway", 3, 20, 11, 3, torch.device("cpu"))
+        second = train_maic._evaluate(agent, "maic_hallway", 3, 20, 11, 3, torch.device("cpu"))
+    finally:
+        handle.remove()
+    assert observed
+    for actual, expected in observed:
+        torch.testing.assert_close(actual, expected)
+    assert first == second
+    assert [module.training for module in agent.modules()] == before_modes
+    for key, value in agent.state_dict().items():
+        torch.testing.assert_close(value, before[key], rtol=0, atol=0)
+
+
+def test_appended_replay_padding_cannot_change_update_or_normalization() -> None:
+    import copy
+
+    from modmarl.common.replay import EpisodeBatch
+
+    torch.manual_seed(51)
+    agent = _agent()
+    other = copy.deepcopy(agent)
+    batch = EpisodeBatch(
+        obs=torch.randn(2, 4, 3, 5),
+        actions=torch.randint(4, (2, 3, 3)),
+        rewards=torch.randn(2, 3),
+        dones=torch.tensor([[0., 0., 1.], [0., 0., 1.]]),
+        mask=torch.ones(2, 3),
+    )
+    padded = EpisodeBatch(**{
+        name: torch.cat((value, value.new_zeros(2, 4, *value.shape[2:])), dim=1)
+        for name, value in vars(batch).items()
+    })
+    metrics = []
+    for model, data in [(agent, batch), (other, padded)]:
+        torch.manual_seed(61)
+        optimizer = torch.optim.RMSprop(model.parameters(), lr=5e-4, alpha=.99, eps=1e-5)
+        metrics.append(train_maic._update(model, optimizer, data, .99, .001, .01))
+    for key, value in agent.state_dict().items():
+        torch.testing.assert_close(value, other.state_dict()[key], rtol=0, atol=0)
+    assert metrics[0] == metrics[1]
+
+
+@pytest.mark.parametrize("normalization", ["batch", "running"])
+def test_evaluation_mode_restores_mixed_module_modes_after_error(normalization) -> None:
+    agent = _agent()
+    agent.target_network.eval()
+    original = [(module.training, getattr(module, "track_running_stats", None))
+                for module in agent.modules()]
+    with pytest.raises(RuntimeError, match="environment failure"):
+        with train_maic._evaluation_mode(agent, normalization):
+            bn = agent.network.embed_net.layers[1]
+            assert bn.training == (normalization == "batch")
+            assert bn.track_running_stats == (normalization == "running")
+            raise RuntimeError("environment failure")
+    assert original == [(module.training, getattr(module, "track_running_stats", None))
+                        for module in agent.modules()]

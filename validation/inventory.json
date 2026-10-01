@@ -27,7 +27,20 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Seed 7 finishes below its random-policy reference. Learning acceptance is unresolved."
+      "notes": "Fresh signaling confirmation passes all three seeds with paper-action labels, released RMSProp and 30k full-link warmup in a 40k episode budget. Final link-retention rates are 0.747/1.0/1.0: this supports task learning, not reliable sparsification or bandwidth savings. Release labels remain the default and are not covered by this confirmation. Historical and subsequent failed panels are preserved.",
+      "learning": {
+        "artifacts": "figures/validation_data/cacom-warmup/seed*/result.json",
+        "seeds": [
+          501,
+          503,
+          507
+        ],
+        "protocol": "validation/recipes/cacom.json",
+        "source_dependencies": [
+          "modmarl/algorithms/qmix.py"
+        ],
+        "basis": "fresh signaling, paper-action labels, 40k episodes with 30k gate warmup; no bandwidth-savings claim"
+      }
     },
     "cdc": {
       "implementation": "modmarl/algorithms/cdc.py",
@@ -41,7 +54,7 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "Recorded return and ablation margins pass; task success remains zero under the saved success metric. Reference code is private; see the implementation reconciliation."
+      "notes": "Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation."
     },
     "cmvc": {
       "implementation": "modmarl/algorithms/cmvc/algorithm.py",
@@ -155,7 +168,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves."
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; some execute without communication. Seed 3 has no deterministic return improvement over initialization. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.",
+      "learning": {
+        "artifacts": "figures/validation_data/ic3net/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/ic3net.json",
+        "basis": "fresh confirmation: delayed signaling, 20k episodes"
+      }
     },
     "intention_sharing": {
       "implementation": "modmarl/algorithms/intention_sharing.py",
@@ -197,7 +220,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Fresh confirmation under explicit navigation criteria is reported below.",
+      "learning": {
+        "artifacts": "figures/validation_data/iql/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/iql.json",
+        "basis": "fresh confirmation: navigation, 5k episodes"
+      }
     },
     "iwol": {
       "implementation": "modmarl/algorithms/iwol.py",
@@ -269,7 +302,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "pass",
-      "notes": "The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves."
+      "notes": "The hidden-gate runs pass the return rule but record zero task success; seeds 3 and 5 execute without communication. Useful communication is not established by these curves. Fresh three-seed delayed-signaling confirmation is reported separately below; the hidden-gate task is not solved by these results.",
+      "learning": {
+        "artifacts": "figures/validation_data/magic/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/magic.json",
+        "basis": "fresh confirmation: delayed signaling, 20k episodes"
+      }
     },
     "maic": {
       "implementation": "modmarl/algorithms/maic.py",
@@ -281,9 +324,24 @@
         13,
         17
       ],
-      "reference_comparisons": [],
+      "reference_comparisons": [
+        "figures/reference_data/maic_normalization/normalization.json"
+      ],
       "acknowledged_status": "fail",
-      "notes": "All three saved win rates (43.3%, 77.7%, 51.3%) miss the stated 80% threshold. Message ablation has no effect for seed 11; investigate before claiming robust communication gains."
+      "notes": "Fresh three-agent signaling confirmation passes all three seeds using VDN and running-statistics evaluation, including a message-ablation margin. This establishes local-policy task learning and message reliance on this task. Hallway reproduction remains unresolved: fresh seed 103 fails, 101/107 were stopped for compute futility after that failure; original historical failures remain. The pinned encoder comparison is component-only, not whole-policy parity.",
+      "learning": {
+        "artifacts": "figures/validation_data/maic-signaling/seed*/result.json",
+        "seeds": [
+          201,
+          203,
+          207
+        ],
+        "protocol": "validation/recipes/maic.json",
+        "source_dependencies": [
+          "modmarl/algorithms/qmix.py"
+        ],
+        "basis": "fresh three-agent signaling, 20k episodes, VDN, local running statistics and message-ablation control"
+      }
     },
     "mappo": {
       "implementation": "modmarl/algorithms/mappo.py",
@@ -379,9 +437,21 @@
         13,
         17
       ],
-      "reference_comparisons": [],
+      "reference_comparisons": [
+        "figures/reference_data/qmix_update_parity.json"
+      ],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer."
+      "notes": "Historical curves have no saved criterion. Fresh navigation confirmation passes with gamma 0.9; gamma 0.99 failed a seed even at 30k episodes. Controlled updates match pinned PyMARL exactly with the documented modern-autograd compatibility patch.",
+      "learning": {
+        "artifacts": "figures/validation_data/qmix-discount/seed*/result.json",
+        "seeds": [
+          201,
+          203,
+          207
+        ],
+        "protocol": "validation/recipes/qmix.json",
+        "basis": "fresh navigation confirmation, 10k episodes with gamma 0.9"
+      }
     },
     "schednet": {
       "implementation": "modmarl/algorithms/schednet.py",
@@ -395,7 +465,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved."
+      "notes": "Fresh one-step confirmation passes all three seeds with the released replay-priority critic derivative and a 50k budget. Historical navigation and several shorter-budget panels fail; they remain preserved. This establishes task learning, not the paper benchmark results.",
+      "learning": {
+        "artifacts": "figures/validation_data/schednet-convergence/seed*/result.json",
+        "seeds": [
+          701,
+          703,
+          707
+        ],
+        "protocol": "validation/recipes/schednet.json",
+        "basis": "fresh one-step confirmation; released scheduler derivative, 50k episodes"
+      }
     },
     "sms": {
       "implementation": "modmarl/algorithms/sms.py",
@@ -437,7 +517,17 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference."
+      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference. Fresh confirmation under explicit navigation criteria is reported below.",
+      "learning": {
+        "artifacts": "figures/validation_data/vdn/seed*/result.json",
+        "seeds": [
+          101,
+          103,
+          107
+        ],
+        "protocol": "validation/recipes/vdn.json",
+        "basis": "fresh confirmation: navigation, 20k episodes"
+      }
     }
   }
 }

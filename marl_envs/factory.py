@@ -31,6 +31,7 @@ ENV_CHOICES = (
     "ndq_hallway",
     "maic_hallway",
     "target_signaling",
+    "delayed_signaling",
 )
 
 
@@ -164,6 +165,8 @@ def make_env(
         )
     if env_name == "target_signaling":
         return TargetSignalingEnv(n_agents=n_agents, seed=seed)
+    if env_name == "delayed_signaling":
+        return TargetSignalingEnv(n_agents=n_agents, seed=seed, horizon=horizon)
     if env_name == "simple_spread":
         return SimpleSpreadMPEEnv(n_agents=n_agents, horizon=min(horizon, 25), arena_size=arena_size, seed=seed)
     if env_name == "simple_spread_pz":

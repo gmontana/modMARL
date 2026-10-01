@@ -1,19 +1,20 @@
-"""Seeded learning-regression checks for algorithms with bounded test budgets.
+"""Optional learning checks: frozen acceptance protocols and legacy probes.
 
-Each test uses the dependency-free validation task declared by that algorithm's
-trainer and asserts the mean return over the last 50 episodes beats the first 50
-by a calibrated margin. Communication methods whose timing makes the fully
-observed navigation task misleading use their explicit partial-observation task.
-
-These are deliberately slow (paper-budget cases can take several minutes) and
-excluded from the default suite; run them with
-`pytest -o addopts='' -m slow tests/test_learning.py`.
+Frozen recipes run all registered seeds through the same provenance-aware CLI
+used to create the committed evidence. They compare fixed evaluation policies,
+not changes in exploratory training returns. The remaining legacy probes retain
+older first/last-return checks; those alone are not release acceptance evidence.
+Run explicitly with ``pytest -o addopts='' -m slow tests/test_learning.py``.
 """
 
 from __future__ import annotations
 
 import importlib
+import json
 import statistics
+import subprocess
+import sys
+from pathlib import Path
 
 import pytest
 
@@ -58,7 +59,6 @@ CASES = [
         },
         8.0,
     ),
-    ("schednet", {}, 3.0),
     ("intention_sharing", {}, 3.0),
     ("mdmaddpg", {}, 6.0),
     ("maddpg_m", {"env": None}, 2.0),
@@ -84,9 +84,6 @@ CASES = [
         },
         2.0,
     ),
-    ("vdn", {}, 2.0),
-    ("iql", {}, 1.0),
-    ("qmix", {}, 2.0),
     ("mappo", {}, 1.0),
     (
         "mat",
@@ -110,21 +107,18 @@ CASES = [
         3.0,
     ),
     ("ippo", {}, 1.0),
-    # The recurrent communication methods are checked on the hidden-gate bridge — the
-    # partially observable task their gating/graph machinery is designed for; on the
-    # fully observed navigation task communication has nothing to add.
-    ("ic3net", {"env": "hidden_gate_bridge_v2", "n_agents": 8, "horizon": 75, "episodes": 5000}, 2.0),
-    ("magic", {"env": "hidden_gate_bridge_v2", "n_agents": 8, "horizon": 75, "episodes": 1200}, 2.0),
     ("sms", {"episodes": 800}, 3.0),
 ]
 
-# Not in this tier: CACOM, CDC, ExpoComm, HAPPO, NDQ, MAIC, and MASIA need larger
-# budgets; ATOC and CMVC need a GPU at their curve budgets (ATOC's 2560-sample
-# batches take hours on one CPU thread); MARC needs the optional macpp package.
-# Their committed three-seed curves provide the learning regression instead.
-#
-# Run this tier single-threaded (OMP_NUM_THREADS=1): the margins were calibrated
-# that way, and CPU reduction order under many threads changes the seeded runs.
+ROOT = Path(__file__).resolve().parents[1]
+PROTOCOLS = sorted((ROOT / "validation/recipes").glob("*.json"))
+CONFIRMATION_CASES = [
+    (path, seed) for path in PROTOCOLS for seed in json.loads(path.read_text())["seeds"]
+]
+
+# Run these optional checks single-threaded. Most recipes take minutes per seed;
+# MAIC's larger budget takes substantially longer. CI checks committed evidence
+# and mechanisms instead of retraining the catalogue on every change.
 
 
 def test_learning_cases_only_name_trainable_algorithms() -> None:
@@ -149,4 +143,35 @@ def test_algorithm_learns_on_navigation(algorithm, overrides) -> None:
     late = statistics.mean(returns[-50:])
     assert late - early > margin, (
         f"{algorithm}: no learning — first-50 mean {early:.2f}, last-50 mean {late:.2f}"
+    )
+
+
+def test_frozen_learning_recipes_have_complete_preregistered_rules() -> None:
+    from tools.train_curves import SOURCE_REVISIONS
+
+    legacy = {name for name, _, _ in CASES}
+    for path in PROTOCOLS:
+        protocol = json.loads(path.read_text())
+        assert protocol["algorithm"] == path.stem
+        assert protocol["algorithm"] in SOURCE_REVISIONS
+        assert protocol["algorithm"] not in legacy
+        assert len(protocol["seeds"]) >= 3
+        assert len(set(protocol["seeds"])) == len(protocol["seeds"])
+        assert protocol["criteria"]["return_margin_over_initial"] > 0
+        assert protocol["criteria"]["return_margin_over_random"] > 0
+        assert set(protocol["criteria"]) - {
+            "scope", "return_margin_over_initial", "return_margin_over_random",
+        }
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize(
+    "protocol,seed", CONFIRMATION_CASES,
+    ids=[f"{path.stem}-seed{seed}" for path, seed in CONFIRMATION_CASES],
+)
+def test_frozen_learning_recipe(protocol, seed, tmp_path) -> None:
+    subprocess.run(
+        [sys.executable, "-m", "tools.run_validation", "--protocol", str(protocol),
+         "--seed", str(seed), "--out", str(tmp_path / "run")],
+        cwd=ROOT, check=True,
     )

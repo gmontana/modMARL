@@ -1,0 +1,26 @@
+{
+  "algorithm": "cacom",
+  "scope": "development: released gate optimizer, reused failed seeds and control",
+  "seeds": [
+    401,
+    407,
+    403
+  ],
+  "config": {
+    "env": "target_signaling",
+    "n_agents": 2,
+    "horizon": 1,
+    "evaluation_episodes": 300,
+    "device": "cpu",
+    "episodes": 40000,
+    "gate_start_steps": 10000,
+    "gate_update_every_steps": 10,
+    "epsilon_anneal_steps": 20000,
+    "gate_label_mode": "paper"
+  },
+  "criteria": {
+    "minimum_success_rate": 0.8,
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2
+  }
+}

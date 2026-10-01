@@ -2,8 +2,9 @@
 
 One small-multiple panel per algorithm: per-seed returns are smoothed with a
 rolling mean, the line is the mean across seeds and the band is the seed
-min-max range. Panels on the shared `navigation` task share a y-scale so
-algorithms are directly comparable; MADDPG-M runs its own noisy-navigation
+min-max range. Panels on the shared `navigation` task share a y-scale for
+readability; budgets and configurations differ, so this is not a controlled
+algorithm comparison. MADDPG-M runs its own noisy-navigation
 setting and keeps its own scale (marked in its title). Panel subtitles wrap
 within each small multiple. Emits a light and a dark variant for the README's
 <picture> block.
@@ -74,9 +75,27 @@ def _smooth(values: np.ndarray, window: int) -> np.ndarray:
 
 
 def _load(curves_dir: Path, window: int) -> dict[str, dict[str, np.ndarray]]:
+    return _load_paths(sorted(curves_dir.glob("*.json")), window)
+
+
+def _load_inventory(path: Path, window: int) -> dict:
+    """Use exactly the current learning panel for each method; retain old files."""
+    root = path.resolve().parents[1]
+    inventory = json.loads(path.read_text())
+    paths = []
+    for algorithm, entry in sorted(inventory["algorithms"].items()):
+        current = {**entry, **entry.get("learning", {})}
+        selected = sorted(root.glob(current["artifacts"]))
+        if not selected:
+            raise ValueError(f"missing selected curve data for {algorithm}")
+        paths.extend(selected)
+    return _load_paths(paths, window)
+
+
+def _load_paths(paths: list[Path], window: int) -> dict:
     runs: dict[str, list[np.ndarray]] = defaultdict(list)
     environments: dict[str, str] = {}
-    for path in sorted(curves_dir.glob("*.json")):
+    for path in paths:
         payload = json.loads(path.read_text())
         if not payload.get("source_revision"):
             raise ValueError(f"{path.name} does not record source_revision")
@@ -165,7 +184,10 @@ def _render(series: dict, mode: str, out_path: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot the learning-curve grid.")
-    parser.add_argument("--curves", default="curves")
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--curves", default="curves")
+    source.add_argument("--inventory", type=Path,
+                        help="Use current panels from a project's validation/inventory.json")
     parser.add_argument("--out", default="figures")
     parser.add_argument("--window", type=int, default=20)
     parser.add_argument("--require-complete", action="store_true")
@@ -173,7 +195,8 @@ def main() -> None:
 
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
-    series = _load(Path(args.curves), args.window)
+    series = (_load_inventory(args.inventory, args.window) if args.inventory
+              else _load(Path(args.curves), args.window))
     if args.require_complete:
         _validate_complete(series)
     missing = [a for a in PANEL_ORDER if a not in series]

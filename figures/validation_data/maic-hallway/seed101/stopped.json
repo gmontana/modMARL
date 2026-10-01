@@ -1,0 +1,21 @@
+{
+  "status": "stopped",
+  "seed": 101,
+  "pid": 2561422,
+  "command": [
+    "/path/to/storage/modMARL-validation-20261001/cpu-env/bin/python",
+    "-m",
+    "tools.run_validation",
+    "--protocol",
+    "validation/recipes/maic.json",
+    "--seed",
+    "101",
+    "--out",
+    "/path/to/storage/modMARL-validation-20261001/maic-confirmation/maic/seed101",
+    ""
+  ],
+  "stopped_at": "2026-10-01T00:38:46.670266+00:00",
+  "reason": "Post-hoc compute futility: seed 103 already fails the frozen all-seed Hallway gate; endpoints of stopped runs unknown.",
+  "last_log_line": "episode  75000  eps 0.05  return   0.0",
+  "completed_result_exists": false
+}

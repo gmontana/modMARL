@@ -1,0 +1,154 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-09-30T23:48:42.830059+00:00",
+  "finished_at": "2026-09-30T23:48:43.665596+00:00",
+  "argv": [
+    "/home/user/repos/modMARL/tools/reference/check_qmix.py",
+    "--reference",
+    "references/pymarl",
+    "--out",
+    "figures/reference_data/qmix_update_parity.json"
+  ],
+  "run": {
+    "run_id": "34e24dec6c39b669",
+    "script": "check_qmix.py"
+  },
+  "git": {
+    "repo_root": "/home/user/repos/modMARL",
+    "branch": "fix/maic-validation",
+    "commit": "782fe465d556eb07bd6158a774342021d2d8618f",
+    "short_commit": "782fe46",
+    "dirty": true,
+    "status_short": [
+      "?? figures/reference_data/qmix_update_parity.environment.txt",
+      "?? figures/reference_data/qmix_update_parity.json"
+    ]
+  },
+  "python": {
+    "modmarl_version": "0.1.0",
+    "executable": "/home/user/repos/modMARL/.venv/bin/python",
+    "version": "3.11.16 (main, Aug 25 2026, 14:00:53) [Clang 22.1.3 ]",
+    "platform": "Linux-7.2.3-arch1-3-x86_64-with-glibc2.44",
+    "python_implementation": "CPython",
+    "torch_version": "2.14.0+cpu",
+    "numpy_version": "2.4.6"
+  },
+  "hardware": {
+    "hostname": "workstation",
+    "fqdn": "workstation.local",
+    "user": "user",
+    "cwd": "/home/user/repos/modMARL",
+    "cpu_info": {
+      "machine": "x86_64",
+      "processor": ""
+    },
+    "torch_cuda": {
+      "is_available": false,
+      "device_count": 0,
+      "device_names": []
+    },
+    "nvidia_smi": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.total,driver_version",
+        "--format=csv,noheader"
+      ],
+      "returncode": 0,
+      "stdout": "0, GPU-a13d4a23-733e-2864-4560-cabcc195e932, NVIDIA RTX A6000, 49140 MiB, 610.57.04",
+      "stderr": ""
+    }
+  },
+  "primary_output": {
+    "path": "figures/reference_data/qmix_update_parity.json",
+    "exists": true,
+    "size_bytes": 747,
+    "sha256": "af39c164cc7235b44722ec397a6528338892d8321b50b832f26d45d50b07e05b",
+    "artifact_id": "af39c164cc7235b44722ec397a6528338892d8321b50b832f26d45d50b07e05b",
+    "modified_at": "2026-09-30T23:48:43.602050+00:00"
+  },
+  "inputs": [
+    {
+      "path": "/home/user/repos/modMARL/tools/reference/check_qmix.py",
+      "exists": true,
+      "size_bytes": 6232,
+      "sha256": "6a6983e2a4f5474c00e6cf4757434b41f158fb7a5171f38f3a9249f0d4777d28",
+      "artifact_id": "6a6983e2a4f5474c00e6cf4757434b41f158fb7a5171f38f3a9249f0d4777d28",
+      "modified_at": "2026-09-30T23:48:41.896057+00:00"
+    },
+    {
+      "path": "/home/user/repos/modMARL/modmarl/algorithms/qmix.py",
+      "exists": true,
+      "size_bytes": 12140,
+      "sha256": "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "artifact_id": "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "modified_at": "2026-08-03T14:20:16.235936+00:00"
+    },
+    {
+      "path": "references/pymarl/src/learners/q_learner.py",
+      "exists": true,
+      "size_bytes": 5923,
+      "sha256": "c0f6bffde52ca4ef5295a3fda7f18376a15eb1244267890496f100b253428092",
+      "artifact_id": "c0f6bffde52ca4ef5295a3fda7f18376a15eb1244267890496f100b253428092",
+      "modified_at": "2026-09-30T23:38:46.262433+00:00"
+    },
+    {
+      "path": "references/pymarl/src/controllers/basic_controller.py",
+      "exists": true,
+      "size_bytes": 4411,
+      "sha256": "9f9c7da6f6a42648c228c03008311490c42d0fadd335b5d647a5b203b8857c26",
+      "artifact_id": "9f9c7da6f6a42648c228c03008311490c42d0fadd335b5d647a5b203b8857c26",
+      "modified_at": "2026-09-30T23:38:46.255370+00:00"
+    },
+    {
+      "path": "references/pymarl/src/modules/agents/rnn_agent.py",
+      "exists": true,
+      "size_bytes": 770,
+      "sha256": "c14fc450038da2446642cb0575b480f21b5c53faca72f7640faff788a6b80ec9",
+      "artifact_id": "c14fc450038da2446642cb0575b480f21b5c53faca72f7640faff788a6b80ec9",
+      "modified_at": "2026-09-30T23:38:46.255946+00:00"
+    },
+    {
+      "path": "references/pymarl/src/modules/mixers/qmix.py",
+      "exists": true,
+      "size_bytes": 1647,
+      "sha256": "3b4ca753c6de974a173905007481ef421c5ddfc2e81feef6d5ff13f281fee9cf",
+      "artifact_id": "3b4ca753c6de974a173905007481ef421c5ddfc2e81feef6d5ff13f281fee9cf",
+      "modified_at": "2026-09-30T23:38:46.263322+00:00"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "figures/reference_data/qmix_update_parity.json",
+      "exists": true,
+      "size_bytes": 747,
+      "sha256": "af39c164cc7235b44722ec397a6528338892d8321b50b832f26d45d50b07e05b",
+      "artifact_id": "af39c164cc7235b44722ec397a6528338892d8321b50b832f26d45d50b07e05b",
+      "modified_at": "2026-09-30T23:48:43.602050+00:00"
+    },
+    {
+      "path": "figures/reference_data/qmix_update_parity.environment.txt",
+      "exists": true,
+      "size_bytes": 581,
+      "sha256": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "artifact_id": "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb",
+      "modified_at": "2026-09-30T23:48:43.655767+00:00"
+    }
+  ],
+  "lineage": {
+    "input_artifact_ids": [
+      "6a6983e2a4f5474c00e6cf4757434b41f158fb7a5171f38f3a9249f0d4777d28",
+      "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "c0f6bffde52ca4ef5295a3fda7f18376a15eb1244267890496f100b253428092",
+      "9f9c7da6f6a42648c228c03008311490c42d0fadd335b5d647a5b203b8857c26",
+      "c14fc450038da2446642cb0575b480f21b5c53faca72f7640faff788a6b80ec9",
+      "3b4ca753c6de974a173905007481ef421c5ddfc2e81feef6d5ff13f281fee9cf"
+    ],
+    "output_artifact_ids": [
+      "af39c164cc7235b44722ec397a6528338892d8321b50b832f26d45d50b07e05b",
+      "694564d41fc74f6c794dc969f95e9ce399a2cfa21d4e9cd5f52437a1b612c5cb"
+    ],
+    "parent_run_ids": [],
+    "parent_records": []
+  },
+  "extra": {}
+}

@@ -6,3 +6,5 @@ recursive-include guides *.md
 recursive-include validation *.json
 recursive-include figures *.json *.png
 recursive-include figures/demo_data *.txt
+recursive-include figures/validation_data *.txt
+recursive-include figures/reference_data *.txt

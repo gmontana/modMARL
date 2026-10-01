@@ -27,7 +27,7 @@ jobs:
       - name: Fast test suite
         run: OMP_NUM_THREADS=1 pytest
       - name: Recorded validation evidence
-        run: python tools/check_validation.py --check
+        run: python tools/check_validation.py --check --require-learning
       - name: Runnable tutorials
         run: |
           python examples/custom_environment.py

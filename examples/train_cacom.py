@@ -42,6 +42,7 @@ def train(
     warmup_episodes: int = 32,
     gate_start_steps: int = 200_000,
     gate_update_every_steps: int = 10_000,
+    gate_label_mode: str = "release",
     target_update_every: int = 200,
     epsilon_start: float = 1.0,
     epsilon_end: float = 0.05,
@@ -90,7 +91,7 @@ def train(
         fraction = min(1.0, total_steps / max(1, epsilon_anneal_steps))
         epsilon = epsilon_start + fraction * (epsilon_end - epsilon_start)
         force_all_links = total_steps < gate_start_steps
-        episode_return, episode_steps, _ = _collect_episode(
+        episode_return, episode_steps, _, _ = _collect_episode(
             agent, environment, replay, epsilon, environment.num_actions,
             seed + episode, dev, force_all_links,
         )
@@ -107,6 +108,7 @@ def train(
                     agent, gate_optimizer, batch,
                     helper=int(gate_rng.integers(agent.n_agents)),
                     force_keep=force_all_links,
+                    mode=gate_label_mode,
                 )
                 last_gate_update_step = total_steps
                 gate_updates += 1
@@ -139,12 +141,13 @@ def train(
         },
         "total_steps": total_steps,
         "gate_updates": gate_updates, "checkpoint": checkpoint,
+        "gate_label_mode": gate_label_mode,
     }
 
 
-def _gate_optimizer(parameters, learning_rate: float) -> torch.optim.Adam:
-    """Paper Appendix B optimizer for the separately supervised local gate."""
-    return torch.optim.Adam(parameters, lr=learning_rate)
+def _gate_optimizer(parameters, learning_rate: float) -> torch.optim.RMSprop:
+    """Pinned release optimizer for the separately supervised local gate."""
+    return torch.optim.RMSprop(parameters, lr=learning_rate, alpha=0.99, eps=1e-5)
 
 
 @torch.no_grad()
@@ -168,6 +171,9 @@ def _evaluate(agent, environment, episodes, seed, device, *, epsilon, force_all_
     communication_rates = [evaluation[2] for evaluation in evaluations]
     return {
         "returns": returns,
+        "successes": [float(bool(evaluation[3].get("success", False))) for evaluation in evaluations],
+        "mean_distances": [float(evaluation[3].get("mean_distance", float("nan")))
+                           for evaluation in evaluations],
         "mean_return": float(np.mean(returns)),
         "communication_rates": communication_rates,
         "communication_rate": float(np.mean(communication_rates)),
@@ -185,6 +191,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
     steps = 0
     active_links = 0.0
     possible_links = 0
+    info = {}
     for _ in range(environment.horizon):
         obs_tensor = torch.as_tensor(obs, dtype=torch.float32, device=device).unsqueeze(0)
         inputs = torch.cat([obs_tensor, previous_actions, agent_ids], dim=-1)
@@ -199,7 +206,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
         previous_actions = F.one_hot(
             torch.as_tensor(action, device=device), num_classes=num_actions,
         ).to(dtype=obs_tensor.dtype).unsqueeze(0)
-        next_obs, reward, terminated, truncated, _ = environment.step(action)
+        next_obs, reward, terminated, truncated, info = environment.step(action)
         observations.append(next_obs)
         actions.append(action)
         rewards.append(reward)
@@ -216,7 +223,7 @@ def _collect_episode(agent, environment, replay, epsilon, num_actions, episode_s
             rewards=np.asarray(rewards, dtype=np.float32),
             dones=np.asarray(dones, dtype=np.float32),
         )
-    return episode_return, steps, active_links / max(1, possible_links)
+    return episode_return, steps, active_links / max(1, possible_links), info
 
 
 def _unroll(network, obs, actions, action_dim, *, force_all_links):
@@ -279,6 +286,7 @@ def _update_policy(agent, optimizer, batch, gamma, auxiliary_weight, *, force_al
 
 def _update_gate(
     agent, optimizer, batch, helper: int, threshold: float = 0.0, *, force_keep: bool = False,
+    mode: str = "release",
 ):
     hidden = agent.init_hidden(batch.obs.shape[0], batch.obs.device)
     agent_ids = torch.eye(agent.n_agents, device=batch.obs.device).unsqueeze(0).expand(
@@ -296,9 +304,13 @@ def _update_gate(
         inputs = batch.obs[:, timestep]
         if agent.network.obs_dim != inputs.shape[-1]:
             inputs = torch.cat([inputs, previous_actions, agent_ids], dim=-1)
-        logits, labels = agent.network.gate_labels(
-            inputs, hidden, helper, threshold,
-        )
+        if mode == "release":
+            logits, labels = agent.network.gate_labels(inputs, hidden, helper, threshold)
+        else:
+            logits, labels = agent.network.gate_labels(
+                inputs, hidden, helper, threshold, mode=mode,
+                mixer=agent.mixer, state=batch.obs[:, timestep].flatten(1),
+            )
         if force_keep:
             labels = torch.zeros_like(labels)
         losses.append(F.cross_entropy(logits.reshape(-1, 2), labels.reshape(-1)))

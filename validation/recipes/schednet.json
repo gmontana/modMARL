@@ -1,0 +1,26 @@
+{
+  "algorithm": "schednet",
+  "scope": "fresh confirmation of released scheduler gradient with adequate convergence budget",
+  "seeds": [
+    701,
+    703,
+    707
+  ],
+  "config": {
+    "env": "target_signaling",
+    "n_agents": 2,
+    "horizon": 1,
+    "evaluation_episodes": 300,
+    "device": "cpu",
+    "episodes": 50000,
+    "actor_learning_rate": 1e-05,
+    "weight_learning_rate": 1e-05,
+    "critic_learning_rate": 0.0001,
+    "epsilon_decay_steps": 750000
+  },
+  "criteria": {
+    "minimum_success_rate": 0.8,
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2
+  }
+}

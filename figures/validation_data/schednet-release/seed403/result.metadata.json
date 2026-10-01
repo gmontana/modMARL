@@ -1,0 +1,765 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-09-30T23:47:46.194107+00:00",
+  "finished_at": "2026-09-30T23:49:02.108328+00:00",
+  "argv": [
+    "/path/to/storage/repos/modMARL-validation-stage6/tools/run_validation.py",
+    "--protocol",
+    "validation/recipes/schednet.json",
+    "--seed",
+    "403",
+    "--out",
+    "/path/to/storage/modMARL-validation-20261001/schednet-release-confirmation/schednet/seed403"
+  ],
+  "run": {
+    "run_id": "138052b3cec6d318",
+    "script": "run_validation.py"
+  },
+  "git": {
+    "repo_root": "/path/to/storage/repos/modMARL-validation-stage6",
+    "branch": "",
+    "commit": "842c609ea9e63ea918f9f334ed978aa7f11a5813",
+    "short_commit": "842c609",
+    "dirty": false,
+    "status_short": []
+  },
+  "python": {
+    "modmarl_version": null,
+    "executable": "/path/to/storage/modMARL-validation-20261001/cpu-env/bin/python",
+    "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+    "python_implementation": "CPython",
+    "torch_version": "2.5.1+cpu",
+    "numpy_version": "2.2.6"
+  },
+  "hardware": {
+    "hostname": "gpu-node",
+    "fqdn": "gpu-node",
+    "user": "user",
+    "cwd": "/path/to/storage/repos/modMARL-validation-stage6",
+    "cpu_info": {
+      "machine": "x86_64",
+      "processor": "x86_64"
+    },
+    "torch_cuda": {
+      "is_available": false,
+      "device_count": 0,
+      "device_names": []
+    },
+    "nvidia_smi": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.total,driver_version",
+        "--format=csv,noheader"
+      ],
+      "returncode": 0,
+      "stdout": "0, GPU-224b3986-7367-3fc1-6ea3-c49f429bc424, NVIDIA RTX A5000, 24564 MiB, 580.178.04",
+      "stderr": ""
+    }
+  },
+  "primary_output": {
+    "path": "/path/to/storage/modMARL-validation-20261001/schednet-release-confirmation/schednet/seed403/result.json",
+    "exists": true,
+    "size_bytes": 208845,
+    "sha256": "87da4cfa4bef3554a0d509269ab7e075d0fd804671d20a68687b9d8a8ad06772",
+    "artifact_id": "87da4cfa4bef3554a0d509269ab7e075d0fd804671d20a68687b9d8a8ad06772",
+    "modified_at": "2026-09-30T23:49:01.848613+00:00"
+  },
+  "inputs": [
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/tools/run_validation.py",
+      "exists": true,
+      "size_bytes": 3783,
+      "sha256": "48a2d51a8c12d703cdad7e884f5367945c2ad59619b43a2d1608143bb9da6131",
+      "artifact_id": "48a2d51a8c12d703cdad7e884f5367945c2ad59619b43a2d1608143bb9da6131",
+      "modified_at": "2026-09-30T23:47:34.231336+00:00"
+    },
+    {
+      "path": "validation/recipes/schednet.json",
+      "exists": true,
+      "size_bytes": 595,
+      "sha256": "0de4dfc4829291575fd98e5100f7f903f16328888bebe42618cd139acfc7ddd9",
+      "artifact_id": "0de4dfc4829291575fd98e5100f7f903f16328888bebe42618cd139acfc7ddd9",
+      "modified_at": "2026-09-30T23:47:34.940341+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/examples/train_schednet.py",
+      "exists": true,
+      "size_bytes": 12974,
+      "sha256": "864c37d7912814074ce293814cefcb8559794ad3dd2e99f1ad1053d1767874f8",
+      "artifact_id": "864c37d7912814074ce293814cefcb8559794ad3dd2e99f1ad1053d1767874f8",
+      "modified_at": "2026-09-30T23:47:22.454258+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/__init__.py",
+      "exists": true,
+      "size_bytes": 4943,
+      "sha256": "b419c7f6229f0c173aff77ed28897b6f01c6074ee434db2a20e12e3c311136a5",
+      "artifact_id": "b419c7f6229f0c173aff77ed28897b6f01c6074ee434db2a20e12e3c311136a5",
+      "modified_at": "2026-09-30T23:47:31.471318+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/__init__.py",
+      "exists": true,
+      "size_bytes": 4237,
+      "sha256": "28585f92c4867da3810cf67eef914942183d7c507e2e437226ccb70a3e618c21",
+      "artifact_id": "28585f92c4867da3810cf67eef914942183d7c507e2e437226ccb70a3e618c21",
+      "modified_at": "2026-09-30T23:47:31.516318+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/atoc/__init__.py",
+      "exists": true,
+      "size_bytes": 304,
+      "sha256": "edcaa6ac8bfb2946c01a333b6bf388a24afdf0e53c904fa03764830227da48e0",
+      "artifact_id": "edcaa6ac8bfb2946c01a333b6bf388a24afdf0e53c904fa03764830227da48e0",
+      "modified_at": "2026-09-30T23:47:31.541318+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/atoc/algorithm.py",
+      "exists": true,
+      "size_bytes": 26557,
+      "sha256": "424e802ad88f965b951ecb99b5c34add217003cc32d43036b73bbadfd955ff09",
+      "artifact_id": "424e802ad88f965b951ecb99b5c34add217003cc32d43036b73bbadfd955ff09",
+      "modified_at": "2026-09-30T23:47:31.552319+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/cacom.py",
+      "exists": true,
+      "size_bytes": 18752,
+      "sha256": "25b859f1c6edb9ff028270461313dc255460140ae23346cc14522381e5895596",
+      "artifact_id": "25b859f1c6edb9ff028270461313dc255460140ae23346cc14522381e5895596",
+      "modified_at": "2026-09-30T23:47:31.642319+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/cdc.py",
+      "exists": true,
+      "size_bytes": 17979,
+      "sha256": "f79d95ced5e72f4ad14aef1a9e74ac59e5e6953462b435d31604f84483b805b4",
+      "artifact_id": "f79d95ced5e72f4ad14aef1a9e74ac59e5e6953462b435d31604f84483b805b4",
+      "modified_at": "2026-09-30T23:47:31.672319+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/cmvc/__init__.py",
+      "exists": true,
+      "size_bytes": 254,
+      "sha256": "a7c543b4909490064806af28450e9d0eb3a64774868955dc8a75ad9b78109377",
+      "artifact_id": "a7c543b4909490064806af28450e9d0eb3a64774868955dc8a75ad9b78109377",
+      "modified_at": "2026-09-30T23:47:31.684319+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/cmvc/algorithm.py",
+      "exists": true,
+      "size_bytes": 20118,
+      "sha256": "feb2985f1e462c9de66362905e90b26cb257f4fa0bb4efebb8b63157c70bc28e",
+      "artifact_id": "feb2985f1e462c9de66362905e90b26cb257f4fa0bb4efebb8b63157c70bc28e",
+      "modified_at": "2026-09-30T23:47:31.695319+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/commformer.py",
+      "exists": true,
+      "size_bytes": 26317,
+      "sha256": "4ee41f6308f8a9086e61d17bf6d68014655b0af7646e866638fb8e87a9d85e48",
+      "artifact_id": "4ee41f6308f8a9086e61d17bf6d68014655b0af7646e866638fb8e87a9d85e48",
+      "modified_at": "2026-09-30T23:47:31.740320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/commnet.py",
+      "exists": true,
+      "size_bytes": 10488,
+      "sha256": "d687d392c038a6fb940b041fd46cea577aa87e342e3c0ec5edacc513f49ba35d",
+      "artifact_id": "d687d392c038a6fb940b041fd46cea577aa87e342e3c0ec5edacc513f49ba35d",
+      "modified_at": "2026-09-30T23:47:31.749320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/ddpg.py",
+      "exists": true,
+      "size_bytes": 13083,
+      "sha256": "425ca15593d357683e26bcc9247b26f8b8c63e82940205dc631be6aacc8182df",
+      "artifact_id": "425ca15593d357683e26bcc9247b26f8b8c63e82940205dc631be6aacc8182df",
+      "modified_at": "2026-09-30T23:47:31.759320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/expocomm.py",
+      "exists": true,
+      "size_bytes": 16853,
+      "sha256": "b81f597832314dffe22910e11bac21698501e8f5fb809bf5192ace2c055d480f",
+      "artifact_id": "b81f597832314dffe22910e11bac21698501e8f5fb809bf5192ace2c055d480f",
+      "modified_at": "2026-09-30T23:47:31.777320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/happo.py",
+      "exists": true,
+      "size_bytes": 13170,
+      "sha256": "e40c38bc85b7d923bdc8356ddb63785d2bb9d334a482635335ad25b3fdd9b370",
+      "artifact_id": "e40c38bc85b7d923bdc8356ddb63785d2bb9d334a482635335ad25b3fdd9b370",
+      "modified_at": "2026-09-30T23:47:31.807320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/i2c.py",
+      "exists": true,
+      "size_bytes": 24251,
+      "sha256": "ec464bccc88e78c35de02ffa66d233d8d94d677571b16d583944e4a313de9cd4",
+      "artifact_id": "ec464bccc88e78c35de02ffa66d233d8d94d677571b16d583944e4a313de9cd4",
+      "modified_at": "2026-09-30T23:47:31.817320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/ic3net.py",
+      "exists": true,
+      "size_bytes": 10621,
+      "sha256": "fa2649e55d6367f4ec6c062c38fc15f408b5d5723e2d5ff368bf2fd40bc9781b",
+      "artifact_id": "fa2649e55d6367f4ec6c062c38fc15f408b5d5723e2d5ff368bf2fd40bc9781b",
+      "modified_at": "2026-09-30T23:47:31.828320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/intention_sharing.py",
+      "exists": true,
+      "size_bytes": 22710,
+      "sha256": "4f32110f90981125beea4cc1173280238a5d7f5f5a153bd4e33a0973726f0b12",
+      "artifact_id": "4f32110f90981125beea4cc1173280238a5d7f5f5a153bd4e33a0973726f0b12",
+      "modified_at": "2026-09-30T23:47:31.838320+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/ippo.py",
+      "exists": true,
+      "size_bytes": 11305,
+      "sha256": "73d8cae205b0af53b1fbbaa63e699a184bd8f77e19398cf224f66ebbc6e97bcf",
+      "artifact_id": "73d8cae205b0af53b1fbbaa63e699a184bd8f77e19398cf224f66ebbc6e97bcf",
+      "modified_at": "2026-09-30T23:47:31.882321+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/iql.py",
+      "exists": true,
+      "size_bytes": 8757,
+      "sha256": "510264214f1ca1b699e5d545a1f7eb864dd943bd5969e7f4185a40ee7bffc5ad",
+      "artifact_id": "510264214f1ca1b699e5d545a1f7eb864dd943bd5969e7f4185a40ee7bffc5ad",
+      "modified_at": "2026-09-30T23:47:31.924321+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/iwol.py",
+      "exists": true,
+      "size_bytes": 44761,
+      "sha256": "47e921eb76cd9d883a5904b52a7c45dd86b8f793892e685726f305ca310b4686",
+      "artifact_id": "47e921eb76cd9d883a5904b52a7c45dd86b8f793892e685726f305ca310b4686",
+      "modified_at": "2026-09-30T23:47:31.970321+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/maac.py",
+      "exists": true,
+      "size_bytes": 17798,
+      "sha256": "0bf3170729c01f1e890c46ae1461c71e9465891ae0328fffcc8d7b0bbd73e740",
+      "artifact_id": "0bf3170729c01f1e890c46ae1461c71e9465891ae0328fffcc8d7b0bbd73e740",
+      "modified_at": "2026-09-30T23:47:31.979321+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/maddpg.py",
+      "exists": true,
+      "size_bytes": 12053,
+      "sha256": "169c0aea100f20905c3eba7ea9872813ffa7803d35cda4c3e12fdab5ab6480fa",
+      "artifact_id": "169c0aea100f20905c3eba7ea9872813ffa7803d35cda4c3e12fdab5ab6480fa",
+      "modified_at": "2026-09-30T23:47:31.988321+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/maddpg_m.py",
+      "exists": true,
+      "size_bytes": 4758,
+      "sha256": "98bee11ffcb91a567b5fb0b16e99e0598f640cc643351268060fe7d694ae2043",
+      "artifact_id": "98bee11ffcb91a567b5fb0b16e99e0598f640cc643351268060fe7d694ae2043",
+      "modified_at": "2026-09-30T23:47:32.030322+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/magic.py",
+      "exists": true,
+      "size_bytes": 18305,
+      "sha256": "1d246527ee4bec305298f0fc791acb2ca150ba6cc5cd1c7004b7ba8f96b044a3",
+      "artifact_id": "1d246527ee4bec305298f0fc791acb2ca150ba6cc5cd1c7004b7ba8f96b044a3",
+      "modified_at": "2026-09-30T23:47:32.039322+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/maic.py",
+      "exists": true,
+      "size_bytes": 11322,
+      "sha256": "ee7d8907ed72fedcbefbf082571346f94f5576f272b9eedd00d4979acc0749cc",
+      "artifact_id": "ee7d8907ed72fedcbefbf082571346f94f5576f272b9eedd00d4979acc0749cc",
+      "modified_at": "2026-09-30T23:47:32.074322+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/mappo.py",
+      "exists": true,
+      "size_bytes": 17389,
+      "sha256": "8176314e0f68806ee28029620e36a30aaa1f1eaad2d34f990a59a8df3825ec94",
+      "artifact_id": "8176314e0f68806ee28029620e36a30aaa1f1eaad2d34f990a59a8df3825ec94",
+      "modified_at": "2026-09-30T23:47:32.091322+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/marc.py",
+      "exists": true,
+      "size_bytes": 8620,
+      "sha256": "0b273ff2fec1ea507afd0f211136e322790992c42ee149d8e5f4f4ce7320f274",
+      "artifact_id": "0b273ff2fec1ea507afd0f211136e322790992c42ee149d8e5f4f4ce7320f274",
+      "modified_at": "2026-09-30T23:47:32.143322+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/masia.py",
+      "exists": true,
+      "size_bytes": 14946,
+      "sha256": "894aef79e5c5e82278b10396cd5621bfd7468248280a4e4bf7db87d24026e0b8",
+      "artifact_id": "894aef79e5c5e82278b10396cd5621bfd7468248280a4e4bf7db87d24026e0b8",
+      "modified_at": "2026-09-30T23:47:32.159323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/mat.py",
+      "exists": true,
+      "size_bytes": 26864,
+      "sha256": "2877fe0c04145f84f68c1b1820895d6dbfb15ce03cec6dcb95de07e5a30b6345",
+      "artifact_id": "2877fe0c04145f84f68c1b1820895d6dbfb15ce03cec6dcb95de07e5a30b6345",
+      "modified_at": "2026-09-30T23:47:32.187323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/mdmaddpg.py",
+      "exists": true,
+      "size_bytes": 17261,
+      "sha256": "3a0f1e36df3474e4f5700015cf8649d4c88c333d1568624d065f12b039532de6",
+      "artifact_id": "3a0f1e36df3474e4f5700015cf8649d4c88c333d1568624d065f12b039532de6",
+      "modified_at": "2026-09-30T23:47:32.195323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/ndq.py",
+      "exists": true,
+      "size_bytes": 15203,
+      "sha256": "18445ee68541387575e5f87c7adb0d75ef62c922cc209504cff5f7ed486b4b40",
+      "artifact_id": "18445ee68541387575e5f87c7adb0d75ef62c922cc209504cff5f7ed486b4b40",
+      "modified_at": "2026-09-30T23:47:32.222323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/qmix.py",
+      "exists": true,
+      "size_bytes": 12140,
+      "sha256": "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "artifact_id": "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "modified_at": "2026-09-30T23:47:32.242323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/schednet.py",
+      "exists": true,
+      "size_bytes": 13615,
+      "sha256": "c17e0e6aed3150e158fba1a98a2139100cca55de9d3f409677e91c4d3b3b0bc2",
+      "artifact_id": "c17e0e6aed3150e158fba1a98a2139100cca55de9d3f409677e91c4d3b3b0bc2",
+      "modified_at": "2026-09-30T23:47:32.250323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/sms.py",
+      "exists": true,
+      "size_bytes": 16712,
+      "sha256": "f3598f410d6cc36327f32c6a4a0c31f4f3ca55d59c6a652bbb81f91dd1e71d03",
+      "artifact_id": "f3598f410d6cc36327f32c6a4a0c31f4f3ca55d59c6a652bbb81f91dd1e71d03",
+      "modified_at": "2026-09-30T23:47:32.259323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/tarmac.py",
+      "exists": true,
+      "size_bytes": 9892,
+      "sha256": "bb94eb500b92756f372ee4776799cee36e412a5c75ffaa0f20daf58ea7e5ad66",
+      "artifact_id": "bb94eb500b92756f372ee4776799cee36e412a5c75ffaa0f20daf58ea7e5ad66",
+      "modified_at": "2026-09-30T23:47:32.287323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/algorithms/vdn.py",
+      "exists": true,
+      "size_bytes": 8970,
+      "sha256": "b53f4c6cdf1330a97c15fb616e2f0ab77af2f0134209c8c5e1fd0fba948a51f9",
+      "artifact_id": "b53f4c6cdf1330a97c15fb616e2f0ab77af2f0134209c8c5e1fd0fba948a51f9",
+      "modified_at": "2026-09-30T23:47:32.295323+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/__init__.py",
+      "exists": true,
+      "size_bytes": 909,
+      "sha256": "6f64a000da35b748da400e7a859a2fe6f2982f5e65cdcc94125436367bafde74",
+      "artifact_id": "6f64a000da35b748da400e7a859a2fe6f2982f5e65cdcc94125436367bafde74",
+      "modified_at": "2026-09-30T23:47:32.321324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/metrics.py",
+      "exists": true,
+      "size_bytes": 2762,
+      "sha256": "b00b73a68a207d36881a42c56bd818c260315ab3a5b775d721164c365901a4df",
+      "artifact_id": "b00b73a68a207d36881a42c56bd818c260315ab3a5b775d721164c365901a4df",
+      "modified_at": "2026-09-30T23:47:32.328324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/nn.py",
+      "exists": true,
+      "size_bytes": 733,
+      "sha256": "f71d748ced92ee85e19fed9f5ef580f1e42a95c2b9bd5af745dee4a59d9083c6",
+      "artifact_id": "f71d748ced92ee85e19fed9f5ef580f1e42a95c2b9bd5af745dee4a59d9083c6",
+      "modified_at": "2026-09-30T23:47:32.356324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/on_policy.py",
+      "exists": true,
+      "size_bytes": 3275,
+      "sha256": "330b7000dc5c4f5b888b39e9b602da928804633acc285f75cded7869683f14b3",
+      "artifact_id": "330b7000dc5c4f5b888b39e9b602da928804633acc285f75cded7869683f14b3",
+      "modified_at": "2026-09-30T23:47:32.399324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/provenance.py",
+      "exists": true,
+      "size_bytes": 9510,
+      "sha256": "e23f6144b821d80981d7c0f417cd463f84c31dbd54d41f0f23d7e75e0de2a3de",
+      "artifact_id": "e23f6144b821d80981d7c0f417cd463f84c31dbd54d41f0f23d7e75e0de2a3de",
+      "modified_at": "2026-09-30T23:47:32.405324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/common/replay.py",
+      "exists": true,
+      "size_bytes": 14949,
+      "sha256": "d8d924625413eb73eda78db05ec07beaa227559aa1898596056e252fb5f1a8d5",
+      "artifact_id": "d8d924625413eb73eda78db05ec07beaa227559aa1898596056e252fb5f1a8d5",
+      "modified_at": "2026-09-30T23:47:32.433324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/components/__init__.py",
+      "exists": true,
+      "size_bytes": 624,
+      "sha256": "d2673cbb60d338644a52e481d3f1b1dff026b63e5883b1bbf54b13259243436a",
+      "artifact_id": "d2673cbb60d338644a52e481d3f1b1dff026b63e5883b1bbf54b13259243436a",
+      "modified_at": "2026-09-30T23:47:32.452324+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/components/critics.py",
+      "exists": true,
+      "size_bytes": 802,
+      "sha256": "6129ffca013ca27d70599163838a0f73468406d2abd2bd7edab4949dcda72fd1",
+      "artifact_id": "6129ffca013ca27d70599163838a0f73468406d2abd2bd7edab4949dcda72fd1",
+      "modified_at": "2026-09-30T23:47:32.524325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/components/policies.py",
+      "exists": true,
+      "size_bytes": 2007,
+      "sha256": "d7c207571130eb7504964c820de20e84d91848ccbbbb49973bd3cd9996fa78f6",
+      "artifact_id": "d7c207571130eb7504964c820de20e84d91848ccbbbb49973bd3cd9996fa78f6",
+      "modified_at": "2026-09-30T23:47:32.532325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/components/updates.py",
+      "exists": true,
+      "size_bytes": 559,
+      "sha256": "06d91a66fffc8d81433898685759eccf53909a840a8591a5abf7897f2e1f11f9",
+      "artifact_id": "06d91a66fffc8d81433898685759eccf53909a840a8591a5abf7897f2e1f11f9",
+      "modified_at": "2026-09-30T23:47:32.539325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/components/who2com.py",
+      "exists": true,
+      "size_bytes": 4192,
+      "sha256": "84c9dbfabca8c496b3d26ea5ebf4f0786c41b61de4d5af96ad3dd810f1cbe72a",
+      "artifact_id": "84c9dbfabca8c496b3d26ea5ebf4f0786c41b61de4d5af96ad3dd810f1cbe72a",
+      "modified_at": "2026-09-30T23:47:32.547325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/demo.py",
+      "exists": true,
+      "size_bytes": 12464,
+      "sha256": "06e012816d2185d9fa41b705cd9cb5fb76ac10fff32976262795e267fea110d2",
+      "artifact_id": "06e012816d2185d9fa41b705cd9cb5fb76ac10fff32976262795e267fea110d2",
+      "modified_at": "2026-09-30T23:47:32.569325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/training/__init__.py",
+      "exists": true,
+      "size_bytes": 88,
+      "sha256": "f422a8a583766d728a29e8f0cef688c71498fe293a056ed078d66e31d1b79f8a",
+      "artifact_id": "f422a8a583766d728a29e8f0cef688c71498fe293a056ed078d66e31d1b79f8a",
+      "modified_at": "2026-09-30T23:47:32.581325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/training/ippo.py",
+      "exists": true,
+      "size_bytes": 7345,
+      "sha256": "9b48aff827a840f346d7b065b4ced1f745b09f627e65d5a05a6d7223b255ebc9",
+      "artifact_id": "9b48aff827a840f346d7b065b4ced1f745b09f627e65d5a05a6d7223b255ebc9",
+      "modified_at": "2026-09-30T23:47:32.597325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/modmarl/training/tarmac.py",
+      "exists": true,
+      "size_bytes": 9142,
+      "sha256": "abcec48f2372b3fad7d95afdbca01621eda75bc5443cdfbeafad90cadfedb15d",
+      "artifact_id": "abcec48f2372b3fad7d95afdbca01621eda75bc5443cdfbeafad90cadfedb15d",
+      "modified_at": "2026-09-30T23:47:32.606325+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/__init__.py",
+      "exists": true,
+      "size_bytes": 2633,
+      "sha256": "2c4c488b44a926dfcb1a5b012a326aee691f5fa843f916742609967cbe26294c",
+      "artifact_id": "2c4c488b44a926dfcb1a5b012a326aee691f5fa843f916742609967cbe26294c",
+      "modified_at": "2026-09-30T23:47:30.816314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/core.py",
+      "exists": true,
+      "size_bytes": 6950,
+      "sha256": "72ed8c076e808ab30a0949bb80ab6953fb29f31a5140e604ded30cedb10bba2b",
+      "artifact_id": "72ed8c076e808ab30a0949bb80ab6953fb29f31a5140e604ded30cedb10bba2b",
+      "modified_at": "2026-09-30T23:47:30.825314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/factory.py",
+      "exists": true,
+      "size_bytes": 8243,
+      "sha256": "de3e2e0f01d9838fa1f030baf7e3071cf74dd45c3b52b907358b86e432522dfb",
+      "artifact_id": "de3e2e0f01d9838fa1f030baf7e3071cf74dd45c3b52b907358b86e432522dfb",
+      "modified_at": "2026-09-30T23:47:30.835314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/hallway.py",
+      "exists": true,
+      "size_bytes": 3942,
+      "sha256": "77218b137517887497f3c77c1731ba73ea04bdc6d68ec4f30a8e50877300b04c",
+      "artifact_id": "77218b137517887497f3c77c1731ba73ea04bdc6d68ec4f30a8e50877300b04c",
+      "modified_at": "2026-09-30T23:47:30.911314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/macpp_adapter.py",
+      "exists": true,
+      "size_bytes": 7952,
+      "sha256": "2b5205c28d0bfdc8340d202e0985a60ad25b1dbce13bc0fca1b261d9e9929d0d",
+      "artifact_id": "2b5205c28d0bfdc8340d202e0985a60ad25b1dbce13bc0fca1b261d9e9929d0d",
+      "modified_at": "2026-09-30T23:47:30.926314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/mpe.py",
+      "exists": true,
+      "size_bytes": 34234,
+      "sha256": "d0a4a6e78f54faf7ec552fa664508332a7af573c74fa7c98be36bb3d0ea02931",
+      "artifact_id": "d0a4a6e78f54faf7ec552fa664508332a7af573c74fa7c98be36bb3d0ea02931",
+      "modified_at": "2026-09-30T23:47:30.939314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/noisy_navigation.py",
+      "exists": true,
+      "size_bytes": 7495,
+      "sha256": "eb3247a5db68672295b3b3050977a06403e3d8eff277661e440a31834bdf611e",
+      "artifact_id": "eb3247a5db68672295b3b3050977a06403e3d8eff277661e440a31834bdf611e",
+      "modified_at": "2026-09-30T23:47:30.948314+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/particle.py",
+      "exists": true,
+      "size_bytes": 9401,
+      "sha256": "9a5b16547812270bbef53d016bdc60b08e2c6f490638c14d0081b75d4bf63ff6",
+      "artifact_id": "9a5b16547812270bbef53d016bdc60b08e2c6f490638c14d0081b75d4bf63ff6",
+      "modified_at": "2026-09-30T23:47:30.967315+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/__init__.py",
+      "exists": true,
+      "size_bytes": 276,
+      "sha256": "d53da310245f72ac897063c914ce123ae579b5852ef4643e7062be4df7342f08",
+      "artifact_id": "d53da310245f72ac897063c914ce123ae579b5852ef4643e7062be4df7342f08",
+      "modified_at": "2026-09-30T23:47:31.100316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/core.py",
+      "exists": true,
+      "size_bytes": 12263,
+      "sha256": "44cf21c0d4f0e0379166d488b5869db90ba72e2ad7df41f636313a5d4ca37c76",
+      "artifact_id": "44cf21c0d4f0e0379166d488b5869db90ba72e2ad7df41f636313a5d4ca37c76",
+      "modified_at": "2026-09-30T23:47:31.125316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/environment.py",
+      "exists": true,
+      "size_bytes": 14689,
+      "sha256": "5d9ae9b46ed30ca96dcab7a01efec38bc695bd7c9e2b9105644521fc12a889f2",
+      "artifact_id": "5d9ae9b46ed30ca96dcab7a01efec38bc695bd7c9e2b9105644521fc12a889f2",
+      "modified_at": "2026-09-30T23:47:31.135316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/policy.py",
+      "exists": true,
+      "size_bytes": 1935,
+      "sha256": "86b15d1dfc174f1486b47e7a6e224b34464c83273c0abd950fc20352b7705c44",
+      "artifact_id": "86b15d1dfc174f1486b47e7a6e224b34464c83273c0abd950fc20352b7705c44",
+      "modified_at": "2026-09-30T23:47:31.198316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/rendering.py",
+      "exists": true,
+      "size_bytes": 13808,
+      "sha256": "d6093aedf4d6f31f4e41694fcef786c643eadd931e1f1e14bf4a41ac9c456448",
+      "artifact_id": "d6093aedf4d6f31f4e41694fcef786c643eadd931e1f1e14bf4a41ac9c456448",
+      "modified_at": "2026-09-30T23:47:31.220316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenario.py",
+      "exists": true,
+      "size_bytes": 309,
+      "sha256": "46437c0db6122b7729f4f596e121a88d6d510feaa83c65bb97436f5e9596d2c6",
+      "artifact_id": "46437c0db6122b7729f4f596e121a88d6d510feaa83c65bb97436f5e9596d2c6",
+      "modified_at": "2026-09-30T23:47:31.229316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/__init__.py",
+      "exists": true,
+      "size_bytes": 248,
+      "sha256": "5ae42e25a30f4207b08bb7467ed4df7c877b39756a1fbcd9d7b82762f500dc38",
+      "artifact_id": "5ae42e25a30f4207b08bb7467ed4df7c877b39756a1fbcd9d7b82762f500dc38",
+      "modified_at": "2026-09-30T23:47:31.242316+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/i2c_cooperative_navigation.py",
+      "exists": true,
+      "size_bytes": 4060,
+      "sha256": "79c6b9bdab08b8a7f19e1de9dd39ea9856acd8fd6c942c07ff39eb29843b7f58",
+      "artifact_id": "79c6b9bdab08b8a7f19e1de9dd39ea9856acd8fd6c942c07ff39eb29843b7f58",
+      "modified_at": "2026-09-30T23:47:31.279317+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/simple_formation_po.py",
+      "exists": true,
+      "size_bytes": 7313,
+      "sha256": "0c2bdc14a854c080bfcf9be97086d1b165fee4d341cf41fc37887620dae24c0e",
+      "artifact_id": "0c2bdc14a854c080bfcf9be97086d1b165fee4d341cf41fc37887620dae24c0e",
+      "modified_at": "2026-09-30T23:47:31.322317+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/simple_line_po.py",
+      "exists": true,
+      "size_bytes": 5665,
+      "sha256": "3ca3d1005b5a715b8369a1d6b5f538262060f00dba7618e7c27fd1e48e81dfde",
+      "artifact_id": "3ca3d1005b5a715b8369a1d6b5f538262060f00dba7618e7c27fd1e48e81dfde",
+      "modified_at": "2026-09-30T23:47:31.332317+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/simple_spread.py",
+      "exists": true,
+      "size_bytes": 4046,
+      "sha256": "56f5bdd0db1f6e1aa5c9a5edb27a36e0d0fb5c661099af39495ec7089ac9f603",
+      "artifact_id": "56f5bdd0db1f6e1aa5c9a5edb27a36e0d0fb5c661099af39495ec7089ac9f603",
+      "modified_at": "2026-09-30T23:47:31.349317+00:00"
+    },
+    {
+      "path": "/path/to/storage/repos/modMARL-validation-stage6/marl_envs/vendors/multiagentsha/scenarios/simple_spread_pack_leader_4_2.py",
+      "exists": true,
+      "size_bytes": 5092,
+      "sha256": "3ad49f797c35b44f9d87d27fb71b93041c7cb2116997e2753a36b9240cdcd3eb",
+      "artifact_id": "3ad49f797c35b44f9d87d27fb71b93041c7cb2116997e2753a36b9240cdcd3eb",
+      "modified_at": "2026-09-30T23:47:31.394317+00:00"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/schednet-release-confirmation/schednet/seed403/result.json",
+      "exists": true,
+      "size_bytes": 208845,
+      "sha256": "87da4cfa4bef3554a0d509269ab7e075d0fd804671d20a68687b9d8a8ad06772",
+      "artifact_id": "87da4cfa4bef3554a0d509269ab7e075d0fd804671d20a68687b9d8a8ad06772",
+      "modified_at": "2026-09-30T23:49:01.848613+00:00"
+    },
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/schednet-release-confirmation/schednet/seed403/result.environment.txt",
+      "exists": true,
+      "size_bytes": 341,
+      "sha256": "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "artifact_id": "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "modified_at": "2026-09-30T23:49:01.931613+00:00"
+    },
+    {
+      "path": "/path/to/storage/modMARL-validation-20261001/schednet-release-confirmation/schednet/seed403/checkpoint.pt",
+      "exists": true,
+      "size_bytes": 174690,
+      "sha256": "07b0627555dee6d365172de125ffa784c60b6b5f411f3682c6ce34b6173c8fd9",
+      "artifact_id": "07b0627555dee6d365172de125ffa784c60b6b5f411f3682c6ce34b6173c8fd9",
+      "modified_at": "2026-09-30T23:49:01.669613+00:00"
+    }
+  ],
+  "lineage": {
+    "input_artifact_ids": [
+      "48a2d51a8c12d703cdad7e884f5367945c2ad59619b43a2d1608143bb9da6131",
+      "0de4dfc4829291575fd98e5100f7f903f16328888bebe42618cd139acfc7ddd9",
+      "864c37d7912814074ce293814cefcb8559794ad3dd2e99f1ad1053d1767874f8",
+      "b419c7f6229f0c173aff77ed28897b6f01c6074ee434db2a20e12e3c311136a5",
+      "28585f92c4867da3810cf67eef914942183d7c507e2e437226ccb70a3e618c21",
+      "edcaa6ac8bfb2946c01a333b6bf388a24afdf0e53c904fa03764830227da48e0",
+      "424e802ad88f965b951ecb99b5c34add217003cc32d43036b73bbadfd955ff09",
+      "25b859f1c6edb9ff028270461313dc255460140ae23346cc14522381e5895596",
+      "f79d95ced5e72f4ad14aef1a9e74ac59e5e6953462b435d31604f84483b805b4",
+      "a7c543b4909490064806af28450e9d0eb3a64774868955dc8a75ad9b78109377",
+      "feb2985f1e462c9de66362905e90b26cb257f4fa0bb4efebb8b63157c70bc28e",
+      "4ee41f6308f8a9086e61d17bf6d68014655b0af7646e866638fb8e87a9d85e48",
+      "d687d392c038a6fb940b041fd46cea577aa87e342e3c0ec5edacc513f49ba35d",
+      "425ca15593d357683e26bcc9247b26f8b8c63e82940205dc631be6aacc8182df",
+      "b81f597832314dffe22910e11bac21698501e8f5fb809bf5192ace2c055d480f",
+      "e40c38bc85b7d923bdc8356ddb63785d2bb9d334a482635335ad25b3fdd9b370",
+      "ec464bccc88e78c35de02ffa66d233d8d94d677571b16d583944e4a313de9cd4",
+      "fa2649e55d6367f4ec6c062c38fc15f408b5d5723e2d5ff368bf2fd40bc9781b",
+      "4f32110f90981125beea4cc1173280238a5d7f5f5a153bd4e33a0973726f0b12",
+      "73d8cae205b0af53b1fbbaa63e699a184bd8f77e19398cf224f66ebbc6e97bcf",
+      "510264214f1ca1b699e5d545a1f7eb864dd943bd5969e7f4185a40ee7bffc5ad",
+      "47e921eb76cd9d883a5904b52a7c45dd86b8f793892e685726f305ca310b4686",
+      "0bf3170729c01f1e890c46ae1461c71e9465891ae0328fffcc8d7b0bbd73e740",
+      "169c0aea100f20905c3eba7ea9872813ffa7803d35cda4c3e12fdab5ab6480fa",
+      "98bee11ffcb91a567b5fb0b16e99e0598f640cc643351268060fe7d694ae2043",
+      "1d246527ee4bec305298f0fc791acb2ca150ba6cc5cd1c7004b7ba8f96b044a3",
+      "ee7d8907ed72fedcbefbf082571346f94f5576f272b9eedd00d4979acc0749cc",
+      "8176314e0f68806ee28029620e36a30aaa1f1eaad2d34f990a59a8df3825ec94",
+      "0b273ff2fec1ea507afd0f211136e322790992c42ee149d8e5f4f4ce7320f274",
+      "894aef79e5c5e82278b10396cd5621bfd7468248280a4e4bf7db87d24026e0b8",
+      "2877fe0c04145f84f68c1b1820895d6dbfb15ce03cec6dcb95de07e5a30b6345",
+      "3a0f1e36df3474e4f5700015cf8649d4c88c333d1568624d065f12b039532de6",
+      "18445ee68541387575e5f87c7adb0d75ef62c922cc209504cff5f7ed486b4b40",
+      "0d58bdc447f4bf8df972f461a2f0b9a76d17cadea66eaa2f2bb66dd452cb7ec4",
+      "c17e0e6aed3150e158fba1a98a2139100cca55de9d3f409677e91c4d3b3b0bc2",
+      "f3598f410d6cc36327f32c6a4a0c31f4f3ca55d59c6a652bbb81f91dd1e71d03",
+      "bb94eb500b92756f372ee4776799cee36e412a5c75ffaa0f20daf58ea7e5ad66",
+      "b53f4c6cdf1330a97c15fb616e2f0ab77af2f0134209c8c5e1fd0fba948a51f9",
+      "6f64a000da35b748da400e7a859a2fe6f2982f5e65cdcc94125436367bafde74",
+      "b00b73a68a207d36881a42c56bd818c260315ab3a5b775d721164c365901a4df",
+      "f71d748ced92ee85e19fed9f5ef580f1e42a95c2b9bd5af745dee4a59d9083c6",
+      "330b7000dc5c4f5b888b39e9b602da928804633acc285f75cded7869683f14b3",
+      "e23f6144b821d80981d7c0f417cd463f84c31dbd54d41f0f23d7e75e0de2a3de",
+      "d8d924625413eb73eda78db05ec07beaa227559aa1898596056e252fb5f1a8d5",
+      "d2673cbb60d338644a52e481d3f1b1dff026b63e5883b1bbf54b13259243436a",
+      "6129ffca013ca27d70599163838a0f73468406d2abd2bd7edab4949dcda72fd1",
+      "d7c207571130eb7504964c820de20e84d91848ccbbbb49973bd3cd9996fa78f6",
+      "06d91a66fffc8d81433898685759eccf53909a840a8591a5abf7897f2e1f11f9",
+      "84c9dbfabca8c496b3d26ea5ebf4f0786c41b61de4d5af96ad3dd810f1cbe72a",
+      "06e012816d2185d9fa41b705cd9cb5fb76ac10fff32976262795e267fea110d2",
+      "f422a8a583766d728a29e8f0cef688c71498fe293a056ed078d66e31d1b79f8a",
+      "9b48aff827a840f346d7b065b4ced1f745b09f627e65d5a05a6d7223b255ebc9",
+      "abcec48f2372b3fad7d95afdbca01621eda75bc5443cdfbeafad90cadfedb15d",
+      "2c4c488b44a926dfcb1a5b012a326aee691f5fa843f916742609967cbe26294c",
+      "72ed8c076e808ab30a0949bb80ab6953fb29f31a5140e604ded30cedb10bba2b",
+      "de3e2e0f01d9838fa1f030baf7e3071cf74dd45c3b52b907358b86e432522dfb",
+      "77218b137517887497f3c77c1731ba73ea04bdc6d68ec4f30a8e50877300b04c",
+      "2b5205c28d0bfdc8340d202e0985a60ad25b1dbce13bc0fca1b261d9e9929d0d",
+      "d0a4a6e78f54faf7ec552fa664508332a7af573c74fa7c98be36bb3d0ea02931",
+      "eb3247a5db68672295b3b3050977a06403e3d8eff277661e440a31834bdf611e",
+      "9a5b16547812270bbef53d016bdc60b08e2c6f490638c14d0081b75d4bf63ff6",
+      "d53da310245f72ac897063c914ce123ae579b5852ef4643e7062be4df7342f08",
+      "44cf21c0d4f0e0379166d488b5869db90ba72e2ad7df41f636313a5d4ca37c76",
+      "5d9ae9b46ed30ca96dcab7a01efec38bc695bd7c9e2b9105644521fc12a889f2",
+      "86b15d1dfc174f1486b47e7a6e224b34464c83273c0abd950fc20352b7705c44",
+      "d6093aedf4d6f31f4e41694fcef786c643eadd931e1f1e14bf4a41ac9c456448",
+      "46437c0db6122b7729f4f596e121a88d6d510feaa83c65bb97436f5e9596d2c6",
+      "5ae42e25a30f4207b08bb7467ed4df7c877b39756a1fbcd9d7b82762f500dc38",
+      "79c6b9bdab08b8a7f19e1de9dd39ea9856acd8fd6c942c07ff39eb29843b7f58",
+      "0c2bdc14a854c080bfcf9be97086d1b165fee4d341cf41fc37887620dae24c0e",
+      "3ca3d1005b5a715b8369a1d6b5f538262060f00dba7618e7c27fd1e48e81dfde",
+      "56f5bdd0db1f6e1aa5c9a5edb27a36e0d0fb5c661099af39495ec7089ac9f603",
+      "3ad49f797c35b44f9d87d27fb71b93041c7cb2116997e2753a36b9240cdcd3eb"
+    ],
+    "output_artifact_ids": [
+      "87da4cfa4bef3554a0d509269ab7e075d0fd804671d20a68687b9d8a8ad06772",
+      "fa500884b09110b9c2c82fb3573250718c61ae74851eb25677314ab5581ec067",
+      "07b0627555dee6d365172de125ffa784c60b6b5f411f3682c6ce34b6173c8fd9"
+    ],
+    "parent_run_ids": [],
+    "parent_records": []
+  },
+  "extra": {}
+}

@@ -378,3 +378,37 @@ def test_terminal_transition_does_not_bootstrap_either_critic_head() -> None:
 
     torch.testing.assert_close(agent.critic.value.grad, torch.tensor(-4.0))
     torch.testing.assert_close(agent.critic.schedule.grad, torch.tensor(-4.0))
+
+
+def test_scheduler_critic_gradient_is_evaluated_at_replayed_priorities() -> None:
+    from itertools import chain
+
+    from examples.train_schednet import _update
+
+    class QuadraticCritic(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.offset = torch.nn.Parameter(torch.zeros(()))
+
+        def forward(self, obs, weights):
+            return self.offset.expand(obs.shape[0]), self.offset + weights.square().sum(-1)
+
+    torch.manual_seed(12)
+    agent = SchedNetAgent(n_agents=3, obs_dim=5, action_dim=4, bandwidth=2)
+    agent.critic = QuadraticCritic()
+    agent.target_critic = QuadraticCritic().requires_grad_(False)
+    batch = _make_batch()
+    batch.weights[:] = torch.tensor([0.1, 0.8, 0.2])
+    predictions = agent.weight_generator(batch.obs)
+    # dQ/dw = 2*w at the stored priorities, not at today's generator outputs.
+    expected_loss = -(predictions * (2 * batch.weights)).sum(-1).mean()
+    expected = torch.autograd.grad(expected_loss, tuple(agent.weight_generator.parameters()))
+    actor_opt = torch.optim.Adam(
+        chain(agent.message_encoder.parameters(), agent.action_selector.parameters()), lr=0.0,
+    )
+    critic_opt = torch.optim.Adam(agent.critic.parameters(), lr=0.0)
+    weight_opt = torch.optim.Adam(agent.weight_generator.parameters(), lr=0.0)
+    _update(agent, actor_opt, critic_opt, weight_opt, batch, 2)
+    for parameter, gradient in zip(agent.weight_generator.parameters(), expected):
+        torch.testing.assert_close(parameter.grad, gradient, rtol=0.0, atol=1e-7)
+    assert batch.weights.grad is None

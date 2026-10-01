@@ -1,0 +1,25 @@
+{
+  "algorithm": "maic",
+  "scope": "development basic communication-task learning; not Hallway reproduction",
+  "seeds": [
+    11,
+    13,
+    17
+  ],
+  "config": {
+    "env": "target_signaling",
+    "n_agents": 3,
+    "horizon": 1,
+    "episodes": 20000,
+    "mixer": "vdn",
+    "evaluation_episodes": 300,
+    "evaluation_normalization": "running",
+    "device": "cpu"
+  },
+  "criteria": {
+    "minimum_win_rate": 0.8,
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2,
+    "return_margin_over_no_message": 0.2
+  }
+}

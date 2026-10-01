@@ -1,0 +1,9 @@
+{
+  "reference_revision": "2bd47d105ccd64bfba1f1d71981f7723c59ac07f",
+  "max_absolute_latent_mean_error": {
+    "batch": 0.0,
+    "running": 1.0695414422979712
+  },
+  "scope": "same weights and inputs; encoder normalization only",
+  "reference_test_uses_batch_statistics": true
+}

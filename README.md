@@ -20,6 +20,10 @@ Implementations have behavioral tests and recorded multi-seed learning evidence.
 The [validation table](guides/validation.md) distinguishes passing criteria,
 known failures, missing evidence, and available reference comparisons. The curves
 are scoped evidence, not a claim that every published benchmark has been reproduced.
+New learning checks freeze the task, budget and acceptance rules before three fresh
+training seeds. Every seed must improve over its initialized policy and random
+actions and meet its task criterion. The linked JSON recipes run on CPU; original
+failed results remain available alongside subsequent repairs.
 
 ## Install and run
 
@@ -162,17 +166,20 @@ docstring records the reconciliation in full. Two cases affect what the tables a
 The learning curves below show mean episode return and the seed range over three runs
 for each algorithm. Every panel names its environment explicitly. Implementations are
 also checked by behavioral unit tests and seeded learning regressions. The exact per-seed
-inputs are retained in `figures/curve_data/`. Rebuild both images with
-`python tools/plot_curves.py --curves figures/curve_data --out figures --require-complete`.
-Regenerate all inputs with the command below; run learning regressions with
+inputs are retained in `figures/curve_data/` and `figures/validation_data/`.
+The inventory selects each method's current evidence, preserving earlier failures.
+Rebuild both images with
+`python tools/plot_curves.py --inventory validation/inventory.json --out figures --require-complete`.
+Reproduce the new confirmation panels with the frozen recipes linked in the
+[validation table](guides/validation.md). Run learning regressions with
 `pytest -o addopts='' -m slow` (the override removes the default fast-only marker).
-Thus every plotted panel is rebuilt from its committed per-seed JSON rather than
-manually edited figure data; algorithm-specific tasks, budgets, and seeds are declared in
-`tools/train_curves.py`.
 
-```bash
-python tools/train_curves.py --out figures/curve_data --jobs 8 --clear
-```
+Training returns include exploration. Use the [validation table](guides/validation.md)
+for final policy evaluation and current confirmation results. Different tasks,
+budgets and settings make this a learning demonstration, not a method ranking.
+
+The original curve recipes remain in `tools/train_curves.py`; use a new output
+directory when rerunning them to preserve the recorded evidence.
 
 <p align="center">
   <picture>

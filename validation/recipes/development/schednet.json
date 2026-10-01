@@ -1,0 +1,24 @@
+{
+  "algorithm": "schednet",
+  "scope": "development task diagnosis, not confirmation",
+  "seeds": [
+    11
+  ],
+  "config": {
+    "env": "delayed_signaling",
+    "n_agents": 2,
+    "horizon": 3,
+    "evaluation_episodes": 300,
+    "device": "cpu",
+    "episodes": 20000,
+    "actor_learning_rate": 0.0001,
+    "weight_learning_rate": 0.0001,
+    "critic_learning_rate": 0.001,
+    "epsilon_decay_steps": 20000
+  },
+  "criteria": {
+    "minimum_success_rate": 0.8,
+    "return_margin_over_initial": 0.2,
+    "return_margin_over_random": 0.2
+  }
+}
