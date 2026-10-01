@@ -169,10 +169,19 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
 
 
 def render(inventory: dict, rows: list[dict], learning_rows: list[dict] | None = None) -> str:
+    current_status = []
+    if learning_rows is not None:
+        passing_methods = sum(row["status"] == "pass" for row in learning_rows)
+        current_status = [
+            f"**Current bounded learning checks: {passing_methods}/{len(learning_rows)} methods pass.**",
+            "See [current results and frozen recipes](#bounded-learning-checks);",
+            "the first table below preserves the historical audit.", "",
+        ]
     lines = [
         "# Validation evidence", "",
         "Generated from `validation/inventory.json` and committed artifacts with",
         "`python tools/check_validation.py --write`. Check without training using `--check`.", "",
+        *current_status,
         "**A numerical pass is scoped learning evidence, not correctness certification,**",
         "**published-performance reproduction, or proof of communication benefit.**",
         "The source links contain the paper/release specification and deliberate deviations.",

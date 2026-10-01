@@ -3,6 +3,10 @@
 Generated from `validation/inventory.json` and committed artifacts with
 `python tools/check_validation.py --write`. Check without training using `--check`.
 
+**Current bounded learning checks: 30/31 methods pass.**
+See [current results and frozen recipes](#bounded-learning-checks);
+the first table below preserves the historical audit.
+
 **A numerical pass is scoped learning evidence, not correctness certification,**
 **published-performance reproduction, or proof of communication benefit.**
 The source links contain the paper/release specification and deliberate deviations.
