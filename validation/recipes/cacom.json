@@ -1,10 +1,10 @@
 {
   "algorithm": "cacom",
-  "scope": "fresh three-seed confirmation after controlled development repair",
+  "scope": "fresh confirmation of paper-action gates after longer classifier convergence",
   "seeds": [
-    301,
-    303,
-    307
+    401,
+    403,
+    407
   ],
   "config": {
     "env": "target_signaling",
@@ -12,7 +12,7 @@
     "horizon": 1,
     "evaluation_episodes": 300,
     "device": "cpu",
-    "episodes": 20000,
+    "episodes": 40000,
     "gate_start_steps": 10000,
     "gate_update_every_steps": 10,
     "epsilon_anneal_steps": 20000,
