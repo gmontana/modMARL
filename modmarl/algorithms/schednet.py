@@ -37,8 +37,8 @@ gradient to the current weight generator. This differs from the usual DDPG
 evaluation at ``w = mu(o)`` suggested by paper Section 3.3.1. The trainer follows
 the released evaluation point, averaging the batch loss as for its other losses.
 
-Validation uses the repository's three-agent cooperative navigation task as a bounded learning
-demonstration, not as a reproduction of the paper's four-predator grid benchmark.
+Historical curves use three-agent navigation; the frozen learning recipe uses two-agent
+one-step signaling. These bounded checks do not reproduce the paper's predator-prey benchmark.
 """
 
 from __future__ import annotations

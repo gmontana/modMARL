@@ -124,7 +124,7 @@ performance or communication benefit. Original failures above remain visible.
 | mdmaddpg | pass (3/3) | reused historical evidence | Historical curve data |
 | ndq | pass (3/3) | reused historical evidence | Historical curve data |
 | qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes | [JSON](../validation/recipes/development/qmix-first-confirmation.json) |
-| schednet | fail (2/3) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation | [JSON](../validation/recipes/development/schednet-fourth-confirmation.json) |
+| schednet | insufficient evidence (0/0) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation | [JSON](../validation/recipes/development/schednet-fourth-confirmation.json) |
 | sms | pass (3/3) | reused historical evidence | Historical curve data |
 | tarmac | pass (3/3) | reused historical evidence | Historical curve data |
 | vdn | pass (3/3) | fresh confirmation: navigation, 20k episodes | [JSON](../validation/recipes/vdn.json) |

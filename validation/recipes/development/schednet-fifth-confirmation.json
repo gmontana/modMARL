@@ -1,10 +1,10 @@
 {
   "algorithm": "schednet",
-  "scope": "fresh confirmation of released replay-priority scheduler gradient and original rate/exploration settings",
+  "scope": "fresh-seed one-step signaling confirmation with released learning rates and exploration",
   "seeds": [
-    601,
-    603,
-    607
+    501,
+    503,
+    507
   ],
   "config": {
     "env": "target_signaling",
