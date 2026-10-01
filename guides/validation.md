@@ -132,13 +132,17 @@ performance or communication benefit. Original failures above remain visible.
 Reproduce new confirmation jobs from a checkout:
 
 ```bash
-python -m tools.run_validation --protocol validation/recipes/maic.json \
-  --seed 101 --out runs/maic-101
+python -m tools.run_validation --protocol validation/recipes/ic3net.json \
+  --seed 101 --out runs/ic3net-101
 ```
 
 Each recipe declares its seeds, budget, task and numerical rules. Use a new
 output directory per seed. Results include full resolved settings, source and
 checkpoint hashes, environment versions, host and measured runtime.
+
+These recipes use CPU training with one PyTorch thread per process. Seeds can
+run concurrently in separate processes and output directories. Budgets vary
+by method; inspect the recipe before launching. A GPU is not required.
 
 A confirmation pass requires every registered seed to meet every criterion.
 Inspect these results with `python tools/check_validation.py --learning --json`.

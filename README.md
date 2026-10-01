@@ -20,6 +20,10 @@ Implementations have behavioral tests and recorded multi-seed learning evidence.
 The [validation table](guides/validation.md) distinguishes passing criteria,
 known failures, missing evidence, and available reference comparisons. The curves
 are scoped evidence, not a claim that every published benchmark has been reproduced.
+New learning checks freeze the task, budget and acceptance rules before three fresh
+training seeds. Every seed must improve over its initialized policy and random
+actions and meet its task criterion. The linked JSON recipes run on CPU; original
+failed results remain available alongside subsequent repairs.
 
 ## Install and run
 
@@ -169,6 +173,10 @@ Regenerate all inputs with the command below; run learning regressions with
 Thus every plotted panel is rebuilt from its committed per-seed JSON rather than
 manually edited figure data; algorithm-specific tasks, budgets, and seeds are declared in
 `tools/train_curves.py`.
+
+Training returns include exploration. Use the [validation table](guides/validation.md)
+for final policy evaluation and current confirmation results. Different tasks,
+budgets and settings make this a learning demonstration, not a method ranking.
 
 ```bash
 python tools/train_curves.py --out figures/curve_data --jobs 8 --clear
