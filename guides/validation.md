@@ -78,7 +78,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 - **masia:** Hallway success uses a win reward of 1, whereas NDQ uses 10. The task name alone does not establish comparable configuration; there is no recorded message ablation.
 - **mdmaddpg:** Reconciled against private author code; public users should consult the module's explicit decisions.
 - **ndq:** High Hallway success and a message-ablation effect show reliance of these trained policies. A local fixed-deadline policy can also solve this deterministic task without messages.
-- **qmix:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.
+- **qmix:** Historical curves have no saved criterion. Fresh navigation confirmation passes with gamma 0.9; gamma 0.99 failed a seed even at 30k episodes. Controlled updates match pinned PyMARL exactly with the documented modern-autograd compatibility patch.
 - **schednet:** Seed 3 finishes below its random-policy reference. Learning acceptance is unresolved.
 - **vdn:** Saved curves lack acceptance criteria; no threshold is inferred from the current trainer. Uses a third-party reference. Fresh confirmation under explicit navigation criteria is reported below.
 
@@ -98,7 +98,7 @@ performance or communication benefit. Original failures above remain visible.
 | Method | Learning check | Evidence basis | Frozen recipe |
 |---|---|---|---|
 | atoc | pass (3/3) | reused historical evidence | Historical curve data |
-| cacom | fail (2/3) | fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation | [JSON](../validation/recipes/development/cacom-first-confirmation.json) |
+| cacom | fail (2/3) | fresh paper-label confirmation; seed 301 gate has not converged | [JSON](../validation/recipes/development/cacom-second-confirmation.json) |
 | cdc | pass (3/3) | reused historical evidence | Historical curve data |
 | cmvc | pass (3/3) | reused historical evidence | Historical curve data |
 | commformer | pass (3/3) | reused historical evidence | Historical curve data |
@@ -123,7 +123,7 @@ performance or communication benefit. Original failures above remain visible.
 | mat | pass (3/3) | reused historical evidence | Historical curve data |
 | mdmaddpg | pass (3/3) | reused historical evidence | Historical curve data |
 | ndq | pass (3/3) | reused historical evidence | Historical curve data |
-| qmix | fail (2/3) | failed fresh confirmation: navigation, 10k episodes | [JSON](../validation/recipes/development/qmix-first-confirmation.json) |
+| qmix | pass (3/3) | fresh navigation confirmation, 10k episodes with gamma 0.9 | [JSON](../validation/recipes/qmix.json) |
 | schednet | insufficient evidence (0/0) | fresh one-step confirmation; seed 401 fails, slower exploration under investigation | [JSON](../validation/recipes/development/schednet-fourth-confirmation.json) |
 | sms | pass (3/3) | reused historical evidence | Historical curve data |
 | tarmac | pass (3/3) | reused historical evidence | Historical curve data |

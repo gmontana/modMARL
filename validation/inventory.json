@@ -29,17 +29,17 @@
       "acknowledged_status": "fail",
       "notes": "Historical seed 7 fails. The optional paper-action gate mode addresses a demonstrated label discrepancy; its first fresh confirmation still fails one seed. Release labels remain the default. Current learning acceptance is unresolved.",
       "learning": {
-        "artifacts": "figures/validation_data/cacom-paper/seed*/result.json",
+        "artifacts": "figures/validation_data/cacom-exploration/seed*/result.json",
         "seeds": [
-          201,
-          203,
-          207
+          301,
+          303,
+          307
         ],
-        "protocol": "validation/recipes/development/cacom-first-confirmation.json",
+        "protocol": "validation/recipes/development/cacom-second-confirmation.json",
         "source_dependencies": [
           "modmarl/algorithms/qmix.py"
         ],
-        "basis": "fresh paper-label one-step confirmation; seed 201 fails, exploration under investigation"
+        "basis": "fresh paper-label confirmation; seed 301 gate has not converged"
       }
     },
     "cdc": {
@@ -426,16 +426,16 @@
         "figures/reference_data/qmix_update_parity.json"
       ],
       "acknowledged_status": "missing criterion",
-      "notes": "Saved curves lack acceptance criteria; no threshold is inferred from the current trainer.",
+      "notes": "Historical curves have no saved criterion. Fresh navigation confirmation passes with gamma 0.9; gamma 0.99 failed a seed even at 30k episodes. Controlled updates match pinned PyMARL exactly with the documented modern-autograd compatibility patch.",
       "learning": {
-        "artifacts": "figures/validation_data/qmix/seed*/result.json",
+        "artifacts": "figures/validation_data/qmix-discount/seed*/result.json",
         "seeds": [
-          101,
-          103,
-          107
+          201,
+          203,
+          207
         ],
-        "protocol": "validation/recipes/development/qmix-first-confirmation.json",
-        "basis": "failed fresh confirmation: navigation, 10k episodes"
+        "protocol": "validation/recipes/qmix.json",
+        "basis": "fresh navigation confirmation, 10k episodes with gamma 0.9"
       }
     },
     "schednet": {
