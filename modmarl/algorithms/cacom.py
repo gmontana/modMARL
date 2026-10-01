@@ -24,8 +24,9 @@ mode instead evaluates the link-on and link-off actions under a common link-on
 value function and mixer, holding other agents' actions fixed. This implements
 the action counterfactual in Equations (7)--(11); its common communication context
 is an explicit resolution of the paper's underspecified critic context. The paper's
-implementation appendix specifies Adam for communication learning, so the gate uses
-Adam at 1e-4 even though the released SMAC learner routes it through RMSProp. The gate scores are scaled by
+implementation appendix specifies Adam for communication learning, but the released
+learner uses RMSProp (alpha 0.99, epsilon 1e-5); the trainer follows that release.
+The gate scores are scaled by
 1/sqrt(d_k) as paper Equation (6) writes them; the release omits that factor, so the
 paper governs here. The target network deliberately excludes the
 gate, reproducing the release's controller-owned ``ExpGate``. Environments

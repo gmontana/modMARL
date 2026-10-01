@@ -207,11 +207,13 @@ def test_policy_update_and_gate_update_are_finite_and_separate(monkeypatch) -> N
     assert helpers and set(helpers) == {0}
 
 
-def test_gate_uses_the_paper_appendix_adam_optimizer() -> None:
+def test_gate_uses_the_released_rmsprop_optimizer() -> None:
     agent = _agent()
     optimizer = train_cacom._gate_optimizer(agent.gate_parameters(), 1e-4)
-    assert isinstance(optimizer, torch.optim.Adam)
+    assert isinstance(optimizer, torch.optim.RMSprop)
     assert optimizer.param_groups[0]["lr"] == 1e-4
+    assert optimizer.defaults["alpha"] == 0.99
+    assert optimizer.defaults["eps"] == 1e-5
 
 
 def test_target_update_copies_network_and_mixer() -> None:

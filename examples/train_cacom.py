@@ -145,9 +145,9 @@ def train(
     }
 
 
-def _gate_optimizer(parameters, learning_rate: float) -> torch.optim.Adam:
-    """Paper Appendix B optimizer for the separately supervised local gate."""
-    return torch.optim.Adam(parameters, lr=learning_rate)
+def _gate_optimizer(parameters, learning_rate: float) -> torch.optim.RMSprop:
+    """Pinned release optimizer for the separately supervised local gate."""
+    return torch.optim.RMSprop(parameters, lr=learning_rate, alpha=0.99, eps=1e-5)
 
 
 @torch.no_grad()
