@@ -27,19 +27,19 @@
       ],
       "reference_comparisons": [],
       "acknowledged_status": "fail",
-      "notes": "Historical seed 7 fails. The optional paper-action gate mode addresses a demonstrated label discrepancy; its first fresh confirmation still fails one seed. Release labels remain the default. Current learning acceptance is unresolved.",
+      "notes": "Historical seed 7 and subsequent short signaling panels fail. Paper-action gate labels alone do not establish reliable learning; the released RMSProp optimizer is under investigation. Release labels remain the default. Failed panels are preserved; current learning acceptance is unresolved.",
       "learning": {
-        "artifacts": "figures/validation_data/cacom-exploration/seed*/result.json",
+        "artifacts": "figures/validation_data/cacom-convergence/seed*/result.json",
         "seeds": [
-          301,
-          303,
-          307
+          401,
+          403,
+          407
         ],
-        "protocol": "validation/recipes/development/cacom-second-confirmation.json",
+        "protocol": "validation/recipes/development/cacom-third-confirmation.json",
         "source_dependencies": [
           "modmarl/algorithms/qmix.py"
         ],
-        "basis": "fresh paper-label confirmation; seed 301 gate has not converged"
+        "basis": "40k paper-label panel fails 401/407; released optimizer under investigation"
       }
     },
     "cdc": {

@@ -63,7 +63,7 @@ for subsequent confirmation, frozen recipes and the current learning status.
 ## Limits and unresolved cases
 
 - **atoc:** Paper-based implementation with explicit underspecified architecture choices; no author release used for parity.
-- **cacom:** Historical seed 7 fails. The optional paper-action gate mode addresses a demonstrated label discrepancy; its first fresh confirmation still fails one seed. Release labels remain the default. Current learning acceptance is unresolved.
+- **cacom:** Historical seed 7 and subsequent short signaling panels fail. Paper-action gate labels alone do not establish reliable learning; the released RMSProp optimizer is under investigation. Release labels remain the default. Failed panels are preserved; current learning acceptance is unresolved.
 - **cdc:** Recorded return and message-ablation margins pass, and every seed improves over initialization and random actions. Binary task success is zero; the scoped learning claim is continuous navigation reward/distance improvement, not task completion. Reference code is private; see the implementation reconciliation.
 - **cmvc:** Paper-based implementation; the linked release was empty at reconciliation. Its recorded criterion only requires beating random, not reproducing the journal results.
 - **commformer:** Follows the released proceedings configuration and documented quirks. Local navigation curves do not reproduce the published benchmark tables.
@@ -98,7 +98,7 @@ performance or communication benefit. Original failures above remain visible.
 | Method | Learning check | Evidence basis | Frozen recipe |
 |---|---|---|---|
 | atoc | pass (3/3) | reused historical evidence | Historical curve data |
-| cacom | fail (2/3) | fresh paper-label confirmation; seed 301 gate has not converged | [JSON](../validation/recipes/development/cacom-second-confirmation.json) |
+| cacom | insufficient evidence (0/0) | 40k paper-label panel fails 401/407; released optimizer under investigation | [JSON](../validation/recipes/development/cacom-third-confirmation.json) |
 | cdc | pass (3/3) | reused historical evidence | Historical curve data |
 | cmvc | pass (3/3) | reused historical evidence | Historical curve data |
 | commformer | pass (3/3) | reused historical evidence | Historical curve data |
