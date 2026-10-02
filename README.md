@@ -5,6 +5,12 @@
   </picture>
 </p>
 
+<p align="center">
+  <a href="https://github.com/gmontana/modMARL/actions/workflows/ci.yml"><img src="https://github.com/gmontana/modMARL/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg" alt="Python 3.11 and 3.12">
+</p>
+
 **modMARL** — *modular* multi-agent reinforcement learning — is a curated library of
 cooperative MARL algorithms focused on **agent-to-agent communication**, plus the
 centralized-critic and independent baselines to compare against. Each algorithm keeps

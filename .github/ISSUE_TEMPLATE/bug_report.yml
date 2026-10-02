@@ -1,0 +1,36 @@
+name: Bug report
+description: Something fails, crashes or gives a wrong result.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: The command or a minimal script, including the seed and any non-default settings.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output or traceback
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: modMARL version or commit
+      placeholder: "0.1.0, or the output of git rev-parse --short HEAD"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Python 3.12, PyTorch 2.x, CPU, Ubuntu 24.04"

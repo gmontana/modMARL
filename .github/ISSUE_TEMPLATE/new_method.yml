@@ -1,0 +1,41 @@
+name: New method proposal
+description: Propose adding a multi-agent reinforcement learning method.
+labels: [new method]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Please read [CONTRIBUTING.md](https://github.com/gmontana/modMARL/blob/main/CONTRIBUTING.md)
+        first. Methods are welcome when they address a concrete gap; publication year alone
+        is not an acceptance criterion.
+  - type: input
+    id: paper
+    attributes:
+      label: Method and primary paper
+      placeholder: "Method name, authors, venue and year, link"
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What gap it fills
+      description: What it adds that the current methods do not, for example a communication mechanism or a setting.
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Reference implementation and its licence
+      description: Code can be adapted only from openly licensed implementations, with credit.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How learning would be shown
+      description: The task, budget and acceptance rule you would fix in a validation recipe before running.
+  - type: checkboxes
+    id: read
+    attributes:
+      label: Contribution guide
+      options:
+        - label: I have read CONTRIBUTING.md.
+          required: true
