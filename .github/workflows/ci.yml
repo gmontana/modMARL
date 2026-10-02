@@ -41,7 +41,8 @@ jobs:
           python -m venv "$RUNNER_TEMP/modmarl-wheel-env"
           wheel_python="$RUNNER_TEMP/modmarl-wheel-env/bin/python"
           "$wheel_python" -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-          "$wheel_python" -m pip install "$(pwd)/dist/modmarl-0.1.0-py3-none-any.whl[demo]"
+          wheel=$(ls "$(pwd)"/dist/modmarl-*-py3-none-any.whl)
+          "$wheel_python" -m pip install "${wheel}[demo]"
           cd "$RUNNER_TEMP"
           "$wheel_python" -m modmarl.demo train --episodes 32 --evaluation-episodes 32 --out wheel-smoke
           "$wheel_python" -m modmarl.demo evaluate --checkpoint wheel-smoke/checkpoint.pt --episodes 32 --out wheel-evaluation.json
