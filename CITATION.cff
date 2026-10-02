@@ -10,8 +10,8 @@ authors:
     email: giovanni.montana@gmail.com
 repository-code: "https://github.com/gmontana/modMARL"
 license: MIT
-version: 0.1.0
-date-released: "2026-10-01"
+version: 0.1.1
+date-released: "2026-10-02"
 abstract: >-
   A curated library of cooperative multi-agent reinforcement learning algorithms
   focused on agent-to-agent communication, together with centralized-critic and

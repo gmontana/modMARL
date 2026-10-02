@@ -57,15 +57,16 @@ The example uses TarMAC and IPPO to explain one-shot private-information sharing
 It complements the recent methods in the catalogue; it is not a leaderboard.
 Read the [recipe, recorded outcomes, costs and limitations](guides/demo.md).
 
-To install v0.1.0 without a checkout:
+To install v0.1.1 without a checkout:
 
 ```bash
-python -m pip install "modmarl[demo] @ https://github.com/gmontana/modMARL/releases/download/v0.1.0/modmarl-0.1.0-py3-none-any.whl"
+python -m pip install "modmarl[demo] @ https://github.com/gmontana/modMARL/releases/download/v0.1.1/modmarl-0.1.1-py3-none-any.whl"
 ```
 
 Run the same `python -m modmarl.demo` commands from any directory. The
-[release downloads](https://github.com/gmontana/modMARL/releases/tag/v0.1.0)
-include the source distribution, demo checkpoints and checksums. Source installs
+[release downloads](https://github.com/gmontana/modMARL/releases/tag/v0.1.1)
+include the source distribution and checksums; the demo checkpoints are in the
+[v0.1.0 release](https://github.com/gmontana/modMARL/releases/tag/v0.1.0). Source installs
 and wheels ship both `modmarl` and `marl_envs`. This release is distributed through
 GitHub; it is not published on PyPI.
 
