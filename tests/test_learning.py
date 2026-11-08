@@ -59,9 +59,36 @@ CASES = [
         },
         8.0,
     ),
-    ("intention_sharing", {}, 3.0),
+    # The next three probes use the environment, seed and network of their committed
+    # seed-3 curves. Those curves show no improvement by episode 500 and clear twice
+    # the margin by episodes ~900 (DDPG), ~1450 (MADDPG-M) and ~1650 (Intention
+    # Sharing), so each budget sits beyond that point. Single-threaded CPU times when
+    # calibrated: 258 s, 53 s and 185 s, with gains of 15.4, 7.0 and 13.1.
+    (
+        "intention_sharing",
+        {
+            "env": "paper_navigation",
+            "episodes": 3000,
+            "seed": 3,
+            "update_interval": 100,
+            "evaluation_episodes": 10,
+        },
+        3.0,
+    ),
     ("mdmaddpg", {}, 6.0),
-    ("maddpg_m", {"env": None}, 2.0),
+    (
+        "maddpg_m",
+        {
+            "env": None,
+            "episodes": 3000,
+            "seed": 3,
+            "n_agents": 3,
+            "horizon": 25,
+            "communication_interval": 5,
+            "evaluation_episodes": 10,
+        },
+        2.0,
+    ),
     ("maac", {}, 3.0),
     (
         "maddpg",
@@ -78,7 +105,10 @@ CASES = [
         {
             "env": "noisy_navigation",
             "n_agents": 1,
-            "hidden_dims": (64, 48),
+            "horizon": 25,
+            "episodes": 2000,
+            "seed": 3,
+            "hidden_dims": (400, 300),
             "batch_size": 64,
             "evaluation_episodes": 10,
         },
