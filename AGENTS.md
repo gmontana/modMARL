@@ -61,7 +61,8 @@ points are the self-contained training examples `examples/train_<algo>.py`
 - Frozen learning confirmations record hashes of every module under
   `marl_envs`, `modmarl/common` and `modmarl/components`. Editing any recorded
   module (including `marl_envs/factory.py` or `marl_envs/__init__.py`)
-  invalidates them; new modules are ignored until a confirmation records them.
+  invalidates them, as does deleting or renaming one. A new module is ignored
+  unless it reuses a recorded module's dotted name or lives under `vendors/`.
 - Post-publication CDC extensions (factorised/multiscale/spectral variants)
   were developed in a separate research repository and are not part of this
   repo's public API.

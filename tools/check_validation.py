@@ -90,6 +90,39 @@ def evaluate_run(payload: dict) -> dict:
         return {"status": "insufficient evidence", "details": [str(exc)]}
 
 
+SHARED_PACKAGES = ("marl_envs", "modmarl/common", "modmarl/components")
+
+
+def _module_name(relative: str) -> str:
+    parts = Path(relative).with_suffix("").parts
+    return ".".join(parts[:-1] if parts[-1] == "__init__" else parts)
+
+
+def _shared_sources_to_verify(root: Path, recorded_sources: dict[str, str]) -> list[Path]:
+    """Shared modules whose recorded hash a confirmation must still match.
+
+    Confirmations record every module under ``SHARED_PACKAGES``. Every recorded module
+    must still exist unchanged, so deletions and renames are caught. A module without a
+    record was added afterwards and is skipped only when it cannot take over an import
+    the confirmed run made: it must not reuse a recorded module's dotted name (a new
+    ``core/__init__.py`` shadows a recorded ``core.py``) and must not sit under a
+    ``vendors`` directory, which is placed on ``sys.path`` and can shadow third-party
+    packages. Any other unrecorded module still invalidates the confirmation.
+    """
+    recorded_shared = [name for name in recorded_sources
+                       if any(Path(name).is_relative_to(package) for package in SHARED_PACKAGES)]
+    recorded_modules = {_module_name(name) for name in recorded_shared}
+    verify = [root / name for name in recorded_shared]
+    for package in SHARED_PACKAGES:
+        for source in sorted((root / package).rglob("*.py")):
+            name = str(source.relative_to(root))
+            if name in recorded_sources:
+                continue
+            if "vendors" in Path(name).parts or _module_name(name) in recorded_modules:
+                verify.append(source)
+    return verify
+
+
 def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> list[dict]:
     rows = []
     for algorithm, entry in sorted(inventory["algorithms"].items()):
@@ -127,16 +160,11 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                                 recorded_sources[str(source.relative_to(source_root))] = item["sha256"]
                         required = [root / entry["implementation"], root / f"examples/train_{algorithm}.py"]
                         required.extend(root / name for name in entry.get("source_dependencies", []))
-                        shared = []
-                        for package in ("marl_envs", "modmarl/common", "modmarl/components"):
-                            shared.extend((root / package).rglob("*.py"))
-                        # Confirmations record every module under these packages. A module
-                        # without a record was added afterwards; unchanged recorded modules
-                        # cannot import it, so it cannot have altered the confirmed run.
-                        required.extend(source for source in shared
-                                        if str(source.relative_to(root)) in recorded_sources)
+                        required.extend(_shared_sources_to_verify(root, recorded_sources))
                         for source in required:
                             name = str(source.relative_to(root))
+                            if not source.is_file():
+                                raise ValueError(f"Confirmation source is missing: {name}")
                             if recorded_sources.get(name) != hashlib.sha256(source.read_bytes()).hexdigest():
                                 raise ValueError(f"Confirmation source changed or is unrecorded: {name}")
                     criteria = dict(payload.get("validation_criterion") or {})

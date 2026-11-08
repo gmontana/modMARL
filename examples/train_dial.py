@@ -117,7 +117,7 @@ def _oracle_rate(env, seeds) -> float:
 
 def train(
     *,
-    env: str = "switch", mode: str = "dial", n_agents: int = 3, horizon: int = 0,
+    env: str = "switch", mode: str = "dial", n_agents: int = 3, horizon: int = 25,
     episodes: int = 32 * 200, batch_size: int = 32, seed: int = 7,
     message_bits: int = 1, noise_std: float = 2.0, parameter_sharing: bool = True,
     learning_rate: float = 5e-4, gamma: float = 1.0, epsilon: float = 0.05,
@@ -156,10 +156,13 @@ def train(
 
     initial_evaluation = evaluate()
     iterations = math.ceil(episodes / batch_size)
+    # Training episodes draw their seeds from the run seed, so runs with nearby seeds
+    # see independent task draws; evaluation seeds stay shared for paired comparison.
+    episode_seeds = np.random.default_rng([seed, 10_000])
     returns: list[float] = []
     curve: list[dict] = []
     for iteration in range(iterations):
-        seeds = seed + 10_000 + iteration * batch_size + np.arange(batch_size)
+        seeds = episode_seeds.integers(0, 2**31 - 1, size=batch_size)
         result = run_batch(learner, envs, seeds, dev, train=True)
         returns.append(float(np.mean(result["returns"])))
         if evaluation_interval and (iteration + 1) % evaluation_interval == 0:
@@ -198,11 +201,13 @@ def main() -> None:
     parser.add_argument("--mode", choices=("dial", "rial"), default="dial")
     parser.add_argument("--env", default="switch")
     parser.add_argument("--n-agents", type=int, default=3)
+    parser.add_argument("--horizon", type=int, default=25, help="ignored by the switch riddle")
     parser.add_argument("--episodes", type=int, default=32 * 200)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--checkpoint", default=None)
     args = parser.parse_args()
-    summary = train(mode=args.mode, env=args.env, n_agents=args.n_agents, episodes=args.episodes,
+    summary = train(mode=args.mode, env=args.env, n_agents=args.n_agents, horizon=args.horizon,
+                    episodes=args.episodes,
                     seed=args.seed, checkpoint=args.checkpoint, log_interval=20)
     print(f"final greedy return {summary['final_evaluation']['mean_return']:.3f}")
 

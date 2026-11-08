@@ -22,10 +22,11 @@ and the test suite checks that the two agree.
   with the package version.
 
 ### Changed
-- `tools/check_validation.py` ignores modules under `marl_envs`, `modmarl/common` and
-  `modmarl/components` that a confirmation's provenance never recorded. Confirmations
-  record every module in those packages, so such a module was added afterwards and
-  cannot have run; every recorded module must still match its hash.
+- `tools/check_validation.py` no longer invalidates frozen confirmations when a new
+  module is added under `marl_envs`, `modmarl/common` or `modmarl/components`, provided
+  it cannot take over an import the confirmed run made: it must not reuse a recorded
+  module's dotted name or sit under `vendors/`. Every recorded module must still exist
+  and match its hash, so edits, deletions and renames are still caught.
 - The optional DDPG, MADDPG-M and Intention Sharing learning probes now run the
   environment, seed and network settings of their committed curves, with episode
   budgets long enough for learning to appear. The previous 500-episode probes

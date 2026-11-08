@@ -42,6 +42,21 @@ differs from the paper text, the release is reproduced:
   when the agent can still both act and send.
 - The RNN weights are initialised uniformly in [-0.08, 0.08].
 
+Deliberate departures from the release, all outside the learning rule:
+
+- Execution batch norm uses running statistics (``eval()``). The release keeps the
+  online C-Net in training mode during test episodes, so its message batch norm
+  normalises across the parallel test episodes, which couples supposedly
+  decentralised agents in different episodes.
+- The target C-Nets follow the online train/eval mode, so in training their message
+  batch norm uses batch statistics. The release runs the target in evaluation mode
+  but copies parameters only, leaving its running statistics at mean 0, variance 1.
+- ``torch.nn.GRU`` applies the reset gate after the hidden-to-hidden product,
+  r * (W h + b); the release's ``module/GRU.lua`` applies it before, W (r * h).
+  Both are standard GRU formulations.
+- The task encoder is a linear layer with bias; for the switch riddle's one-hot
+  observations it equals the release's lookup table up to that bias.
+
 Adaptation: the release hard-codes the switch riddle's channel. Here each
 receiver's incoming messages are selected by a per-step ``communication_mask``
 (receiver x sender, default: everyone hears everyone else) and either summed

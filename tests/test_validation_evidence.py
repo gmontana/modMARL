@@ -163,3 +163,21 @@ def test_shared_modules_added_after_confirmation_do_not_invalidate_it(tmp_path):
     assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "pass"
     (tmp_path / "marl_envs/recorded.py").write_text("# changed\n")
     assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "insufficient evidence"
+
+
+@pytest.mark.parametrize("change", ["shadowing_package", "vendored_module", "rename"])
+def test_unrecorded_modules_that_can_alter_imports_invalidate_confirmation(tmp_path, change):
+    _, inventory = _confirmation_fixture(
+        tmp_path, extra_sources=("marl_envs/__init__.py", "marl_envs/core.py"),
+    )
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "pass"
+    if change == "shadowing_package":       # a package directory takes precedence over core.py
+        (tmp_path / "marl_envs/core").mkdir()
+        (tmp_path / "marl_envs/core/__init__.py").write_text("X = 'changed'\n")
+    elif change == "vendored_module":       # marl_envs/vendors is placed on sys.path
+        (tmp_path / "marl_envs/vendors").mkdir()
+        (tmp_path / "marl_envs/vendors/gymnasium.py").write_text("raise SystemExit\n")
+    else:
+        (tmp_path / "marl_envs/core.py").unlink()
+        (tmp_path / "marl_envs/core_new.py").write_text("X = 'changed'\n")
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "insufficient evidence"

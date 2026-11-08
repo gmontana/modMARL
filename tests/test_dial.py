@@ -317,24 +317,47 @@ def test_example_runs_switch_and_is_seed_reproducible(mode) -> None:
     assert 0.0 < first["oracle_mean_return"] <= 1.0
 
 
-def test_example_runs_on_a_generic_broadcast_task() -> None:
+def test_example_runs_on_generic_broadcast_tasks() -> None:
     summary = train(env="target_signaling", episodes=4, batch_size=2, evaluation_episodes=2,
                     seed=1, hidden_dim=16, parameter_sharing=False)
     assert np.isfinite(summary["final_return"])
     assert "oracle_mean_return" not in summary
+    navigation = train(env="navigation", episodes=2, batch_size=2, evaluation_episodes=2,
+                       seed=1, hidden_dim=8)                  # default horizon must be usable
+    assert np.isfinite(navigation["final_return"])
+
+
+def test_training_task_draws_differ_between_nearby_run_seeds(monkeypatch) -> None:
+    import examples.train_dial as runner
+
+    drawn = {}
+    original = runner.run_batch
+
+    def spy(learner, envs, seeds, device, *, train, silence=False):
+        if train:
+            drawn.setdefault(spy.run_seed, []).append(list(seeds))
+        return original(learner, envs, seeds, device, train=train, silence=silence)
+
+    monkeypatch.setattr(runner, "run_batch", spy)
+    for run_seed in (21, 23):
+        spy.run_seed = run_seed
+        runner.train(episodes=8, batch_size=4, evaluation_episodes=4, seed=run_seed, hidden_dim=8)
+    overlap = {s for batch in drawn[21] for s in batch} & {s for batch in drawn[23] for s in batch}
+    assert not overlap
 
 
 @pytest.mark.slow
-@pytest.mark.parametrize("mode", ["dial", "rial"])
-def test_switch_riddle_is_solved_through_the_channel(mode) -> None:
+@pytest.mark.parametrize(("mode", "batches"), [("dial", 1000), ("rial", 3000)])
+def test_switch_riddle_is_solved_through_the_channel(mode, batches) -> None:
     """Section 6.2, n = 3: reach the oracle and lose most of it when the channel is silenced.
 
-    Development runs (seeds 21 and 23, 1,000 batches, one CPU thread, ~45 s each) gave
-    normalised greedy returns of 1.0/1.0 for DIAL and 1.0/0.84 for RIAL, falling to
-    0.07-0.18 with messages withheld. Seed 21 is pinned here; this is a regression check,
-    not registered acceptance evidence.
+    Development runs (one CPU thread, seed 21 pinned here; normalised greedy return, then
+    with messages withheld): DIAL at 1,000 batches 1.0 -> 0.18 (seed 23 the same, ~45 s).
+    RIAL at 1,000 batches 0.99 -> 0.54 on seed 21 and 1.0 -> 0.18 on seed 23; RIAL learns
+    by trial and error and is slower (Section 6.2), and at 3,000 batches seed 21 gives
+    0.99 -> 0.28 (~2 min). This is a regression check, not registered acceptance evidence.
     """
-    summary = train(mode=mode, episodes=32 * 1000, evaluation_episodes=512, seed=21)
+    summary = train(mode=mode, episodes=32 * batches, evaluation_episodes=512, seed=21)
     oracle = summary["oracle_mean_return"]
     final = summary["final_evaluation"]["mean_return"] / oracle
     silenced = summary["silenced_evaluation"]["mean_return"] / oracle
