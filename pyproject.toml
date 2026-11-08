@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "modmarl"
-version = "0.1.1"
+dynamic = ["version"]
 description = "A modular multi-agent reinforcement learning library."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -35,6 +35,9 @@ macpp = [
 pettingzoo = [
     "pettingzoo>=1.24",
 ]
+
+[tool.setuptools.dynamic]
+version = { attr = "modmarl._version.__version__" }
 
 [tool.setuptools.packages.find]
 include = ["modmarl*", "marl_envs*"]

@@ -5,6 +5,7 @@ package, which the examples depend on. The library itself is environment-agnosti
 take ``obs_dim``/``action_dim``), so the two version and install independently.
 """
 
+from ._version import __version__ as __version__
 from .algorithms.atoc import ATOCConfig, ATOCGroupScheduler, ATOCLearner, ATOCPolicy
 from .algorithms.cacom import CACOMAgent, CACOMNetwork, LearnedStepQuantizer
 from .algorithms.cdc import (
