@@ -103,18 +103,19 @@ def test_missing_artifact_cannot_be_acknowledged_as_a_numerical_failure(tmp_path
     assert inspect_evidence(tmp_path, inventory)[0]["status"] == "insufficient evidence"
 
 
-@pytest.mark.parametrize("mutation", ["result", "protocol", "dirty", "missing_metadata", "source"])
-def test_confirmation_requires_matching_protocol_and_provenance(tmp_path, mutation):
+def _confirmation_fixture(tmp_path, extra_sources=()):
+    """Three confirmed seeds whose provenance records every listed (empty) source."""
     import hashlib
 
     protocol = {"algorithm": "example", "seeds": [3, 5, 7], "config": {"episodes": 2},
                 "criteria": {"return_margin_over_random": 1.0}}
     (tmp_path / "protocol.json").write_text(json.dumps(protocol))
-    (tmp_path / "source.py").touch()
-    (tmp_path / "examples").mkdir()
-    (tmp_path / "examples/train_example.py").touch()
+    names = ("source.py", "examples/train_example.py", *extra_sources)
+    for name in names:
+        (tmp_path / name).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / name).touch()
     sources = [{"path": str(tmp_path / name), "sha256": hashlib.sha256(b"").hexdigest()}
-               for name in ("source.py", "examples/train_example.py")]
+               for name in names]
     inventory = {"algorithms": {"example": {
         "source_revision": "test", "artifacts": "run*.json", "seeds": [3, 5, 7],
         "implementation": "source.py", "tests": "source.py", "reference_comparisons": [],
@@ -131,6 +132,12 @@ def test_confirmation_requires_matching_protocol_and_provenance(tmp_path, mutati
                     "git": {"commit": "abc", "dirty": False, "repo_root": str(tmp_path)},
                     "inputs": sources}
         (directory / "result.metadata.json").write_text(json.dumps(metadata))
+    return protocol, inventory
+
+
+@pytest.mark.parametrize("mutation", ["result", "protocol", "dirty", "missing_metadata", "source"])
+def test_confirmation_requires_matching_protocol_and_provenance(tmp_path, mutation):
+    protocol, inventory = _confirmation_fixture(tmp_path)
     assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "pass"
     if mutation == "result":
         with (tmp_path / "seed3/result.json").open("a") as handle:
@@ -147,4 +154,12 @@ def test_confirmation_requires_matching_protocol_and_provenance(tmp_path, mutati
         (tmp_path / "seed3/result.metadata.json").unlink()
     else:
         (tmp_path / "source.py").write_text("# changed\n")
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "insufficient evidence"
+
+
+def test_shared_modules_added_after_confirmation_do_not_invalidate_it(tmp_path):
+    _, inventory = _confirmation_fixture(tmp_path, extra_sources=("marl_envs/recorded.py",))
+    (tmp_path / "marl_envs/added_later.py").write_text("NEW_TASK = True\n")
+    assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "pass"
+    (tmp_path / "marl_envs/recorded.py").write_text("# changed\n")
     assert inspect_evidence(tmp_path, inventory, learning=True)[0]["status"] == "insufficient evidence"

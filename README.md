@@ -83,6 +83,7 @@ GitHub; it is not published on PyPI.
 
 | Algorithm | Core idea | Topology | Message type | Reference |
 |---|---|---|---|---|
+| **DIAL / RIAL** | Learn a discrete protocol end-to-end by backpropagating each receiver's TD error through a noisy real-valued channel into the sender (DIAL), or learn message choice as a separate DQN head (RIAL). | Task-defined directed channel (default broadcast) | Binary at execution; noisy logistic in training | [Foerster et al., NeurIPS 2016](https://arxiv.org/abs/1605.06676) |
 | **CommNet** | Recurrently mean-pool other agents' previous-step hidden states and learn the channel with cooperative REINFORCE. | Complete broadcast | Continuous hidden state | [Sukhbaatar et al., NeurIPS 2016](https://arxiv.org/abs/1605.07736) |
 | **MADDPG-M** | Select one agent's observation for a shared medium using a separately rewarded communication policy. | Centralized single-sender medium | Continuous observation | [Kilinc & Montana, NeurIPS DRL WS 2018](https://arxiv.org/abs/1812.00922) |
 | **ATOC** | Predict when nearby cooperation is valuable, persist proximity groups, and sequentially integrate overlapping groups with a bidirectional LSTM. | Learned dynamic proximity groups | Continuous action-intention thought | [Jiang & Lu, NeurIPS 2018](https://proceedings.neurips.cc/paper/2018/hash/6a8018b3a00b69c008601b8becae392b-Abstract.html) |
@@ -160,6 +161,12 @@ docstring records the reconciliation in full. Two cases affect what the tables a
   training teacher and executes without messages, while Ex-IWoL independently schedules actor
   and critic communication. The learning figure validates the paper's primary implicit
   variant; its per-seed JSON records a zero execution communication rate.
+- **DIAL / RIAL** follow the authors' Lua release where it departs from the paper text:
+  plain RMSProp instead of RMSProp with momentum 0.95, elementwise gradient clamping, and a
+  0.5 binarisation threshold instead of 0. Both modes share one learner,
+  `modmarl/algorithms/dial.py`. They are added after the 0.1.1 release and have
+  mechanism tests and a switch-riddle learning check, but no committed three-seed curves yet,
+  so they are not part of the learning-curve figure or the validation table.
 - **ATOC** has no author code release. Its package follows the NeurIPS equations and stated
   architecture directly; the paper leaves three actor widths, the attention/BiLSTM widths,
   group cap, initialization scale, and BatchNorm placement open, so those choices are explicit
@@ -222,21 +229,25 @@ standard suites don't provide:
 | **[PettingZoo MPE](https://github.com/Farama-Foundation/PettingZoo)** — `simple_spread_pz` | The standard cooperative-navigation benchmark, via an optional install. |
 | **[Lightweight particle tasks](https://github.com/openai/multiagent-particle-envs)** — `navigation`, `formation`, `line`, `pack`, `simple_spread` | Dependency-free reimplementations of the MPE-style tasks, for zero-setup quick runs. |
 | **Published particle scenarios** — the `paper_*` names | The original MPE scenarios at the settings the papers published on (CDC, I2C, MADDPG, MD-MADDPG). A copy of OpenAI's MIT-licensed [multiagent-particle-envs](https://github.com/openai/multiagent-particle-envs), ported to gymnasium, is vendored under `marl_envs/vendors/` together with the CDC/MD-MADDPG authors' own scenarios so those curves stay reproducible; `marl_envs/vendors/multiagentsha/NOTICE.md` lists every modification and each scenario's origin. |
+| **[Switch riddle](https://github.com/iassael/learning-to-communicate)** — `marl_envs.switch` | The prisoners-and-light-bulb task DIAL and RIAL were introduced on, with the release's one-bit channel from each day's visitor to the next. |
 | **[Hallway](https://github.com/TonghanWang/NDQ)** — `ndq_hallway`, `maic_hallway` | The didactic task NDQ introduced for its communication bottleneck, so NDQ and MAIC can be validated without StarCraft II. |
 | **[MACPP](https://github.com/gmontana/CollaborativePickAndPlaceEnv)** — via `MACPPEnv` | A grid-world collaborative pick-and-place task, used by MARC. We ship a thin adapter to the common contract, not a copy — `pip install` it to enable. |
 | **Noisy navigation** — via `NoisyNavigationEnv` | Cooperative navigation where only a "gifted" agent sees the true landmarks; the setting MADDPG-M and DDPG are compared on. Ours. |
 | **Target signaling** — `target_signaling` | A bounded one-step leader/follower game used to validate TarMAC's current-step multi-round communication. Ours. |
 | **Bridge navigation** — `bridge_navigation`, `hidden_gate_bridge*` | Navigation through a narrow corridor, optionally with a gate bit only one side can observe — diagnostic information-bottleneck tasks. Ours. |
 
-`MACPPEnv` and `NoisyNavigationEnv` are constructed directly by the examples that need them
-rather than through `make_env`: the first depends on an optional package, the second is
-specific to the two algorithms compared on it.
+`MACPPEnv`, `NoisyNavigationEnv` and `SwitchRiddleEnv` are constructed directly by the
+examples that need them rather than through `make_env`: the first depends on an optional
+package, the second is specific to the two algorithms compared on it, and the switch riddle
+was added after the frozen learning confirmations, whose recorded factory it leaves unchanged.
 
 ## Acknowledgements
 
 Source releases used to verify these implementations, in table order. Each module
 docstring pins the exact revision it was reconciled against.
 
+- **[DIAL and RIAL](https://github.com/iassael/learning-to-communicate)** (Apache-2.0; the
+  switch riddle is ported from the same release)
 - **[CommNet](https://github.com/facebookarchive/CommNet)**
 - **[IC3Net](https://github.com/IC3Net/IC3Net)**
 - **[SchedNet](https://github.com/rhoowd/sched_net)**

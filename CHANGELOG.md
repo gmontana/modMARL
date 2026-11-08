@@ -9,12 +9,23 @@ and the test suite checks that the two agree.
 ## [Unreleased]
 
 ### Added
+- DIAL and RIAL (Foerster et al., NeurIPS 2016) as `DIALAgent`/`DIALConfig` in
+  `modmarl/algorithms/dial.py`, reconciled against the authors' Apache-2.0 Lua
+  release, with mechanism tests and the training example `examples/train_dial.py`.
+  Three-seed curves and a validation-inventory entry are still to come.
+- The switch riddle (`marl_envs.switch.SwitchRiddleEnv`), ported from the same
+  release, with per-step action availability, channel mask and sender queries. It is
+  constructed directly rather than through `make_env`.
 - `modmarl.__version__`, read from `modmarl/_version.py`, which is also the
   single version source for the package build.
 - This changelog, with a test that keeps `CITATION.cff` and the changelog in step
   with the package version.
 
 ### Changed
+- `tools/check_validation.py` ignores modules under `marl_envs`, `modmarl/common` and
+  `modmarl/components` that a confirmation's provenance never recorded. Confirmations
+  record every module in those packages, so such a module was added afterwards and
+  cannot have run; every recorded module must still match its hash.
 - The optional DDPG, MADDPG-M and Intention Sharing learning probes now run the
   environment, seed and network settings of their committed curves, with episode
   budgets long enough for learning to appear. The previous 500-episode probes

@@ -55,9 +55,13 @@ points are the self-contained training examples `examples/train_<algo>.py`
 - `marl_envs/vendors/` is third-party vendored code — excluded from ruff; do
   not reformat or refactor it. The only local edits are the gymnasium import
   substitutions listed in `marl_envs/vendors/multiagentsha/NOTICE.md`.
-- `MACPPEnv` and `NoisyNavigationEnv` are constructed directly by their
-  examples, not via `marl_envs.make_env`; MACPP needs the optional external
-  package (`.[macpp]`).
+- `MACPPEnv`, `NoisyNavigationEnv` and `SwitchRiddleEnv` are constructed
+  directly by their examples, not via `marl_envs.make_env`; MACPP needs the
+  optional external package (`.[macpp]`).
+- Frozen learning confirmations record hashes of every module under
+  `marl_envs`, `modmarl/common` and `modmarl/components`. Editing any recorded
+  module (including `marl_envs/factory.py` or `marl_envs/__init__.py`)
+  invalidates them; new modules are ignored until a confirmation records them.
 - Post-publication CDC extensions (factorised/multiscale/spectral variants)
   were developed in a separate research repository and are not part of this
   repo's public API.

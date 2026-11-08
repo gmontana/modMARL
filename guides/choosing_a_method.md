@@ -11,6 +11,7 @@ problem, implementation assumptions, and available evidence.
 | Learn a sparse attention graph with sequence-model policies | [CommFormer, ICLR 2024](../modmarl/algorithms/commformer.py) | Navigation evidence and mechanism tests; released architecture quirks remain explicit |
 | Quantized requests and personalized responses | [CACOM, AAMAS 2024](../modmarl/algorithms/cacom.py) | Mechanism tests exist, but seed 7 fails the recorded learning criterion |
 | Counterfactual selection of messages | [CMVC, journal 2025](../modmarl/algorithms/cmvc/algorithm.py) | Paper-based implementation; bounded evidence with a weak return-over-random criterion |
+| Learn a discrete protocol by backpropagating through the channel, or by RL alone | [DIAL and RIAL, NeurIPS 2016](../modmarl/algorithms/dial.py) | Mechanism tests and a pinned switch-riddle regression check: the oracle is reached and silencing the channel drops the return to about a fifth; no registered three-seed confirmation yet |
 | Understand information transfer in a small example | [TarMAC](../modmarl/algorithms/tarmac.py) and [IPPO](../modmarl/algorithms/ippo.py) | Featured signaling tutorial; older methods deliberately chosen for explanation, not a current leaderboard |
 | Establish no-message controls | [MAPPO](../modmarl/algorithms/mappo.py), [IPPO](../modmarl/algorithms/ippo.py), [QMIX](../modmarl/algorithms/qmix.py) | Match action spaces, recurrence, observation access and tuning before comparison |
 

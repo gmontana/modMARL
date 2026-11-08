@@ -29,6 +29,7 @@ from .algorithms.ddpg import (
     DDPGReplayBuffer,
     DDPGUpdate,
 )
+from .algorithms.dial import DIALAgent, DIALConfig
 from .algorithms.expocomm import ExpoCommAgent, ExpoCommNetwork
 from .algorithms.happo import HAPPOActor, HAPPOAgent, HAPPOValue
 from .algorithms.i2c import I2CAgent, I2CPolicy, I2CUpdate
@@ -118,6 +119,8 @@ __all__ = [
     "DDPGReplayBatch",
     "DDPGReplayBuffer",
     "DDPGUpdate",
+    "DIALAgent",
+    "DIALConfig",
     "EvalStats",
     "ExpoCommAgent",
     "ExpoCommNetwork",

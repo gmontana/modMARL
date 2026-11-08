@@ -127,8 +127,14 @@ def inspect_evidence(root: Path, inventory: dict, *, learning: bool = False) -> 
                                 recorded_sources[str(source.relative_to(source_root))] = item["sha256"]
                         required = [root / entry["implementation"], root / f"examples/train_{algorithm}.py"]
                         required.extend(root / name for name in entry.get("source_dependencies", []))
+                        shared = []
                         for package in ("marl_envs", "modmarl/common", "modmarl/components"):
-                            required.extend((root / package).rglob("*.py"))
+                            shared.extend((root / package).rglob("*.py"))
+                        # Confirmations record every module under these packages. A module
+                        # without a record was added afterwards; unchanged recorded modules
+                        # cannot import it, so it cannot have altered the confirmed run.
+                        required.extend(source for source in shared
+                                        if str(source.relative_to(root)) in recorded_sources)
                         for source in required:
                             name = str(source.relative_to(root))
                             if recorded_sources.get(name) != hashlib.sha256(source.read_bytes()).hexdigest():

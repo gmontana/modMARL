@@ -25,6 +25,7 @@ ALGORITHMS = [
     ("commformer", "CommFormerAgent"),
     ("cdc", "CDCPolicy"),
     ("ddpg", "DDPGAgent"),
+    ("dial", "DIALAgent"),
     ("expocomm", "ExpoCommAgent"),
     ("i2c", "I2CAgent"),
     ("ic3net", "IC3NetAgent"),
